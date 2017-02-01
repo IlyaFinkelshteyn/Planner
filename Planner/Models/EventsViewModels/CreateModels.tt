@@ -1,0 +1,32 @@
+﻿<#@ template hostspecific="true" language="C#" debug="true" #>
+<#@ output extension="generated.cs" #>
+<#@ assembly name="System.Xml" #>
+<#
+ var configPath = this.Host.ResolvePath(@"..\..\model.xml");
+ System.Xml.XmlDocument configurationData = new System.Xml.XmlDocument();
+ configurationData.Load(configPath);
+
+ var modelsList = configurationData.SelectSingleNode("models");
+
+ var name = "Create";
+ var modelMode = false;
+ var editMode = true;
+#>
+<#@ include file="..\Templates\Header.t4" #>
+<#
+foreach (System.Xml.XmlNode node in modelsList.SelectNodes("model[@create=\"true\"]"))
+{
+#>
+	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
+	public partial class <#= node.Attributes["name"].Value #><#= name #> : ICreateViewModel<<#= node.Attributes["name"].Value #>>
+	{
+<#
+	var properties = node.SelectNodes("property[@create=\"true\"]");
+#>
+<#@ include file="..\Templates\Properties.t4" #>
+<#@ include file="..\Templates\ToModel.t4" #>
+<#@ include file="..\Templates\ClassFooter.t4" #>
+<#
+}
+#>
+<#@ include file="..\Templates\Footer.t4" #>

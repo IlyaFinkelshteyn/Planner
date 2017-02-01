@@ -1,0 +1,3 @@
+﻿	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
+	public partial class <#= node.Attributes["name"].Value #><#= name #>
+	{

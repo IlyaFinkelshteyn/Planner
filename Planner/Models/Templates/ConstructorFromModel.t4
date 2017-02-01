@@ -1,0 +1,28 @@
+﻿		public <#= node.Attributes["name"].Value #><#= name #>(<#= node.Attributes["name"].Value #> item)
+		{
+	<#
+		foreach (System.Xml.XmlNode property in properties)
+		{
+			var listNode = property.Attributes["list"];
+
+			var list = false;
+
+			if (listNode != null)
+				list = bool.Parse(listNode.Value);
+
+			if (list)
+			{
+	#>
+		<#= property.Attributes["name"].Value #> = item.<#= property.Attributes["name"].Value #>.Select(i=> new <#= property.Attributes["type"].Value #><#= name #>(i));
+	<#
+
+			}
+			else
+			{
+	#>
+		<#= property.Attributes["name"].Value #> = item.<#= property.Attributes["name"].Value #>;
+	<#
+			}
+		}
+	#>
+	}

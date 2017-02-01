@@ -1,0 +1,64 @@
+﻿<#
+foreach (System.Xml.XmlNode property in properties)
+{
+	var requiredNode = property.Attributes["required"];
+	var listNode = property.Attributes["list"];
+	var emailNode = property.Attributes["email"];
+	var displayNameNode = property.Attributes["display-name"];
+
+	var list = false;
+	var required = false;
+	var email = false;
+	string displayName = null;
+
+	if (requiredNode != null)
+		required = bool.Parse(requiredNode.Value);
+	if (listNode != null)
+		list = bool.Parse(listNode.Value);
+	if (emailNode != null)
+		email = bool.Parse(emailNode.Value);
+	if (displayNameNode != null)
+		displayName = displayNameNode.Value;
+
+	var listType = modelMode ? "ICollection" : "IEnumerable";
+
+	if ((modelMode || editMode) && required)
+	{
+#>
+		[Required]
+<#
+	}
+	if (email && editMode)
+	{
+#>
+		[EmailAddress]
+<#
+	}
+	if (!modelMode && !string.IsNullOrEmpty(displayName))
+	{
+#>
+		[Display(Name="<#= displayName #>")]
+<#
+	}
+if (list)
+			{
+#>
+		public virtual <#= listType #><<#= property.Attributes["type"].Value #><#= name #>> <#= property.Attributes["name"].Value #> { get; set; }<#
+	if (modelMode) {
+#> = new HashSet<<#= property.Attributes["type"].Value #>>();
+<#
+	}
+	else
+	{ #>
+
+<#	}
+#>
+<#
+			}
+			else
+			{
+#>
+		public <#= property.Attributes["type"].Value #> <#= property.Attributes["name"].Value #> { get; set; }
+<#
+			}}
+#>

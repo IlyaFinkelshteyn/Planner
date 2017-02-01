@@ -1,0 +1,75 @@
+﻿<models>
+  <model name="Email" summary="true" create="true" update="true">
+    <property name="Id" type="int" detail="true" update="true" summary="true" />
+    <property name="Name" type="string" required="true" detail="true" create="true" update="true" summary="true" />
+    <property name="Address" type="string" required="true" detail="true" create="true" update="true" summary="true" email="true" />
+    <property name="WideList" type="bool" detail="true" create="true" update="true" summary="true" display-name="Wider List" />
+  </model>
+  <model name="Deployment" details="true" create="true" update="true">
+    <property name="Callsign" type="string" detail="true" create="true" update="true" />
+    <property name="CyclingLevel" type="CyclingLevel?" detail="true" create="true" update="true" />
+    <property name="Id" type="int" detail="true" update="true" />
+    <property name="Name" type="string" detail="true" create="true" update="true" />
+    <property name="Qualification" type="Qualification?" detail="true" create="true" update="true" />
+    <property name="Team" type="int" detail="true" create="true" update="true" />
+  </model>
+  <model name="Event" summary="true" details="true" create="true" update="true">
+    <property name="AmbulancesAvailable" type="int" detail="true" update="true" display-name="Ambulances" />
+    <property name="ControlPhoneNumber" type="string" detail="true" update="true" display-name="Control Phone" />
+    <property name="CruTrackingInUse" type="bool" detail="true" update="true" display-name="Tracking Available" />
+    <property name="CyclistsRequested" type="int" summary="true" detail="true" create="true" update="true" display-name="Cyclists" />
+    <property name="Date" type="DateTime" summary="true" detail="true" create="true" update="true" />
+    <property name="Deployments" type="Deployment" list="true" detail="true" />
+    <property name="Description" type="string" detail="true" update="true" />
+    <property name="DipsNumber" type="int" summary="true" detail="true" create="true" update="true" display-name="DIPS Number" />
+    <property name="DoctorsPresent" type="bool" detail="true" update="true" display-name="Doctors Available" />
+    <property name="EndTime" type="TimeSpan" summary="true" detail="true" create="true" update="true" display-name="End Time" />
+    <property name="ExpectedIncidents" type="ExpectedIncident" list="true" detail="true" />
+    <property name="ExpectingBadWeather" type="bool" detail="true" update="true" display-name="Bad Weather Expected" />
+    <property name="FallbackRadioChannel" type="string" detail="true" update="true" display-name="Fallback Radio Channel" />
+    <property name="FirstAidersAvailable" type="int" detail="true" update="true" display-name="First Aiders" />
+    <property name="FirstAidUnitsAvailable" type="int" detail="true" update="true" display-name="First Aid Units" />
+    <property name="HasSeriousHistory" type="bool" detail="true" update="true" display-name="Has Serious History" />
+    <property name="HighSpeedRoadsAtEvent" type="bool" detail="true" update="true" display-name="High Speed Roads Expected" />
+    <property name="Id" type="int" summary="true" detail="true" update="true" />
+    <property name="Location" type="string" detail="true" create="true" update="true" />
+    <property name="Name" type="string" summary="true" detail="true" create="true" required="true" update="true" />
+    <property name="NoGoAreas" type="NoGoArea" list="true" detail="true" />
+    <property name="Notes" type="Note" list="true" detail="true" />
+    <property name="ParamedicsAvailable" type="bool" detail="true" update="true" display-name="Paramedics Available" />
+    <property name="PostCode" type="string" detail="true" update="true" display-name="Post Code" />
+    <property name="RadioChannel" type="string" detail="true" update="true" display-name="Radio Channel" />
+    <property name="Schedule" type="ScheduleItem" list="true" detail="true" />
+    <property name="SoloRespondingExpected" type="bool" detail="true" update="true" display-name="Solo-Responding Expected" />
+    <property name="StartTime" type="TimeSpan" summary="true" detail="true" create="true" update="true" display-name="Start Time" />
+    <property name="Status" type="EventStatus" summary="true" detail="true" create="true" update="true" />
+    <property name="UsingAirwave" type="bool" detail="true" update="true" display-name="Airwave In Use" />
+    <property name="UsingSJARadio" type="bool" detail="true" update="true" display-name="SJA Radios In Use" />
+    <property name="WiderDistribution" type="bool" detail="true" update="true" summary="true" display-name="Event Needs Wide Distribution" />
+    <property name="BriefingNotesSent" type="bool" summary="true" />
+    <property name="DateConfirmed" type="bool" summary="true" detail="true" update="true" create="true" display-name="Date Confirmed" />
+    <property name="LastEmailedOut" type="DateTime" />
+    <property name="Created" type="DateTime" summary="true" detail="true" />
+    <property name="LastUpdated" type="DateTime" summary="true" detail="true" />
+    <property name="CreatedBy" type="string" summary="true" detail="true" />
+    <property name="UpdatedBy" type="string" summary="true" detail="true" />
+  </model>
+  <model name="ExpectedIncident" details="true" create="true">
+    <property name="Id" type="int" detail="true" />
+    <property name="Name" type="string" required="true" detail="true" create="true" />
+  </model>
+  <model name="NoGoArea" details="true" create="true">
+    <property name="Id" type="int" detail="true" />
+    <property name="Name" type="string" required="true" detail="true" create="true" />
+  </model>
+  <model name="Note" details="true">
+    <property name="Id" type="int" detail="true" />
+    <property name="SortNumber" type="int" detail="true" />
+    <property name="Text" type="string" required="true" detail="true" />
+  </model>
+  <model name="ScheduleItem" details="true" create="true" update="true">
+    <property name="Id" type="int" detail="true" update="true" />
+    <property name="Action" required="true" type="string" detail="true" create="true" update="true" />
+    <property name="Time" type="TimeSpan" detail="true" create="true" update="true" />
+  </model>
+</models>

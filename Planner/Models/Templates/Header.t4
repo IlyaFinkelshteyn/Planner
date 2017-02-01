@@ -1,0 +1,13 @@
+﻿using Planner.Models.EventsModel;
+using Planner.Models.EventsViewModels.Interfaces;
+using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+
+#pragma warning disable 1591
+
+namespace Planner.Models.EventsViewModels
+{

@@ -1,0 +1,28 @@
+﻿		public void UpdateItem(<#= node.Attributes["name"].Value #> item)
+		{
+<#
+
+	foreach (System.Xml.XmlNode property in properties)
+	{
+		var listNode = property.Attributes["list"];
+
+		var list = false;
+
+		if (listNode != null)
+			list = bool.Parse(listNode.Value);
+
+		if (list)
+		{
+#>
+			item.<#= property.Attributes["name"].Value #> = <#= property.Attributes["name"].Value #>.Select(i=> i.To<#= property.Attributes["type"].Value #>());
+<#
+			}
+			else
+			{
+#>
+			item.<#= property.Attributes["name"].Value #> = <#= property.Attributes["name"].Value #>;
+<#
+			}
+		}
+#>
+		}

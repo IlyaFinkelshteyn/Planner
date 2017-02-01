@@ -7,6 +7,12 @@
     <UserSecretsId>aspnet-Planner-45b8475a-4de7-437a-a693-732c26fc6256</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove=".vs\**" />
+    <Content Remove=".vs\**" />
+    <EmbeddedResource Remove=".vs\**" />
+    <None Remove=".vs\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="Microsoft.CSharp" />
@@ -32,5 +38,60 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0-msbuild3-final" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\Api\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Models\EventsModel\EventModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EventModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Models\EventsViewModels\CreateModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CreateModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Models\EventsViewModels\DetailsModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DetailsModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Models\EventsViewModels\SummaryModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SummaryModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Models\EventsViewModels\UpdateModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UpdateModels.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Models\EventsModel\EventModels.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EventModels.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Models\EventsViewModels\CreateModels.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateModels.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Models\EventsViewModels\DetailsModels.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DetailsModels.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Models\EventsViewModels\SummaryModels.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SummaryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Models\EventsViewModels\UpdateModels.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UpdateModels.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

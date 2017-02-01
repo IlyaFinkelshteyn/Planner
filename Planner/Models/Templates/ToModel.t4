@@ -1,0 +1,33 @@
+﻿		public <#= node.Attributes["name"].Value #> ToItem()
+		{
+			var item = new <#= node.Attributes["name"].Value #>
+			{
+<#
+
+	foreach (System.Xml.XmlNode property in properties)
+	{
+		var listNode = property.Attributes["list"];
+
+		var list = false;
+
+		if (listNode != null)
+			list = bool.Parse(listNode.Value);
+
+		if (list)
+		{
+#>
+				<#= property.Attributes["name"].Value #> = <#= property.Attributes["name"].Value #>.Select(i=> i.To<#= property.Attributes["type"].Value #>()),
+<#
+			}
+			else
+			{
+#>
+				<#= property.Attributes["name"].Value #> = <#= property.Attributes["name"].Value #>,
+<#
+			}
+		}
+#>
+			};
+
+			return item;
+		}

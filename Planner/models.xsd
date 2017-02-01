@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <!-- XML Schema Generated from XML Document on Mon Jan 02 2017 09:05:08 GMT+0000 (GMT Standard Time) -->
+  <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+  <xs:element name="models">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="model" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="property" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string"></xs:attribute>
+                  <xs:attribute name="type" type="xs:string"></xs:attribute>
+                  <xs:attribute name="detail" type="xs:boolean"></xs:attribute>
+                  <xs:attribute name="update" type="xs:boolean"></xs:attribute>
+                  <xs:attribute name="summary" type="xs:boolean"></xs:attribute>
+                  <xs:attribute name="required" type="xs:boolean"></xs:attribute>
+                  <xs:attribute name="create" type="xs:boolean"></xs:attribute>
+                  <xs:attribute name="email" type="xs:boolean"></xs:attribute>
+                  <xs:attribute name="list" type="xs:boolean"></xs:attribute>
+                  <xs:attribute name="display-name" type="xs:string"></xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string"></xs:attribute>
+            <xs:attribute name="summary" type="xs:boolean"></xs:attribute>
+            <xs:attribute name="create" type="xs:boolean"></xs:attribute>
+            <xs:attribute name="update" type="xs:boolean"></xs:attribute>
+            <xs:attribute name="details" type="xs:boolean"></xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

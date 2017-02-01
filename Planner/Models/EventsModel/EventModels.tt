@@ -1,0 +1,44 @@
+﻿<#@ template hostspecific="true" language="C#" debug="true" #>
+<#@ output extension="generated.cs" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#
+ var configPath = this.Host.ResolvePath(@"..\..\model.xml");
+ System.Xml.XmlDocument configurationData = new System.Xml.XmlDocument(); // Read a data file here.
+ configurationData.Load(configPath);
+
+ var modelsList = configurationData.SelectSingleNode("models");
+
+ var name = "";
+ var modelMode = true;
+ var editMode = false;
+#>
+using Planner.Models.EventsModel.Interfaces;
+using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
+#pragma warning disable 1591
+
+namespace Planner.Models.EventsModel
+{
+<#
+
+ foreach (System.Xml.XmlNode node in modelsList.ChildNodes)
+ {
+#>
+	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
+	public partial class <#= node.Attributes["name"].Value #><#= name #> : IIdentifiable
+	{
+<#
+	var properties = node.SelectNodes("property").Cast<System.Xml.XmlNode>().OrderBy(p=>p.Attributes["name"].Value);
+#>
+<#@ include file="..\Templates\Properties.t4" #>
+<#@ include file="..\Templates\ClassFooter.t4" #>
+<#
+}
+#>
+<#@ include file="..\Templates\Footer.t4" #>
