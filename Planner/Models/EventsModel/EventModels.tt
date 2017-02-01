@@ -15,6 +15,7 @@
  var editMode = false;
 #>
 using Planner.Models.EventsModel.Interfaces;
+using Planner.Models.EventsViewModels;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -29,14 +30,36 @@ namespace Planner.Models.EventsModel
 
  foreach (System.Xml.XmlNode node in modelsList.ChildNodes)
  {
+	var detailNode = node.Attributes["details"];
+
+	var details = false;
+
+	if (detailNode != null)
+		details = bool.Parse(detailNode.Value);
+
 #>
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
-	public partial class <#= node.Attributes["name"].Value #><#= name #> : IIdentifiable
+	public partial class <#= node.Attributes["name"].Value #> : IIdentifiable, ICloneable, IEquatable<<#= node.Attributes["name"].Value #>><# if (details) {
+	#>, IDetailable<<#= node.Attributes["name"].Value #>Details>
+<# } else { #>
+
+<# } #>
 	{
 <#
 	var properties = node.SelectNodes("property").Cast<System.Xml.XmlNode>().OrderBy(p=>p.Attributes["name"].Value);
 #>
 <#@ include file="..\Templates\Properties.t4" #>
+
+<#@ include file="..\Templates\Clone.t4" #>
+
+<#@ include file="..\Templates\Equals.t4" #>
+<# if (details) { #>
+
+		public <#= node.Attributes["name"].Value #>Details ToDetail()
+		{
+			return new <#= node.Attributes["name"].Value #>Details(this);
+		}
+<# } #>
 <#@ include file="..\Templates\ClassFooter.t4" #>
 <#
 }

@@ -1,0 +1,32 @@
+﻿		public override bool Equals(object other)
+		{
+			return Equals(other as <#= node.Attributes["name"].Value #><#= name #>);
+		}
+
+		public bool Equals(<#= node.Attributes["name"].Value #><#= name #> other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+<#
+
+	foreach (System.Xml.XmlNode property in properties)
+	{
+		var listNode = property.Attributes["list"];
+
+		var list = false;
+
+		if (listNode != null)
+			list = bool.Parse(listNode.Value);
+
+		if (!list)
+		{
+#>
+			res &= <#= property.Attributes["name"].Value #> == other.<#= property.Attributes["name"].Value #>;
+<#
+		}
+	}
+#>
+			return res;
+		}

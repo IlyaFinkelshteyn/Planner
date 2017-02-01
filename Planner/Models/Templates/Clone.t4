@@ -1,6 +1,6 @@
-﻿		public <#= node.Attributes["name"].Value #> ToItem()
+﻿		public object Clone()
 		{
-			var item = new <#= node.Attributes["name"].Value #>
+			var item = new <#= node.Attributes["name"].Value #><#= name #>
 			{
 <#
 
@@ -13,13 +13,7 @@
 		if (listNode != null)
 			list = bool.Parse(listNode.Value);
 
-		if (list)
-		{
-#>
-				<#= property.Attributes["name"].Value #> = <#= property.Attributes["name"].Value #>.Select(i=> i.To<#= property.Attributes["type"].Value #>()),
-<#
-		}
-		else
+		if (!list)
 		{
 #>
 				<#= property.Attributes["name"].Value #> = <#= property.Attributes["name"].Value #>,

@@ -30,6 +30,25 @@ namespace Planner.Models.EventsViewModels
 		public string Name { get; set; }
 		public Qualification? Qualification { get; set; }
 		public int Team { get; set; }
+		public override bool Equals(object other)
+		{
+			return Equals(other as DeploymentDetails);
+		}
+
+		public bool Equals(DeploymentDetails other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+			res &= Callsign == other.Callsign;
+			res &= CyclingLevel == other.CyclingLevel;
+			res &= Id == other.Id;
+			res &= Name == other.Name;
+			res &= Qualification == other.Qualification;
+			res &= Team == other.Team;
+			return res;
+		}
 	}
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
 	public partial class EventDetails
@@ -134,6 +153,51 @@ namespace Planner.Models.EventsViewModels
 		public DateTime LastUpdated { get; set; }
 		public string CreatedBy { get; set; }
 		public string UpdatedBy { get; set; }
+		public override bool Equals(object other)
+		{
+			return Equals(other as EventDetails);
+		}
+
+		public bool Equals(EventDetails other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+			res &= AmbulancesAvailable == other.AmbulancesAvailable;
+			res &= ControlPhoneNumber == other.ControlPhoneNumber;
+			res &= CruTrackingInUse == other.CruTrackingInUse;
+			res &= CyclistsRequested == other.CyclistsRequested;
+			res &= Date == other.Date;
+			res &= Description == other.Description;
+			res &= DipsNumber == other.DipsNumber;
+			res &= DoctorsPresent == other.DoctorsPresent;
+			res &= EndTime == other.EndTime;
+			res &= ExpectingBadWeather == other.ExpectingBadWeather;
+			res &= FallbackRadioChannel == other.FallbackRadioChannel;
+			res &= FirstAidersAvailable == other.FirstAidersAvailable;
+			res &= FirstAidUnitsAvailable == other.FirstAidUnitsAvailable;
+			res &= HasSeriousHistory == other.HasSeriousHistory;
+			res &= HighSpeedRoadsAtEvent == other.HighSpeedRoadsAtEvent;
+			res &= Id == other.Id;
+			res &= Location == other.Location;
+			res &= Name == other.Name;
+			res &= ParamedicsAvailable == other.ParamedicsAvailable;
+			res &= PostCode == other.PostCode;
+			res &= RadioChannel == other.RadioChannel;
+			res &= SoloRespondingExpected == other.SoloRespondingExpected;
+			res &= StartTime == other.StartTime;
+			res &= Status == other.Status;
+			res &= UsingAirwave == other.UsingAirwave;
+			res &= UsingSJARadio == other.UsingSJARadio;
+			res &= WiderDistribution == other.WiderDistribution;
+			res &= DateConfirmed == other.DateConfirmed;
+			res &= Created == other.Created;
+			res &= LastUpdated == other.LastUpdated;
+			res &= CreatedBy == other.CreatedBy;
+			res &= UpdatedBy == other.UpdatedBy;
+			return res;
+		}
 	}
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
 	public partial class ExpectedIncidentDetails
@@ -146,6 +210,21 @@ namespace Planner.Models.EventsViewModels
 
 		public int Id { get; set; }
 		public string Name { get; set; }
+		public override bool Equals(object other)
+		{
+			return Equals(other as ExpectedIncidentDetails);
+		}
+
+		public bool Equals(ExpectedIncidentDetails other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+			res &= Id == other.Id;
+			res &= Name == other.Name;
+			return res;
+		}
 	}
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
 	public partial class NoGoAreaDetails
@@ -158,6 +237,21 @@ namespace Planner.Models.EventsViewModels
 
 		public int Id { get; set; }
 		public string Name { get; set; }
+		public override bool Equals(object other)
+		{
+			return Equals(other as NoGoAreaDetails);
+		}
+
+		public bool Equals(NoGoAreaDetails other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+			res &= Id == other.Id;
+			res &= Name == other.Name;
+			return res;
+		}
 	}
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
 	public partial class NoteDetails
@@ -172,6 +266,22 @@ namespace Planner.Models.EventsViewModels
 		public int Id { get; set; }
 		public int SortNumber { get; set; }
 		public string Text { get; set; }
+		public override bool Equals(object other)
+		{
+			return Equals(other as NoteDetails);
+		}
+
+		public bool Equals(NoteDetails other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+			res &= Id == other.Id;
+			res &= SortNumber == other.SortNumber;
+			res &= Text == other.Text;
+			return res;
+		}
 	}
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
 	public partial class ScheduleItemDetails
@@ -186,6 +296,22 @@ namespace Planner.Models.EventsViewModels
 		public int Id { get; set; }
 		public string Action { get; set; }
 		public TimeSpan Time { get; set; }
+		public override bool Equals(object other)
+		{
+			return Equals(other as ScheduleItemDetails);
+		}
+
+		public bool Equals(ScheduleItemDetails other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+			res &= Id == other.Id;
+			res &= Action == other.Action;
+			res &= Time == other.Time;
+			return res;
+		}
 	}
 }
 

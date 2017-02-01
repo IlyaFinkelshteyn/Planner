@@ -24,6 +24,7 @@ foreach (System.Xml.XmlNode node in modelsList.SelectNodes("model[@details=\"tru
 <#@ include file="..\Templates\ConstructorFromModel.t4" #>
 
 <#@ include file="..\Templates\Properties.t4" #>
+<#@ include file="..\Templates\Equals.t4" #>
 <#@ include file="..\Templates\ClassFooter.t4" #>
 <#
 }
