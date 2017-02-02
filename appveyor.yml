@@ -2,9 +2,8 @@ version: 1.0.{build}
 image: Visual Studio 2017 RC
 before_build:
 - cmd: dotnet restore
-build:
-  project: Planner.sln
-  verbosity: minimal
+build_script:
+- cmd: dotnet build
 test_script:
 - cmd: tests.bat
 environment:
