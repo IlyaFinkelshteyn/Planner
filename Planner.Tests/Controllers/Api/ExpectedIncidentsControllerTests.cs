@@ -9,9 +9,9 @@ namespace Planner.Tests.Controllers.Api
 {
     public class ExpectedIncidentsControllerTests : SubItemControllerTestsBase<ExpectedIncidentsController, ExpectedIncident, ExpectedIncidentCreate, ExpectedIncidentDetails>
     {
-        protected override ExpectedIncidentsController GetController(ISubItemService<ExpectedIncident> service)
+        protected override ExpectedIncidentsController GetController(IItemService<ExpectedIncident> service)
         {
-            return new ExpectedIncidentsController(service);
+            return new ExpectedIncidentsController(service as ISubItemService<ExpectedIncident>);
         }
 
         protected override JsonPatchDocument<ExpectedIncident> GetPatch()

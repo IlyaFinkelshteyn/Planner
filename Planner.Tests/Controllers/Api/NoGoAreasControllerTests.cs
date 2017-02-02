@@ -9,9 +9,9 @@ namespace Planner.Tests.Controllers.Api
 {
     public class NoGoAreasControllerTests : SubItemControllerTestsBase<NoGoAreasController, NoGoArea, NoGoAreaCreate, NoGoAreaDetails>
     {
-        protected override NoGoAreasController GetController(ISubItemService<NoGoArea> service)
+        protected override NoGoAreasController GetController(IItemService<NoGoArea> service)
         {
-            return new NoGoAreasController(service);
+            return new NoGoAreasController(service as ISubItemService<NoGoArea>);
         }
 
         protected override JsonPatchDocument<NoGoArea> GetPatch()

@@ -30,3 +30,41 @@
 #>
 			return res;
 		}
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+<#
+
+	foreach (System.Xml.XmlNode property in properties)
+	{
+		var listNode = property.Attributes["list"];
+		var requiredNode = property.Attributes["required"];
+
+		var list = false;
+		var required = false;
+
+		if (listNode != null)
+			list = bool.Parse(listNode.Value);
+		if (requiredNode != null)
+			required = bool.Parse(requiredNode.Value);
+
+		if (!list)
+		{
+			if (property.Attributes["type"].Value == "string" && !required)
+			{
+#>
+			hash = hash * 31 + (<#= property.Attributes["name"].Value #>??string.Empty).GetHashCode();
+<#
+			}
+			else
+			{
+#>
+			hash = hash * 31 + <#= property.Attributes["name"].Value #>.GetHashCode();
+<#
+			}
+		}
+	}
+#>
+			return hash;
+		}

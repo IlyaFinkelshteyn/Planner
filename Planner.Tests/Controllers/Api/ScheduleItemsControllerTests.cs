@@ -9,9 +9,9 @@ namespace Planner.Tests.Controllers.Api
 {
     public class ScheduleItemsControllerTests : SubItemControllerTestsBase<ScheduleItemsController, ScheduleItem, ScheduleItemCreate, ScheduleItemDetails>
     {
-        protected override ScheduleItemsController GetController(ISubItemService<ScheduleItem> service)
+        protected override ScheduleItemsController GetController(IItemService<ScheduleItem> service)
         {
-            return new ScheduleItemsController(service);
+            return new ScheduleItemsController(service as ISubItemService<ScheduleItem>);
         }
 
         protected override JsonPatchDocument<ScheduleItem> GetPatch()

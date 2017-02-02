@@ -124,10 +124,15 @@ namespace Planner.Models.EventsViewModels
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
 	public partial class NoteCreate : ICreateViewModel<Note>
 	{
+		public int SortNumber { get; set; }
+		[Required]
+		public string Text { get; set; }
 		public Note ToItem()
 		{
 			var item = new Note
 			{
+				SortNumber = SortNumber,
+				Text = Text,
 			};
 
 			return item;

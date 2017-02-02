@@ -64,8 +64,8 @@
   </model>
   <model name="Note" details="true" create="true">
     <property name="Id" type="int" detail="true" />
-    <property name="SortNumber" type="int" detail="true" />
-    <property name="Text" type="string" required="true" detail="true" />
+    <property name="SortNumber" type="int" detail="true" create="true" />
+    <property name="Text" type="string" required="true" detail="true" create="true" />
   </model>
   <model name="ScheduleItem" details="true" create="true" update="true">
     <property name="Id" type="int" detail="true" update="true" />

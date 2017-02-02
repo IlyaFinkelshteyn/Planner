@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using System;
+using Microsoft.AspNetCore.JsonPatch;
+using Moq;
 using Planner.Controllers.Api;
 using Planner.Models.EventsModel;
 using Planner.Models.EventsViewModels;
@@ -9,9 +11,9 @@ namespace Planner.Tests.Controllers.Api
 {
     public class NotesControllerTests : SubItemControllerTestsBase<NotesController, Note, NoteCreate, NoteDetails>
     {
-        protected override NotesController GetController(ISubItemService<Note> service)
+        protected override NotesController GetController(IItemService<Note> service)
         {
-            return new NotesController(service);
+            return new NotesController(service as ISubItemService<Note>);
         }
 
         protected override JsonPatchDocument<Note> GetPatch()

@@ -50,6 +50,16 @@ namespace Planner.Models.EventsModel
 			res &= WideList == other.WideList;
 			return res;
 		}
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + Address.GetHashCode();
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + Name.GetHashCode();
+			hash = hash * 31 + WideList.GetHashCode();
+			return hash;
+		}
 	}
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
 	public partial class Deployment : IIdentifiable, ICloneable, IEquatable<Deployment>, IDetailable<DeploymentDetails>
@@ -94,6 +104,18 @@ namespace Planner.Models.EventsModel
 			res &= Qualification == other.Qualification;
 			res &= Team == other.Team;
 			return res;
+		}
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + (Callsign??string.Empty).GetHashCode();
+			hash = hash * 31 + CyclingLevel.GetHashCode();
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + (Name??string.Empty).GetHashCode();
+			hash = hash * 31 + Qualification.GetHashCode();
+			hash = hash * 31 + Team.GetHashCode();
+			return hash;
 		}
 
 		public DeploymentDetails ToDetail()
@@ -236,6 +258,46 @@ namespace Planner.Models.EventsModel
 			return res;
 		}
 
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + AmbulancesAvailable.GetHashCode();
+			hash = hash * 31 + BriefingNotesSent.GetHashCode();
+			hash = hash * 31 + (ControlPhoneNumber??string.Empty).GetHashCode();
+			hash = hash * 31 + Created.GetHashCode();
+			hash = hash * 31 + (CreatedBy??string.Empty).GetHashCode();
+			hash = hash * 31 + CruTrackingInUse.GetHashCode();
+			hash = hash * 31 + CyclistsRequested.GetHashCode();
+			hash = hash * 31 + Date.GetHashCode();
+			hash = hash * 31 + DateConfirmed.GetHashCode();
+			hash = hash * 31 + (Description??string.Empty).GetHashCode();
+			hash = hash * 31 + DipsNumber.GetHashCode();
+			hash = hash * 31 + DoctorsPresent.GetHashCode();
+			hash = hash * 31 + EndTime.GetHashCode();
+			hash = hash * 31 + ExpectingBadWeather.GetHashCode();
+			hash = hash * 31 + (FallbackRadioChannel??string.Empty).GetHashCode();
+			hash = hash * 31 + FirstAidersAvailable.GetHashCode();
+			hash = hash * 31 + FirstAidUnitsAvailable.GetHashCode();
+			hash = hash * 31 + HasSeriousHistory.GetHashCode();
+			hash = hash * 31 + HighSpeedRoadsAtEvent.GetHashCode();
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + LastEmailedOut.GetHashCode();
+			hash = hash * 31 + LastUpdated.GetHashCode();
+			hash = hash * 31 + (Location??string.Empty).GetHashCode();
+			hash = hash * 31 + Name.GetHashCode();
+			hash = hash * 31 + ParamedicsAvailable.GetHashCode();
+			hash = hash * 31 + (PostCode??string.Empty).GetHashCode();
+			hash = hash * 31 + (RadioChannel??string.Empty).GetHashCode();
+			hash = hash * 31 + SoloRespondingExpected.GetHashCode();
+			hash = hash * 31 + StartTime.GetHashCode();
+			hash = hash * 31 + Status.GetHashCode();
+			hash = hash * 31 + (UpdatedBy??string.Empty).GetHashCode();
+			hash = hash * 31 + UsingAirwave.GetHashCode();
+			hash = hash * 31 + UsingSJARadio.GetHashCode();
+			hash = hash * 31 + WiderDistribution.GetHashCode();
+			return hash;
+		}
+
 		public EventDetails ToDetail()
 		{
 			return new EventDetails(this);
@@ -275,6 +337,14 @@ namespace Planner.Models.EventsModel
 			return res;
 		}
 
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + Name.GetHashCode();
+			return hash;
+		}
+
 		public ExpectedIncidentDetails ToDetail()
 		{
 			return new ExpectedIncidentDetails(this);
@@ -312,6 +382,14 @@ namespace Planner.Models.EventsModel
 			res &= Id == other.Id;
 			res &= Name == other.Name;
 			return res;
+		}
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + Name.GetHashCode();
+			return hash;
 		}
 
 		public NoGoAreaDetails ToDetail()
@@ -356,6 +434,15 @@ namespace Planner.Models.EventsModel
 			return res;
 		}
 
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + SortNumber.GetHashCode();
+			hash = hash * 31 + Text.GetHashCode();
+			return hash;
+		}
+
 		public NoteDetails ToDetail()
 		{
 			return new NoteDetails(this);
@@ -396,6 +483,15 @@ namespace Planner.Models.EventsModel
 			res &= Id == other.Id;
 			res &= Time == other.Time;
 			return res;
+		}
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + Action.GetHashCode();
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + Time.GetHashCode();
+			return hash;
 		}
 
 		public ScheduleItemDetails ToDetail()
