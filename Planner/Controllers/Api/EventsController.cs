@@ -15,6 +15,7 @@ namespace Planner.Controllers.Api
 
         protected new IEventService Service => base.Service as IEventService;
 
+        [HttpPost]
         public async Task<IActionResult> Post(EventCreate createModel)
         {
             if (!ModelState.IsValid)
