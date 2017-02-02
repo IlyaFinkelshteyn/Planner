@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net452</TargetFramework>
     <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup>
     <UserSecretsId>aspnet-Planner-45b8475a-4de7-437a-a693-732c26fc6256</UserSecretsId>
