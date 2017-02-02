@@ -1,4 +1,7 @@
 ﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputType>exe</OutputType>
+  </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net452</TargetFramework>
     <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
@@ -6,6 +9,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <UserSecretsId>aspnet-Planner-45b8475a-4de7-437a-a693-732c26fc6256</UserSecretsId>
+    <OutputTypeEx>exe</OutputTypeEx>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove=".vs\**" />
