@@ -1,4 +1,4 @@
-version: 1.0.{build}
+version: 0.0.{build}
 image: Visual Studio 2017 RC
 before_build:
 - cmd: dotnet restore
@@ -9,6 +9,3 @@ test_script:
 environment:
     COVERALLS_REPO_TOKEN:
         secure: RpvJ78vABhLlkFzdKsGq5sElt1233tL2Ukh1BVsrQt+325S8BTwNHTFX/rcb2acd
-artifacts: 
-    - path: Planner.Tests\bin\Debug\net452
-      name: TestDetails
