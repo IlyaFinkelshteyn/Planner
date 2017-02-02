@@ -10,3 +10,6 @@ test_script:
 environment:
     COVERALLS_REPO_TOKEN:
         secure: RpvJ78vABhLlkFzdKsGq5sElt1233tL2Ukh1BVsrQt+325S8BTwNHTFX/rcb2acd
+artifacts: 
+    - path: Planner.Tests\bin\Debug\net452
+      name: TestDetails
