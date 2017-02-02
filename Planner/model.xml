@@ -62,7 +62,7 @@
     <property name="Id" type="int" detail="true" />
     <property name="Name" type="string" required="true" detail="true" create="true" />
   </model>
-  <model name="Note" details="true">
+  <model name="Note" details="true" create="true">
     <property name="Id" type="int" detail="true" />
     <property name="SortNumber" type="int" detail="true" />
     <property name="Text" type="string" required="true" detail="true" />

@@ -122,6 +122,18 @@ namespace Planner.Models.EventsViewModels
 		}
 	}
 	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
+	public partial class NoteCreate : ICreateViewModel<Note>
+	{
+		public Note ToItem()
+		{
+			var item = new Note
+			{
+			};
+
+			return item;
+		}
+	}
+	[GeneratedCode("Model Generator", "v1"), ExcludeFromCodeCoverage]
 	public partial class ScheduleItemCreate : ICreateViewModel<ScheduleItem>
 	{
 		[Required]
