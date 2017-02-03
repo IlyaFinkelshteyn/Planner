@@ -90,7 +90,7 @@ namespace Planner.Tests.Controllers.Api
         }
 
         [Theory, AutoData]
-        public async Task PatchInvalidItemReturnsNoContent(int id, TModel model)
+        public async Task PatchInvalidItemReturnsBadRequest(int id, TModel model)
         {
             var service = new Mock<IItemService<TModel>>(MockBehavior.Strict);
             SetupService(service);
@@ -111,7 +111,7 @@ namespace Planner.Tests.Controllers.Api
         }
 
         [Theory, AutoData]
-        public async Task PatchValidItemReturnsNoContent(int id, TModel model)
+        public async Task PatchValidItemReturnsUpdatedDetails(int id, TModel model)
         {
             var service = new Mock<IItemService<TModel>>(MockBehavior.Strict);
             SetupService(service);
@@ -131,7 +131,7 @@ namespace Planner.Tests.Controllers.Api
 
             var res = (OkObjectResult)result;
 
-            res.Value.Should().Be(model);
+            res.Value.Should().Be(model.ToDetail());
 
             service.VerifyAll();
         }

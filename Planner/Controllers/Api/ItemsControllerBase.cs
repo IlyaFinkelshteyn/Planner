@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Planner.Models.EventsModel.Interfaces;
+using Planner.Services.Filters;
 using Planner.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -47,11 +48,12 @@ namespace Planner.Controllers.Api
         /// <summary>
         /// Gets the item with the provided ID.
         /// </summary>
-        /// <param name="id">THe ID of the item to get.</param>
+        /// <param name="id">The ID of the item to get.</param>
         /// <returns>OkObjectResult if found, otherwise NotFoundResult</returns>
         /// <response code="404">If the requested item does not exist.</response>
         /// <response code="200">Returns the requested item.</response>
         [HttpGet("{id}")]
+        [DetailResponse(200)]
         public virtual async Task<IActionResult> Get(int id)
         {
             var item = await Service.GetAsync(id);
@@ -68,7 +70,11 @@ namespace Planner.Controllers.Api
         /// <param name="id">The ID of the item to patch.</param>
         /// <param name="patch">The patch (is Json Patch format) used to update the item</param>
         /// <returns>OkObjectResult if successful, NotFoundResult if the ID doesn't exist or BadRequestObjectResult if the request is invalid.</returns>
+        /// <response code="404">If the requested item does not exist.</response>
+        /// <response code="400">If the patch is not valid.</response>
+        /// <response code="200">Returns the updated item.</response>
         [HttpPatch("{id}")]
+        [DetailResponse(200)]
         public virtual async Task<IActionResult> Patch(int id, [FromBody]JsonPatchDocument<TModel> patch)
         {
             var item = await Service.GetAsync(id);
@@ -83,7 +89,7 @@ namespace Planner.Controllers.Api
 
             await Service.UpdateAsync(item);
 
-            return Ok(item);
+            return Ok(item.ToDetail());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Planner.Data;
 using Planner.Models;
 using Planner.Services;
+using Planner.Services.Filters;
 using Planner.Services.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
@@ -95,11 +97,15 @@ namespace Planner
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
                 var xmlPath = Path.Combine(basePath, "Planner.xml");
                 c.IncludeXmlComments(xmlPath);
+
+                c.OperationFilter<AuthResponseOperationFilter>();
             });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            services.AddTransient<IApiDescriptionProvider, ExtendedApiDescriptionProvider>();
         }
     }
 }
