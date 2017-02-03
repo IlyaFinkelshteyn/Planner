@@ -28,9 +28,9 @@ namespace Planner.Controllers.Api
         /// </summary>
         protected new IEventService Service => base.Service as IEventService;
 
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(bool includeHistoric = false)
         {
-            var items = await Service.GetListAsync(DateTime.Today);
+            var items = await Service.GetListAsync(includeHistoric ? DateTime.MinValue : DateTime.Today);
 
             return Ok(items.Select(e => new EventSummary(e)));
         }

@@ -21,6 +21,26 @@ namespace Planner.Tests.Controllers.Api
     public class EventControllerTests : ItemsControllerTestsBase<EventsController, Event, EventDetails>
     {
         [Theory, AutoData]
+        public async Task GetAllIncludingHistoricReturnsEventSummaries(IEnumerable<Event> events)
+        {
+            var service = new Mock<IEventService>(MockBehavior.Strict);
+
+            service.Setup(e => e.GetListAsync(DateTime.MinValue)).ReturnsAsync(events);
+
+            var controller = GetController(service.Object);
+
+            var result = await controller.GetAll(includeHistoric: true);
+
+            var expected = events.Select(e => new EventSummary(e));
+
+            result.Should().NotBeNull().And.BeOfType<OkObjectResult>()
+                .Which.Value.Should().BeAssignableTo<IEnumerable<EventSummary>>()
+                .Which.Should().BeEquivalentTo(expected);
+
+            service.VerifyAll();
+        }
+
+        [Theory, AutoData]
         public async Task GetAllReturnsEventSummaries(IEnumerable<Event> events)
         {
             var service = new Mock<IEventService>(MockBehavior.Strict);
