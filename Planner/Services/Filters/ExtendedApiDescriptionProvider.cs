@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Planner.Services.Filters
 {
+    [ExcludeFromCodeCoverage]
     public class ExtendedApiDescriptionProvider : IApiDescriptionProvider
     {
         private DefaultApiDescriptionProvider _base;

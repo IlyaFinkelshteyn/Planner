@@ -1,7 +1,9 @@
 ﻿using Planner.Models.EventsModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Planner.Models.EventsViewModels
 {
+    [ExcludeFromCodeCoverage]
     public class CyclistSummary
     {
         public int Count { get; set; }

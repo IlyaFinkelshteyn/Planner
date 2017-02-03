@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Planner.Models.ManageViewModels
 {
+    [ExcludeFromCodeCoverage]
     public class FactorViewModel
     {
         public string Purpose { get; set; }

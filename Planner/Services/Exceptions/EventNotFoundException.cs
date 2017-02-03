@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Planner.Services.Exceptions
 {
-    [Serializable]
+    [Serializable, ExcludeFromCodeCoverage]
     public class EventNotFoundException : Exception
     {
         public EventNotFoundException()

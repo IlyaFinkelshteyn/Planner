@@ -13,10 +13,12 @@ using Planner.Services;
 using Planner.Services.Filters;
 using Planner.Services.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace Planner
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IHostingEnvironment env)

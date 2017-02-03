@@ -6,6 +6,7 @@ using Planner.Services.Interfaces;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Planner.Controllers.Api
 {
@@ -28,6 +29,14 @@ namespace Planner.Controllers.Api
         /// </summary>
         protected new IEventService Service => base.Service as IEventService;
 
+        /// <summary>
+        /// Gets all events, including historic if <paramref name="includeHistoric"/> is true.
+        /// </summary>
+        /// <param name="includeHistoric">if set to <c>true</c>, include historic events.</param>
+        /// <returns>OkObjectResult containing the requested objects</returns>
+        /// <response code="200">The requested items.</response>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<EventSummary>), 200)]
         public async Task<IActionResult> GetAll(bool includeHistoric = false)
         {
             var items = await Service.GetListAsync(includeHistoric ? DateTime.MinValue : DateTime.Today);
