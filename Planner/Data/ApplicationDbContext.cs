@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Planner.Models;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Planner.Data
 {
     [ExcludeFromCodeCoverage]
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
