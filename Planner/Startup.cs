@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Planner.Data;
 using Planner.Models;
 using Planner.Services;
 using Planner.Services.Interfaces;
+using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace Planner
 {
@@ -66,6 +65,12 @@ namespace Planner
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUi(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Planner API v1");
+            });
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -80,6 +85,17 @@ namespace Planner
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+
+            services.AddLogging();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Planner API", Version = "v1" });
+
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "Planner.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

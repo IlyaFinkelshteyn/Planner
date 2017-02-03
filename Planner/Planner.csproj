@@ -10,6 +10,7 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-Planner-45b8475a-4de7-437a-a693-732c26fc6256</UserSecretsId>
     <OutputTypeEx>exe</OutputTypeEx>
+    <DocumentationFile>.\Planner.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove=".vs\**" />
@@ -38,6 +39,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0-msbuild3-final" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0-rc1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0-msbuild3-final" />

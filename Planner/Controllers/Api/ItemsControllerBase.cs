@@ -7,26 +7,52 @@ using System.Threading.Tasks;
 
 namespace Planner.Controllers.Api
 {
-    [Authorize]
+    /// <summary>
+    /// Base class used to perform basic item controller operations.
+    /// </summary>
+    /// <typeparam name="TModel">The model type</typeparam>
+    /// <typeparam name="TDetails">The detail class associated with <typeparamref name="TModel"/></typeparam>
+    [Authorize, Route("api/[controller]")]
     public abstract class ItemsControllerBase<TModel, TDetails> : Controller
         where TModel : class, IDetailable<TDetails>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemsControllerBase{TModel, TDetails}"/> class.
+        /// </summary>
+        /// <param name="service">The service used to manipulate TModels.</param>
         public ItemsControllerBase(IItemService<TModel> service)
         {
             Service = service;
         }
 
+        /// <summary>
+        /// The service used to manipulate TModels.
+        /// </summary>
         protected IItemService<TModel> Service { get; }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        /// <summary>
+        /// Deletes the item with the provided ID.
+        /// </summary>
+        /// <param name="id">The ID of the item to delete.</param>
+        /// <returns>Always returns NoContentResult.</returns>
+        /// <response code="204">Always returned.</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        public virtual async Task<IActionResult> Delete(int id)
         {
             await Service.DeleteAsync(id);
             return NoContent();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get(int id)
+        /// <summary>
+        /// Gets the item with the provided ID.
+        /// </summary>
+        /// <param name="id">THe ID of the item to get.</param>
+        /// <returns>OkObjectResult if found, otherwise NotFoundResult</returns>
+        /// <response code="404">If the requested item does not exist.</response>
+        /// <response code="200">Returns the requested item.</response>
+        [HttpGet("{id}")]
+        public virtual async Task<IActionResult> Get(int id)
         {
             var item = await Service.GetAsync(id);
 
@@ -36,8 +62,14 @@ namespace Planner.Controllers.Api
             return Ok(item.ToDetail());
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> Patch(int id, JsonPatchDocument<TModel> patch)
+        /// <summary>
+        /// Patches the item with the given ID, using the given patch.
+        /// </summary>
+        /// <param name="id">The ID of the item to patch.</param>
+        /// <param name="patch">The patch (is Json Patch format) used to update the item</param>
+        /// <returns>OkObjectResult if successful, NotFoundResult if the ID doesn't exist or BadRequestObjectResult if the request is invalid.</returns>
+        [HttpPatch("{id}")]
+        public virtual async Task<IActionResult> Patch(int id, [FromBody]JsonPatchDocument<TModel> patch)
         {
             var item = await Service.GetAsync(id);
 

@@ -19,7 +19,7 @@ namespace Planner.Controllers.Api
         protected new ISubItemService<TModel> Service => base.Service as ISubItemService<TModel>;
 
         [HttpPost]
-        public async Task<IActionResult> Post(int eventId, TCreate createModel)
+        public virtual async Task<IActionResult> Post([FromQuery]int eventId, [FromBody]TCreate createModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
