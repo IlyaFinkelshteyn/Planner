@@ -22,6 +22,7 @@
 	var properties = node.SelectNodes("property[@summary=\"true\"]");
 #>
 <#@ include file="..\Templates\Properties.t4" #>
+<#@ include file="..\Templates\Equals.t4" #>
 <#@ include file="..\Templates\ConstructorFromModel.t4" #>
 <#@ include file="..\Templates\ClassFooter.t4" #>
 <#

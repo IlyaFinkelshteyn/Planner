@@ -19,6 +19,33 @@ namespace Planner.Models.EventsViewModels
 		public string Address { get; set; }
 		[Display(Name="Wider List")]
 		public bool WideList { get; set; }
+		public override bool Equals(object other)
+		{
+			return Equals(other as EmailSummary);
+		}
+
+		public bool Equals(EmailSummary other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+			res &= Id == other.Id;
+			res &= Name == other.Name;
+			res &= Address == other.Address;
+			res &= WideList == other.WideList;
+			return res;
+		}
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + Name.GetHashCode();
+			hash = hash * 31 + Address.GetHashCode();
+			hash = hash * 31 + WideList.GetHashCode();
+			return hash;
+		}
 		public EmailSummary(Email item)
 		{
 			Id = item.Id;
@@ -51,6 +78,55 @@ namespace Planner.Models.EventsViewModels
 		public DateTime LastUpdated { get; set; }
 		public string CreatedBy { get; set; }
 		public string UpdatedBy { get; set; }
+		public override bool Equals(object other)
+		{
+			return Equals(other as EventSummary);
+		}
+
+		public bool Equals(EventSummary other)
+		{
+			if (other == null)
+				return false;
+
+			var res = true;
+			res &= CyclistsRequested == other.CyclistsRequested;
+			res &= Date == other.Date;
+			res &= DipsNumber == other.DipsNumber;
+			res &= EndTime == other.EndTime;
+			res &= Id == other.Id;
+			res &= Name == other.Name;
+			res &= StartTime == other.StartTime;
+			res &= Status == other.Status;
+			res &= WiderDistribution == other.WiderDistribution;
+			res &= BriefingNotesSent == other.BriefingNotesSent;
+			res &= DateConfirmed == other.DateConfirmed;
+			res &= Created == other.Created;
+			res &= LastUpdated == other.LastUpdated;
+			res &= CreatedBy == other.CreatedBy;
+			res &= UpdatedBy == other.UpdatedBy;
+			return res;
+		}
+
+		public override int GetHashCode()
+		{
+			int hash = 17;
+			hash = hash * 31 + CyclistsRequested.GetHashCode();
+			hash = hash * 31 + Date.GetHashCode();
+			hash = hash * 31 + DipsNumber.GetHashCode();
+			hash = hash * 31 + EndTime.GetHashCode();
+			hash = hash * 31 + Id.GetHashCode();
+			hash = hash * 31 + Name.GetHashCode();
+			hash = hash * 31 + StartTime.GetHashCode();
+			hash = hash * 31 + Status.GetHashCode();
+			hash = hash * 31 + WiderDistribution.GetHashCode();
+			hash = hash * 31 + BriefingNotesSent.GetHashCode();
+			hash = hash * 31 + DateConfirmed.GetHashCode();
+			hash = hash * 31 + Created.GetHashCode();
+			hash = hash * 31 + LastUpdated.GetHashCode();
+			hash = hash * 31 + (CreatedBy??string.Empty).GetHashCode();
+			hash = hash * 31 + (UpdatedBy??string.Empty).GetHashCode();
+			return hash;
+		}
 		public EventSummary(Event item)
 		{
 			CyclistsRequested = item.CyclistsRequested;

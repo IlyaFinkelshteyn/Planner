@@ -14,15 +14,36 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 using System;
+using System.Linq;
 
 namespace Planner.Tests.Controllers.Api
 {
     public class EventControllerTests : ItemsControllerTestsBase<EventsController, Event, EventDetails>
     {
         [Theory, AutoData]
+        public async Task GetAllReturnsEventSummaries(IEnumerable<Event> events)
+        {
+            var service = new Mock<IEventService>(MockBehavior.Strict);
+
+            service.Setup(e => e.GetListAsync(DateTime.Today)).ReturnsAsync(events);
+
+            var controller = GetController(service.Object);
+
+            var result = await controller.GetAll();
+
+            var expected = events.Select(e => new EventSummary(e));
+
+            result.Should().NotBeNull().And.BeOfType<OkObjectResult>()
+                .Which.Value.Should().BeAssignableTo<IEnumerable<EventSummary>>()
+                .Which.Should().BeEquivalentTo(expected);
+
+            service.VerifyAll();
+        }
+
+        [Theory, AutoData]
         public async Task PostInvalidItemDoesNotCallServiceAndReturnsBadRequest(EventCreate createModel)
         {
-            var controller = new EventsController(null);
+            var controller = GetController(null);
 
             controller.ModelState.AddModelError("", "Model is invalid");
 
@@ -40,7 +61,7 @@ namespace Planner.Tests.Controllers.Api
 
             service.Setup(s => s.AddAsync(It.Is<Event>(m => model.Equals(m)))).ReturnsAsync(newId);
 
-            var controller = new EventsController(service.Object);
+            var controller = GetController(service.Object);
 
             var helper = new Mock<IUrlHelper>(MockBehavior.Strict);
 

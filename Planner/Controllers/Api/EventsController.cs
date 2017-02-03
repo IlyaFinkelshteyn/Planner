@@ -4,6 +4,8 @@ using Planner.Models.EventsModel;
 using Planner.Models.EventsViewModels;
 using Planner.Services.Interfaces;
 using System.Threading.Tasks;
+using System;
+using System.Linq;
 
 namespace Planner.Controllers.Api
 {
@@ -25,6 +27,13 @@ namespace Planner.Controllers.Api
         /// The service used to manipulate events.
         /// </summary>
         protected new IEventService Service => base.Service as IEventService;
+
+        public async Task<IActionResult> GetAll()
+        {
+            var items = await Service.GetListAsync(DateTime.Today);
+
+            return Ok(items.Select(e => new EventSummary(e)));
+        }
 
         /// <summary>
         /// Creates a new Event based on the provided model.
