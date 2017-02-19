@@ -13,7 +13,7 @@ namespace Planner.Controllers.Api
     /// </summary>
     /// <typeparam name="TModel">The model type</typeparam>
     /// <typeparam name="TDetails">The detail class associated with <typeparamref name="TModel"/></typeparam>
-    [Authorize, Route("api/[controller]")]
+    [Route("api/[controller]")]
     public abstract class ItemsControllerBase<TModel, TDetails> : Controller
         where TModel : class, IDetailable<TDetails>
     {

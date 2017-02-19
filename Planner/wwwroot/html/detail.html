@@ -1,0 +1,554 @@
+﻿<div class="container-fluid ng-cloak">
+    <div ng-hide="vm.loading">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    {{vm.data.Name}}
+                    <small>
+                        <span ng-if="vm.data.DipsNumber == 0">TBC</span>
+                        <span ng-if="vm.data.DipsNumber != 0">SJA/{{vm.data.DipsNumber}}</span>
+                        <span class="label" ng-class="vm.statusToLabelClass(vm.data.Status)">
+                            {{vm.statusToText(vm.data.Status)}}
+                        </span>
+                    </small>
+                </h1>
+            </div>
+        </div>
+        <h2>
+            <span ng-if="vm.data.DateConfirmed">{{vm.data.Date | date : 'dd MMMM yy'}} {{vm.data.StartTime | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}} - {{vm.data.EndTime | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}}</span>
+            <span ng-if="!vm.data.DateConfirmed">{{vm.data.Date | date : 'MMMM yy'}}</span>
+        </h2>
+        <div class="row">
+            <div class="col-sm-7 col-md-8 col-lg-9">
+                <h3>
+                    <span ng-if="vm.data.Location == '' || vm.data.Location == null">TBC</span>
+                    <span ng-if="vm.data.Location != '' && vm.data.Location != null">{{vm.data.Location}}</span>
+                    <small>
+                        <span ng-if="vm.data.PostCode == '' || vm.data.PostCode == null">TBC</span>
+                        <span ng-if="vm.data.PostCode != '' && vm.data.PostCode != null">{{vm.data.PostCode}}</span>
+                    </small>
+                </h3>
+                <h3>
+                    Description
+                    <small class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-primary" ng-click="vm.changeDescription()">
+                            <span class="fa fa-pencil"></span>
+                        </button>
+                    </small>
+                </h3>
+                <pre ng-if="vm.data.Description != '' && vm.data.Description != null">{{vm.data.Description}}</pre>
+                <p class="text-muted" ng-if="vm.data.Description == '' || vm.data.Description == null">No description</p>
+                <h3>
+                    Event Schedule
+                    <small class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-success" ng-click="vm.addScheduleItem()">
+                            <span class="fa fa-plus"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-click="vm.toggleScheduleEdit()">
+                            <span ng-if="!vm.showScheduleEdit" class="fa fa-pencil"></span>
+                            <span ng-if="vm.showScheduleEdit" class="fa fa-check"></span>
+                        </button>
+                    </small>
+                </h3>
+                <table ng-if="vm.data.Schedule.length > 0" class="table table-schedule">
+                    <tbody>
+                        <tr ng-repeat="item in vm.data.Schedule | orderBy: 'Time'">
+                            <td>
+                                <strong>{{item.Time | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}}</strong>
+                            </td>
+                            <td>
+                                {{item.Action}}
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" ng-if="vm.showScheduleEdit">
+                                    <button class="btn btn-primary" type="button" ng-click="vm.changeScheduleItem(item)"><span class="fa fa-pencil"></span></button>
+                                    <button class="btn btn-danger" type="button" ng-click="vm.deleteScheduleItem(item.Id)"><span class="fa fa-trash"></span></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p ng-if="vm.data.Schedule.length == 0" class="text-muted">No schedule set</p>
+            </div>
+            <div class="col-sm-5 col-md-4 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <p class="panel-title">Update Event</p>
+                    </div>
+                    <div class="panel-body">
+                        <button type="button" class="btn btn-block btn-primary" ng-click="vm.renameEvent()"><span class="fa fa-pencil"></span> Rename Event</button>
+                        <button type="button" class="btn btn-block btn-primary" ng-click="vm.changeDate()"><span class="fa fa-calendar"></span> Change Date</button>
+                        <button type="button" class="btn btn-block btn-primary" ng-click="vm.changeLocation()"><span class="fa fa-map-marker"></span> Change Location</button>
+                        <button ng-if="vm.data.Status == 0" type="button" class="btn btn-block btn-success" ng-click="vm.setStatus(1)"><span class="fa fa-check"></span> Confirm Event</button>
+                        <button ng-if="vm.data.Status == 1" type="button" class="btn btn-block btn-warning" ng-click="vm.setStatus(0)"><span class="fa fa-question"></span> Unconfirm Event</button>
+                        <button ng-if="vm.data.Status != 2" type="button" class="btn btn-block btn-danger" ng-click="vm.setStatus(2)"><span class="fa fa-ban"></span> Cancel Event</button>
+                        <button ng-if="vm.data.Status == 2" type="button" class="btn btn-block btn-success" ng-click="vm.setStatus(0)"><span class="fa fa-undo"></span> Restore Event</button>
+                        <button ng-if="vm.data.Status != 2" type="button" class="btn btn-block btn-primary"><span class="fa fa-download"></span> Get Briefing Notes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3>
+            Cover
+            <small class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-primary" ng-click="vm.changeCover()">
+                    <span class="fa fa-pencil"></span>
+                </button>
+            </small>
+        </h3>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">First Aiders</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.FirstAidersAvailable}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Cyclists</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.CyclistsRequested}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">First Aid Posts</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.FirstAidUnitsAvailable}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Ambulances</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.AmbulancesAvailable}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Paramedics</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.ParamedicsAvailable ? "Yes" : "No"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Doctors</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.DoctorsPresent ? "Yes" : "No"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>
+            Deployment
+            <small class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-success" ng-click="vm.addDeployment()">
+                    <span class="fa fa-plus"></span>
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="vm.toggleDeploymentEdit()">
+                    <span ng-if="!vm.showDeploymentEdit" class="fa fa-pencil"></span>
+                    <span ng-if="vm.showDeploymentEdit" class="fa fa-check"></span>
+                </button>
+            </small>
+        </h3>
+        <div class="table-responsive" ng-if="vm.data.Deployments.length > 0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>Call-sign</th>
+                        <th>Cyclist</th>
+                        <th>Clinical Qualification</th>
+                        <th>Cycling Level</th>
+                        <th ng-if="vm.showDeploymentEdit"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="bike in vm.data.Deployments | orderBy:['Team','Callsign']" ng-class="{active: bike.Team % 2 == 1}">
+                        <td>
+                            {{bike.Team}}
+                        </td>
+                        <td>
+                            <span ng-if="bike.Callsign == '' || bike.Callsign == null" class="text-muted">TBC</span>
+                            <span ng-if="bike.Callsign != '' && bike.Callsign != null">{{bike.Callsign}}</span>
+                        </td>
+                        <td>
+                            <span ng-if="bike.Name == '' || bike.Name == null" class="text-muted">TBC</span>
+                            <span ng-if="bike.Name != '' && bike.Name != null">{{bike.Name}}</span>
+                        </td>
+                        <td>
+                            <span ng-if="bike.Name == '' || bike.Name == null" class="text-muted">TBC</span>
+                            <span ng-if="bike.Name != '' && bike.Name != null">{{vm.qualificationToText(bike.Qualification)}}</span>
+                        </td>
+                        <td>
+                            <span ng-if="bike.Name == '' || bike.Name == null" class="text-muted">TBC</span>
+                            <span ng-if="bike.Name != '' && bike.Name != null">{{bike.CyclingLevel == 2 ?  "Advanced" : "Entry Level"}}</span>
+                        </td>
+                        <td ng-if="vm.showDeploymentEdit">
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-primary" type="button" ng-click="vm.changeDeployment(bike)"><span class="fa fa-pencil"></span></button>
+                                <button class="btn btn-danger" type="button" ng-click="vm.deleteDeployment(bike.Id)"><span class="fa fa-trash"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p ng-if="vm.data.Deployments.length == 0" class="text-muted">No allocated cyclists</p>
+        <h3>
+            Special Considerations
+            <small class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-primary" ng-click="vm.changeConsiderations()">
+                    <span class="fa fa-pencil"></span>
+                </button>
+            </small>
+        </h3>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Solo Responding</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.SoloRespondingExpected ? "Expected" : "Not Expected"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">High Speed Roads</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.HighSpeedRoadsAtEvent ? "At Event" : "Not At Event"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Bad Weather</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.ExpectingBadWeather ? "Expected" : "Not Expected"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Serious History</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.HasSeriousHistory ? "Experienced" : "Not Experienced"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Wider Distribution</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.WiderDistribution ? "Needed" : "Not Needed"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>
+            Communications
+            <small class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-primary" ng-click="vm.changeCommunications()">
+                    <span class="fa fa-pencil"></span>
+                </button>
+            </small>
+        </h3>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">SJA Radios</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.UsingSJARadio ? "In Use" : "Not In Use"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Airwave</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.UsingAirwave ? "In Use" : "Not In Use"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6" ng-if="vm.data.UsingSJARadio">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Radio Channel</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.RadioChannel == "" || vm.data.RadioChannel == null ? "TBC" : vm.data.RadioChannel}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6" ng-if="vm.data.UsingSJARadio">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Fallback Channel</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.FallbackRadioChannel == "" || vm.data.FallbackRadioChannel == null ? "None" : vm.data.FallbackRadioChannel}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Control Number</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.ControlPhoneNumber == "" || vm.data.ControlPhoneNumber == null ? "None" : vm.data.ControlPhoneNumber}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">CRU Tracking</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center box-text">
+                            {{vm.data.CruTrackingInUse ? "In Use" : "Not In Use"}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>
+            No-Go Areas
+            <small class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-success">
+                    <span class="fa fa-plus"></span>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <span class="fa fa-trash"></span>
+                </button>
+            </small>
+        </h3>
+        <ul ng-if="vm.data.NoGoAreas.length > 0">
+            <li ng-repeat="area in vm.data.NoGoAreas">
+                <button type="button" class="btn btn-danger btn-sm "><span class="fa fa-trash"></span></button>
+                {{area.Name}}
+            </li>
+        </ul>
+        <p ng-if="vm.data.NoGoAreas.length == 0" class="text-muted">
+            No no-go areas.
+        </p>
+        <h3>
+            Expected Injuries/Illnesses
+            <small class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-success">
+                    <span class="fa fa-plus"></span>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <span class="fa fa-trash"></span>
+                </button>
+            </small>
+        </h3>
+        <ul ng-if="vm.data.ExpectedIncidents.length > 0">
+            <li ng-repeat="incident in vm.data.ExpectedIncidents">
+                <button type="button" class="btn btn-danger btn-sm "><span class="fa fa-trash"></span></button>
+                {{incident.Name}}
+            </li>
+        </ul>
+        <p ng-if="vm.data.ExpectedIncidents.length == 0" class="text-muted">
+            No expected incidents.
+        </p>
+        <h3>
+            Notes
+            <small class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-primary">
+                    <span class="fa fa-pencil"></span>
+                </button>
+            </small>
+        </h3>
+        <ul ng-if="vm.data.Notes.length > 0">
+            <li ng-repeat="note in vm.data.Notes | orderBy: 'SortNumber'">
+                {{note.Text}}
+            </li>
+        </ul>
+        <p ng-if="vm.data.Notes.length == 0" class="text-muted">
+            No notes.
+        </p>
+        <div class="row text-muted">
+            <div class="col-md-4">
+                Created <time datetime="{{vm.data.Created}}" am-time-ago="vm.data.Created"></time> by {{vm.data.CreatedBy}}
+            </div>
+            <div class="col-md-4">
+                Updated <time datetime="{{vm.data.LastUpdated}}" am-time-ago="vm.data.LastUpdated"></time> by {{vm.data.UpdatedBy}}
+            </div>
+        </div>
+    </div>
+    <div ng-if="vm.loading">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-info">
+                    <div class="panel-body bg-info text-center">
+                        <p class="text-info" style="margin: 0">
+                            <img src="/Content/ripple.svg" height="30" width="30" />
+                            One moment please...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="addNoGoModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (@Html.BeginForm("Create", "NoGoArea", new { eventId = Model.Id }, FormMethod.Post))
+            {
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" area-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    Add No-Go Area
+                </h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="newNoGo">Area</label>
+                        <input id="newNoGo" name="name" class="form-control" data-val="true" data-val-required="The area field is required." />
+                        <span class="text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="addIncidentModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (@Html.BeginForm("Create", "Incident", new { eventId = Model.Id }, FormMethod.Post))
+            {
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" area-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    Add Incident
+                </h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="newIncident">Incident</label>
+                        <input id="newIncident" name="name" class="form-control" data-val="true" data-val-required="The incident field is required." />
+                        <span class="text-danger" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editNotesModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (@Html.BeginForm("EditNotes", "Event", new { id = Model.Id }, FormMethod.Post))
+            {
+            @Html.AntiForgeryToken()
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" area-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    Edit Notes
+                </h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="editNotes">Notes</label>
+                        <textarea id="editNotes" name="notes" class="form-control">@notes</textarea>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        Change Date
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="changeDateForm">
+        <div class="row">
+            <edit-control mode="date" required="true" class="form-group col-md-9" model="vm.date" name="date" display-name="Date"></edit-control>
+            <edit-check class="form-group col-md-3" model="vm.dateConfirmed" display-name="Date" check-name="Confirmed" name="dateConfirmed"></edit-check>
+        </div>
+        <div class="row">
+            <edit-control mode="time" required="true" class="form-group col-md-6" model="vm.startTime" name="startTime" display-name="Start Time"></edit-control>
+            <edit-control mode="time" required="true" class="form-group col-md-6" model="vm.endTime" name="endTime" display-name="End Time"></edit-control>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.submit()">Save</button>
+</div>

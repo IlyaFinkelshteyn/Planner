@@ -1,0 +1,24 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        Rename Event
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="renameForm">
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label for="dipsNumber">DIPS Number</label>
+                <input id="dipsNumber" class="form-control" type="number" ng-model="vm.dipsNumber" placeholder="DIPS Number" />
+            </div>
+            <div class="form-group col-md-8 col-sm-5" ng-class="{'has-error': (renameForm.$submitted || renameForm.name.$touched) && renameForm.name.$invalid }">
+                <label for="name">Name</label>
+                <input id="name" name="name" class="form-control" type="text" ng-model="vm.name" required placeholder="Name" />
+                <span ng-show="(renameForm.$submitted || renameForm.name.$touched) && renameForm.name.$error.required" class="help-block">The event needs a name.</span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.submit()">Save</button>
+</div>

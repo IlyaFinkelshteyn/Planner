@@ -1,0 +1,23 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        Update Cover
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="changeCoverForm">
+        <div class="row">
+            <edit-control mode="number" required="true" class="form-group col-md-4" model="vm.firstAiders" display-name="First Aiders" name="firstAiders"></edit-control>
+            <edit-control mode="number" required="true" class="form-group col-md-4" model="vm.cyclists" display-name="Cyclists" name="cyclists"></edit-control>
+            <edit-control mode="number" required="true" class="form-group col-md-4" model="vm.firstAidUnits" display-name="First Aid Units" name="firstAidUnits"></edit-control>
+        </div>
+        <div class="row">
+            <edit-control mode="number" required="true" class="form-group col-md-4" model="vm.ambulances" display-name="Ambulances" name="ambulances"></edit-control>
+            <edit-check class="form-group col-md-4" model="vm.paramedicsAvailable" display-name="Paramedics" check-name="Available" name="paramedicsAvailable"></edit-check>
+            <edit-check class="form-group col-md-4" model="vm.doctorsAvailable" display-name="Doctors" check-name="Available" name="doctorsAvailable"></edit-check>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.submit()">Save</button>
+</div>

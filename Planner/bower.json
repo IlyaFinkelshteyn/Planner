@@ -1,10 +1,17 @@
 {
-  "name": "asp.net",
+  "name": "planner",
   "private": true,
   "dependencies": {
     "bootstrap": "3.3.7",
     "jquery": "2.2.0",
     "jquery-validation": "1.14.0",
-    "jquery-validation-unobtrusive": "3.2.6"
+    "jquery-validation-unobtrusive": "3.2.6",
+    "angular": "~1.6.2",
+    "angular-moment": "1.0.1",
+    "angular-route": "~1.6.2",
+    "angular-utils-pagination": "~0.11.1",
+    "font-awesome": "~4.7.0",
+    "angular-bootstrap": "~0.11.1",
+    "angular-ui-event": "1.0.0"
   }
 }

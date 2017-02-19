@@ -1,0 +1,22 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        Update Special Considerations
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="changeConsiderationsForm">
+        <div class="row">
+            <edit-check class="form-group col-md-4" model="vm.soloRespondingExpected" display-name="Solo Responding" check-name="Expected" name="soloRespondingExpected"></edit-check>
+            <edit-check class="form-group col-md-4" model="vm.highSpeedRoadsAtEvent" display-name="High Speed Roads" check-name="At Event" name="highSpeedRoadsAtEvent"></edit-check>
+            <edit-check class="form-group col-md-4" model="vm.expectingBadWeather" display-name="Bad Weather" check-name="Expected" name="expectingBadWeather"></edit-check>
+        </div>
+        <div class="row">
+            <edit-check class="form-group col-md-4" model="vm.hasSeriousHistory" display-name="Serious History" check-name="Experienced" name="hasSeriousHistory"></edit-check>
+            <edit-check class="form-group col-md-4" model="vm.widerDistribution" display-name="Wider Distribution" check-name="Needed" name="widerDistribution"></edit-check>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.submit()">Save</button>
+</div>

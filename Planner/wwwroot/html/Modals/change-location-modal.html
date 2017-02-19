@@ -1,0 +1,17 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        Change Date
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="changeLocationForm">
+        <div class="row">
+            <edit-control mode="text" class="form-group col-sm-9" model="vm.location" name="location" display-name="Location"></edit-control>
+            <edit-control class="form-group col-sm-3" model="vm.postCode" name="postCode" display-name="Post Code"></edit-control>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.submit()">Save</button>
+</div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Planner.Models.EventsModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Planner.Data
@@ -10,6 +11,20 @@ namespace Planner.Data
             : base(options)
         {
         }
+
+        public virtual DbSet<Deployment> Deployments { get; set; }
+
+        public virtual DbSet<Email> Emails { get; set; }
+
+        public virtual DbSet<Event> Events { get; set; }
+
+        public virtual DbSet<ExpectedIncident> ExpectedIncidents { get; set; }
+
+        public virtual DbSet<NoGoArea> NoGoAreas { get; set; }
+
+        public virtual DbSet<Note> Notes { get; set; }
+
+        public virtual DbSet<ScheduleItem> ScheduleItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

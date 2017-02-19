@@ -1,0 +1,23 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        Update Communications
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="changeCommunicationsForm">
+        <div class="row">
+            <edit-check class="form-group col-md-4" model="vm.usingSJARadio" display-name="SJA Radio" check-name="In Use" name="usingSJARadio"></edit-check>
+            <edit-check class="form-group col-md-4" model="vm.usingAirwave" display-name="Airwave" check-name="In Use" name="usingAirwave"></edit-check>
+            <edit-check class="form-group col-md-4" model="vm.cruTrackingInUse" display-name="CRU Tracking" check-name="In Use" name="cruTrackingInUse"></edit-check>
+        </div>
+        <div class="row">
+            <edit-control mode="text" class="form-group col-md-4" model="vm.radioChannel" display-name="Radio Channel" name="radioChannel"></edit-control>
+            <edit-control mode="text" class="form-group col-md-4" model="vm.fallbackRadioChannel" display-name="Fallback Radio Channel" name="fallbackRadioChannel"></edit-control>
+            <edit-control mode="tel" class="form-group col-md-4" model="vm.controlPhoneNumber" display-name="Control Number" name="controlPhoneNumber"></edit-control>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.submit()">Save</button>
+</div>

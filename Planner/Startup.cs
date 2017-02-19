@@ -61,6 +61,15 @@ namespace Planner
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                context.Database.Migrate();
+                if (env.IsDevelopment())
+                    context.EnsureSeedData();
+            }
+
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JwtSecretKey"]));
@@ -142,6 +151,8 @@ namespace Planner
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddTransient<IApiDescriptionProvider, ExtendedApiDescriptionProvider>();
+
+            services.AddTransient<IEventService, EventService>();
         }
     }
 }

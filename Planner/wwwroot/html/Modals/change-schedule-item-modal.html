@@ -1,0 +1,17 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        {{vm.title()}}
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="changeScheduleItemForm">
+        <div class="row">
+            <edit-control mode="time" required="true" class="form-group col-md-3" model="vm.time" name="time" display-name="Time"></edit-control>
+            <edit-control mode="text" class="form-group col-md-9" model="vm.action" name="action" required="true" display-name="Action"></edit-control>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.submit()">Save</button>
+</div>

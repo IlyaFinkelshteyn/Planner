@@ -1,0 +1,73 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Add Event
+            </h1>
+        </div>
+    </div>
+    <form novalidate name="addEventForm" ng-submit="vm.submit()">
+        <fieldset>
+            <div class="row">
+                <div class="form-group col-sm-3" ng-class="{'has-error': addEventForm.dipsNumber.$touched && addEventForm.dipsNumber.$invalid }">
+                    <label for="dipsNumber">DIPS Number</label>
+                    <input id="dipsNumber" class="form-control" type="number" ng-model="vm.data.DipsNumber" placeholder="DIPS Number" />
+                </div>
+                <div class="form-group col-md-6 col-sm-5" ng-class="{'has-error': (addEventForm.$submitted || addEventForm.name.$touched) && addEventForm.name.$invalid }">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" class="form-control" type="text" ng-model="vm.data.Name" required placeholder="Name" />
+                    <span ng-show="(addEventForm.$submitted || addEventForm.name.$touched) && addEventForm.name.$error.required" class="help-block">The event needs a name.</span>
+                </div>
+                <div class="form-group col-md-3 col-sm-4">
+                    <label for="status">Status</label>
+                    <select id="status" class="form-control" ng-model="vm.data.Status">
+                        <option value="0">Unconfirmed</option>
+                        <option value="1">Confirmed</option>
+                        <option value="2">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3 col-sm-4" ng-class="{'has-error': (addEventForm.$submitted || addEventForm.date.$touched) && addEventForm.date.$invalid }">
+                    <label for="date">Date</label>
+                    <input id="date" class="form-control" type="date" name="date" required ng-model="vm.data.Date" />
+                    <span ng-show="(addEventForm.$submitted || addEventForm.date.$touched) && addEventForm.date.$error.required" class="help-block">The event needs a date.</span>
+                    <span ng-show="(addEventForm.$submitted || addEventForm.date.$touched) && addEventForm.date.$error.date" class="help-block">The event needs a valid date.</span>
+                </div>
+                <div class="form-group col-md-2 col-sm-4" ng-class="{'has-error': (addEventForm.$submitted || addEventForm.startTime.$touched) && addEventForm.startTime.$invalid }">
+                    <label for="startTime">Start Time</label>
+                    <input id="startTime" class="form-control" type="time" name="startTime" required ng-model="vm.data.StartTime" />
+                    <span ng-show="(addEventForm.$submitted || addEventForm.startTime.$touched) && addEventForm.startTime.$error.required" class="help-block">The event needs a start time.</span>
+                    <span ng-show="(addEventForm.$submitted || addEventForm.startTime.$touched) && addEventForm.startTime.$error.time" class="help-block">The event needs a valid start time.</span>
+                </div>
+                <div class="form-group col-md-2 col-sm-4" ng-class="{'has-error': (addEventForm.$submitted || addEventForm.endTime.$touched) && addEventForm.endTime.$invalid }">
+                    <label for="endTime">End Time</label>
+                    <input id="endTime" class="form-control" type="time" name="endTime" required ng-model="vm.data.EndTime" />
+                    <span ng-show="(addEventForm.$submitted || addEventForm.endTime.$touched) && addEventForm.endTime.$error.required" class="help-block">The event needs an end time.</span>
+                    <span ng-show="(addEventForm.$submitted || addEventForm.endTime.$touched) && addEventForm.endTime.$error.time" class="help-block">The event needs a valid end time.</span>
+                </div>
+                <div class="form-group col-md-2 col-sm-4">
+                    <label>Date Status</label>
+                    <div class="checkbox">
+                        <label for="dateConfirmed">
+                            <input id="dateConfirmed" type="checkbox" ng-model="vm.data.DateConfirmed"> Confirmed
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-md-3 col-sm-4" ng-class="{'has-error': (addEventForm.$submitted || addEventForm.cyclistsRequired.$touched) && addEventForm.cyclistsRequired.$invalid }">
+                    <label for="cyclistsRequired">Cyclists</label>
+                    <input type="number" ng-model="vm.data.CyclistsRequested" class="form-control" id="cyclistsRequired" name="cyclistsRequired" required />
+                    <span ng-show="(addEventForm.$submitted || addEventForm.cyclistsRequired.$touched) && addEventForm.cyclistsRequired.$error.required" class="help-block">The number of cyclists needed is required.</span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label for="location">Location</label>
+                    <input class="form-control" id="location" ng-model="vm.data.Location" />
+                </div>
+            </div>
+        </fieldset>
+        <button class="btn btn-primary btn-block" type="submit">Save</button>
+    </form>
+</div>

@@ -1,0 +1,12 @@
+﻿<div ng-class="{'has-error': (form.$submitted || form[name].$touched) && form[name].$invalid }">
+    <label for="{{ name }}">{{ displayName }}</label>
+    <input ng-show="!(autocomplete && autocomplete.data.length > 0)" class="form-control" type="{{mode}}" name="{{name}}" id="{{name}}" ng-model="model" ng-required="required" />
+    <input ng-show="autocomplete && autocomplete.data.length > 0" class="form-control" type="{{mode}}" name="{{name}}" id="{{name}}" ng-model="model" ng-required="required" list="{{name + 'List'}}" />
+    <datalist ng-if="autocomplete && autocomplete.data.length > 0" id="{{name + 'List'}}">
+        <option ng-repeat="item in autocomplete.data">{{item[autocompleteName]}}</option>
+    </datalist>
+    <span ng-show="(form.$submitted || form[name].$touched) && form[name].$error.required" class="help-block">
+        <span ng-if="mode == 'number'">Number of </span> {{ displayName }} is needed.
+    </span>
+    <span ng-show="(form.$submitted || form[name].$touched) && (form[name].$error.date || form[name].$error.time)" class="help-block">{{ displayName }} needs to be valid.</span>
+</div>

@@ -1,0 +1,19 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        Change Description
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="changeDescriptionForm">
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" ng-model="vm.description"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="vm.submit()">Save</button>
+</div>
