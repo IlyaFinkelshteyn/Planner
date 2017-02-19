@@ -3,29 +3,29 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    {{vm.data.Name}}
+                    {{vm.data.name}}
                     <small>
-                        <span ng-if="vm.data.DipsNumber == 0">TBC</span>
-                        <span ng-if="vm.data.DipsNumber != 0">SJA/{{vm.data.DipsNumber}}</span>
-                        <span class="label" ng-class="vm.statusToLabelClass(vm.data.Status)">
-                            {{vm.statusToText(vm.data.Status)}}
+                        <span ng-if="vm.data.dipsNumber == 0">TBC</span>
+                        <span ng-if="vm.data.dipsNumber != 0">SJA/{{vm.data.dipsNumber}}</span>
+                        <span class="label" ng-class="vm.statusToLabelClass(vm.data.status)">
+                            {{vm.statusToText(vm.data.status)}}
                         </span>
                     </small>
                 </h1>
             </div>
         </div>
         <h2>
-            <span ng-if="vm.data.DateConfirmed">{{vm.data.Date | date : 'dd MMMM yy'}} {{vm.data.StartTime | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}} - {{vm.data.EndTime | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}}</span>
-            <span ng-if="!vm.data.DateConfirmed">{{vm.data.Date | date : 'MMMM yy'}}</span>
+            <span ng-if="vm.data.dateConfirmed">{{vm.data.date | date : 'dd MMMM yy'}} {{vm.data.startTime | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}} - {{vm.data.endTime | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}}</span>
+            <span ng-if="!vm.data.dateConfirmed">{{vm.data.date | date : 'MMMM yy'}}</span>
         </h2>
         <div class="row">
             <div class="col-sm-7 col-md-8 col-lg-9">
                 <h3>
-                    <span ng-if="vm.data.Location == '' || vm.data.Location == null">TBC</span>
-                    <span ng-if="vm.data.Location != '' && vm.data.Location != null">{{vm.data.Location}}</span>
+                    <span ng-if="vm.data.location == '' || vm.data.location == null">TBC</span>
+                    <span ng-if="vm.data.location != '' && vm.data.location != null">{{vm.data.location}}</span>
                     <small>
-                        <span ng-if="vm.data.PostCode == '' || vm.data.PostCode == null">TBC</span>
-                        <span ng-if="vm.data.PostCode != '' && vm.data.PostCode != null">{{vm.data.PostCode}}</span>
+                        <span ng-if="vm.data.postCode == '' || vm.data.postCode == null">TBC</span>
+                        <span ng-if="vm.data.postCode != '' && vm.data.postCode != null">{{vm.data.postCode}}</span>
                     </small>
                 </h3>
                 <h3>
@@ -36,8 +36,8 @@
                         </button>
                     </small>
                 </h3>
-                <pre ng-if="vm.data.Description != '' && vm.data.Description != null">{{vm.data.Description}}</pre>
-                <p class="text-muted" ng-if="vm.data.Description == '' || vm.data.Description == null">No description</p>
+                <pre ng-if="vm.data.description != '' && vm.data.description != null">{{vm.data.description}}</pre>
+                <p class="text-muted" ng-if="vm.data.description == '' || vm.data.description == null">No description</p>
                 <h3>
                     Event Schedule
                     <small class="btn-group btn-group-sm">
@@ -50,25 +50,25 @@
                         </button>
                     </small>
                 </h3>
-                <table ng-if="vm.data.Schedule.length > 0" class="table table-schedule">
+                <table ng-if="vm.data.schedule.length > 0" class="table table-schedule">
                     <tbody>
-                        <tr ng-repeat="item in vm.data.Schedule | orderBy: 'Time'">
+                        <tr ng-repeat="item in vm.data.schedule | orderBy: 'time'">
                             <td>
-                                <strong>{{item.Time | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}}</strong>
+                                <strong>{{item.time | amParse: 'HH:mm:ss' | amDateFormat: 'HH:mm'}}</strong>
                             </td>
                             <td>
-                                {{item.Action}}
+                                {{item.action}}
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm" ng-if="vm.showScheduleEdit">
                                     <button class="btn btn-primary" type="button" ng-click="vm.changeScheduleItem(item)"><span class="fa fa-pencil"></span></button>
-                                    <button class="btn btn-danger" type="button" ng-click="vm.deleteScheduleItem(item.Id)"><span class="fa fa-trash"></span></button>
+                                    <button class="btn btn-danger" type="button" ng-click="vm.deleteScheduleItem(item.id)"><span class="fa fa-trash"></span></button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <p ng-if="vm.data.Schedule.length == 0" class="text-muted">No schedule set</p>
+                <p ng-if="vm.data.schedule.length == 0" class="text-muted">No schedule set</p>
             </div>
             <div class="col-sm-5 col-md-4 col-lg-3">
                 <div class="panel panel-default">
@@ -105,7 +105,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.FirstAidersAvailable}}
+                            {{vm.data.firstAidersAvailable}}
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.CyclistsRequested}}
+                            {{vm.data.cyclistsRequested}}
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.FirstAidUnitsAvailable}}
+                            {{vm.data.firstAidUnitsAvailable}}
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.AmbulancesAvailable}}
+                            {{vm.data.ambulancesAvailable}}
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.ParamedicsAvailable ? "Yes" : "No"}}
+                            {{vm.data.paramedicsAvailable ? "Yes" : "No"}}
                         </div>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.DoctorsPresent ? "Yes" : "No"}}
+                            {{vm.data.doctorsPresent ? "Yes" : "No"}}
                         </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                 </button>
             </small>
         </h3>
-        <div class="table-responsive" ng-if="vm.data.Deployments.length > 0">
+        <div class="table-responsive" ng-if="vm.data.deployments.length > 0">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -196,30 +196,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="bike in vm.data.Deployments | orderBy:['Team','Callsign']" ng-class="{active: bike.Team % 2 == 1}">
+                    <tr ng-repeat="bike in vm.data.deployments | orderBy:['team','callsign']" ng-class="{active: bike.team % 2 == 1}">
                         <td>
-                            {{bike.Team}}
+                            {{bike.team}}
                         </td>
                         <td>
-                            <span ng-if="bike.Callsign == '' || bike.Callsign == null" class="text-muted">TBC</span>
-                            <span ng-if="bike.Callsign != '' && bike.Callsign != null">{{bike.Callsign}}</span>
+                            <span ng-if="bike.callsign == '' || bike.callsign == null" class="text-muted">TBC</span>
+                            <span ng-if="bike.callsign != '' && bike.callsign != null">{{bike.callsign}}</span>
                         </td>
                         <td>
-                            <span ng-if="bike.Name == '' || bike.Name == null" class="text-muted">TBC</span>
-                            <span ng-if="bike.Name != '' && bike.Name != null">{{bike.Name}}</span>
+                            <span ng-if="bike.name == '' || bike.name == null" class="text-muted">TBC</span>
+                            <span ng-if="bike.name != '' && bike.name != null">{{bike.name}}</span>
                         </td>
                         <td>
-                            <span ng-if="bike.Name == '' || bike.Name == null" class="text-muted">TBC</span>
-                            <span ng-if="bike.Name != '' && bike.Name != null">{{vm.qualificationToText(bike.Qualification)}}</span>
+                            <span ng-if="bike.name == '' || bike.name == null" class="text-muted">TBC</span>
+                            <span ng-if="bike.name != '' && bike.name != null">{{vm.qualificationToText(bike.qualification)}}</span>
                         </td>
                         <td>
-                            <span ng-if="bike.Name == '' || bike.Name == null" class="text-muted">TBC</span>
-                            <span ng-if="bike.Name != '' && bike.Name != null">{{bike.CyclingLevel == 2 ?  "Advanced" : "Entry Level"}}</span>
+                            <span ng-if="bike.name == '' || bike.name == null" class="text-muted">TBC</span>
+                            <span ng-if="bike.name != '' && bike.name != null">{{bike.cyclingLevel == 2 ?  "Advanced" : "Entry Level"}}</span>
                         </td>
                         <td ng-if="vm.showDeploymentEdit">
                             <div class="btn-group btn-group-sm">
                                 <button class="btn btn-primary" type="button" ng-click="vm.changeDeployment(bike)"><span class="fa fa-pencil"></span></button>
-                                <button class="btn btn-danger" type="button" ng-click="vm.deleteDeployment(bike.Id)"><span class="fa fa-trash"></span></button>
+                                <button class="btn btn-danger" type="button" ng-click="vm.deleteDeployment(bike.id)"><span class="fa fa-trash"></span></button>
                             </div>
                         </td>
                     </tr>
@@ -243,7 +243,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.SoloRespondingExpected ? "Expected" : "Not Expected"}}
+                            {{vm.data.soloRespondingExpected ? "Expected" : "Not Expected"}}
                         </div>
                     </div>
                 </div>
@@ -255,7 +255,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.HighSpeedRoadsAtEvent ? "At Event" : "Not At Event"}}
+                            {{vm.data.highSpeedRoadsAtEvent ? "At Event" : "Not At Event"}}
                         </div>
                     </div>
                 </div>
@@ -267,7 +267,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.ExpectingBadWeather ? "Expected" : "Not Expected"}}
+                            {{vm.data.expectingBadWeather ? "Expected" : "Not Expected"}}
                         </div>
                     </div>
                 </div>
@@ -279,7 +279,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.HasSeriousHistory ? "Experienced" : "Not Experienced"}}
+                            {{vm.data.hasSeriousHistory ? "Experienced" : "Not Experienced"}}
                         </div>
                     </div>
                 </div>
@@ -291,7 +291,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.WiderDistribution ? "Needed" : "Not Needed"}}
+                            {{vm.data.widerDistribution ? "Needed" : "Not Needed"}}
                         </div>
                     </div>
                 </div>
@@ -313,7 +313,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.UsingSJARadio ? "In Use" : "Not In Use"}}
+                            {{vm.data.usingSJARadio ? "In Use" : "Not In Use"}}
                         </div>
                     </div>
                 </div>
@@ -325,31 +325,31 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.UsingAirwave ? "In Use" : "Not In Use"}}
+                            {{vm.data.usingAirwave ? "In Use" : "Not In Use"}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6" ng-if="vm.data.UsingSJARadio">
+            <div class="col-lg-3 col-md-4 col-sm-6" ng-if="vm.data.usingSJARadio">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="text-center">Radio Channel</h4>
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.RadioChannel == "" || vm.data.RadioChannel == null ? "TBC" : vm.data.RadioChannel}}
+                            {{vm.data.radioChannel == "" || vm.data.radioChannel == null ? "TBC" : vm.data.radioChannel}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6" ng-if="vm.data.UsingSJARadio">
+            <div class="col-lg-3 col-md-4 col-sm-6" ng-if="vm.data.usingSJARadio">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="text-center">Fallback Channel</h4>
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.FallbackRadioChannel == "" || vm.data.FallbackRadioChannel == null ? "None" : vm.data.FallbackRadioChannel}}
+                            {{vm.data.fallbackRadioChannel == "" || vm.data.fallbackRadioChannel == null ? "None" : vm.data.fallbackRadioChannel}}
                         </div>
                     </div>
                 </div>
@@ -361,7 +361,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.ControlPhoneNumber == "" || vm.data.ControlPhoneNumber == null ? "None" : vm.data.ControlPhoneNumber}}
+                            {{vm.data.controlPhoneNumber == "" || vm.data.controlPhoneNumber == null ? "None" : vm.data.controlPhoneNumber}}
                         </div>
                     </div>
                 </div>
@@ -370,10 +370,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="text-center">CRU Tracking</h4>
-                    </div>
+                    </div>  
                     <div class="panel-body">
                         <div class="text-center box-text">
-                            {{vm.data.CruTrackingInUse ? "In Use" : "Not In Use"}}
+                            {{vm.data.cruTrackingInUse ? "In Use" : "Not In Use"}}
                         </div>
                     </div>
                 </div>
@@ -390,13 +390,13 @@
                 </button>
             </small>
         </h3>
-        <ul ng-if="vm.data.NoGoAreas.length > 0">
+        <ul ng-if="vm.data.noGoAreas.length > 0">
             <li ng-repeat="area in vm.data.NoGoAreas">
                 <button type="button" class="btn btn-danger btn-sm "><span class="fa fa-trash"></span></button>
-                {{area.Name}}
+                {{area.name}}
             </li>
         </ul>
-        <p ng-if="vm.data.NoGoAreas.length == 0" class="text-muted">
+        <p ng-if="vm.data.noGoAreas.length == 0" class="text-muted">
             No no-go areas.
         </p>
         <h3>
@@ -410,13 +410,13 @@
                 </button>
             </small>
         </h3>
-        <ul ng-if="vm.data.ExpectedIncidents.length > 0">
-            <li ng-repeat="incident in vm.data.ExpectedIncidents">
+        <ul ng-if="vm.data.expectedIncidents.length > 0">
+            <li ng-repeat="incident in vm.data.expectedIncidents">
                 <button type="button" class="btn btn-danger btn-sm "><span class="fa fa-trash"></span></button>
-                {{incident.Name}}
+                {{incident.name}}
             </li>
         </ul>
-        <p ng-if="vm.data.ExpectedIncidents.length == 0" class="text-muted">
+        <p ng-if="vm.data.expectedIncidents.length == 0" class="text-muted">
             No expected incidents.
         </p>
         <h3>
@@ -427,20 +427,20 @@
                 </button>
             </small>
         </h3>
-        <ul ng-if="vm.data.Notes.length > 0">
-            <li ng-repeat="note in vm.data.Notes | orderBy: 'SortNumber'">
-                {{note.Text}}
+        <ul ng-if="vm.data.notes.length > 0">
+            <li ng-repeat="note in vm.data.notes | orderBy: 'sortNumber'">
+                {{note.text}}
             </li>
         </ul>
-        <p ng-if="vm.data.Notes.length == 0" class="text-muted">
+        <p ng-if="vm.data.notes.length == 0" class="text-muted">
             No notes.
         </p>
         <div class="row text-muted">
             <div class="col-md-4">
-                Created <time datetime="{{vm.data.Created}}" am-time-ago="vm.data.Created"></time> by {{vm.data.CreatedBy}}
+                Created <time datetime="{{vm.data.created}}" am-time-ago="vm.data.created"></time> by {{vm.data.createdBy}}
             </div>
             <div class="col-md-4">
-                Updated <time datetime="{{vm.data.LastUpdated}}" am-time-ago="vm.data.LastUpdated"></time> by {{vm.data.UpdatedBy}}
+                Updated <time datetime="{{vm.data.lastUpdated}}" am-time-ago="vm.data.lastUpdated"></time> by {{vm.data.updatedBy}}
             </div>
         </div>
     </div>

@@ -146,6 +146,8 @@ namespace Planner
                 c.OperationFilter<AuthResponseOperationFilter>();
             });
 
+            services.AddOptions();
+
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -153,6 +155,9 @@ namespace Planner
             services.AddTransient<IApiDescriptionProvider, ExtendedApiDescriptionProvider>();
 
             services.AddTransient<IEventService, EventService>();
+
+            services.Configure<FlagServiceOptions>(Configuration);
+            services.AddTransient<IFlagService, FlagService>();
         }
     }
 }

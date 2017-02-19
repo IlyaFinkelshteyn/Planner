@@ -5,9 +5,9 @@
         .module('app')
         .factory('PatchItemService', PatchItemService);
 
-    PatchItemService.$inject = ['$uibModal'];
+    PatchItemService.$inject = ['$modal'];
 
-    function PatchItemService($uibModal) {
+    function PatchItemService($modal) {
         var service = {
             createController: createController
         };
@@ -30,7 +30,7 @@
 
                 resolveObject.mode = function () { return options.mode || "update"; };
 
-                var modalInstance = $uibModal.open({
+                var modalInstance = $modal.open({
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',

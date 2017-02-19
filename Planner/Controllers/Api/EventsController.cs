@@ -16,12 +16,16 @@ namespace Planner.Controllers.Api
     /// <seealso cref="Api.ItemsControllerBase{TModel, TDetails}" />
     public class EventsController : ItemsControllerBase<Event, EventDetails>
     {
+        private IFlagService _flagService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EventsController"/> class.
         /// </summary>
         /// <param name="service">The service used to manipulate events.</param>
-        public EventsController(IEventService service) : base(service)
+        /// <param name="flagService">The service used to manipulate event flags.</param>
+        public EventsController(IEventService service, IFlagService flagService) : base(service)
         {
+            _flagService = flagService;
         }
 
         /// <summary>
@@ -41,7 +45,11 @@ namespace Planner.Controllers.Api
         {
             var items = await Service.GetListAsync(includeHistoric ? DateTime.MinValue : DateTime.Today);
 
-            return Ok(items.Select(e => new EventSummary(e)));
+            return Ok(items.Select(e => new EventSummary(e)
+            {
+                CyclistsAssigned = e.Deployments.Count(d => !string.IsNullOrWhiteSpace(d.Name)),
+                Flags = _flagService.GetFlags(e, Flags.NeedsEmailing | Flags.UrgentCoverNeeded)
+            }));
         }
 
         /// <summary>

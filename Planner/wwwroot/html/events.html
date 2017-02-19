@@ -23,7 +23,7 @@
             <div class="list-group-item" ng-if="vm.data.length == 0">
                 <div class="text-muted">No events</div>
             </div>
-            <a class="list-group-item" ng-class="vm.statusToListGroupItemClass(event.status)" dir-paginate="event in vm.data | filter: vm.filter | orderBy: 'date' | itemsPerPage: 10" href="#!/event/{{event.Id}}">
+            <a class="list-group-item" ng-class="vm.statusToListGroupItemClass(event.status)" dir-paginate="event in vm.data | filter: vm.filter | orderBy: 'date' | itemsPerPage: 10" href="#!/event/{{event.id}}">
                 <div class="row">
                     <div class="col-lg-1">
                         <div class="visible-lg-block">

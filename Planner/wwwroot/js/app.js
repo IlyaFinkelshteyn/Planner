@@ -21,7 +21,7 @@
             controller: 'EventCreateController',
             controllerAs: 'vm'
         }).when('/event/:id', {
-            templateUrl: 'static/event/detail.html',
+            templateUrl: 'html/detail.html',
             controller: 'EventDetailController',
             controllerAs: 'vm'
         }).when('/', {

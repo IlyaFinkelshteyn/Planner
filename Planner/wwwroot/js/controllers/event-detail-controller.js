@@ -5,10 +5,10 @@
         .module('app')
         .controller('EventDetailController', EventDetailController);
 
-    EventDetailController.$inject = ['$location', '$routeParams', '$uibModal', 'EventService', 'FlagService',
+    EventDetailController.$inject = ['$location', '$routeParams', '$modal', 'EventService', 'FlagService',
         'ScheduleItemService', 'DeploymentService', 'PatchItemService'];
 
-    function EventDetailController($location, $routeParams, $uibModal, EventService, FlagService,
+    function EventDetailController($location, $routeParams, $modal, EventService, FlagService,
         ScheduleItemService, DeploymentService, PatchItemService) {
         /* jshint validthis:true */
         var vm = this;
@@ -19,7 +19,7 @@
         vm.showDeploymentEdit = false;
 
         vm.addDeployment = function (item) {
-            var modalInstance = $uibModal.open({
+            var modalInstance = $modal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -48,7 +48,7 @@
         }
 
         vm.addScheduleItem = function () {
-            var modalInstance = $uibModal.open({
+            var modalInstance = $modal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',

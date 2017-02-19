@@ -25,7 +25,7 @@ namespace Planner.Services
             await Database.SaveChangesAsync();
         }
 
-        public async Task<T> GetAsync(int id)
+        public virtual async Task<T> GetAsync(int id)
         {
             return await Database.FindAsync<T>(id);
         }
