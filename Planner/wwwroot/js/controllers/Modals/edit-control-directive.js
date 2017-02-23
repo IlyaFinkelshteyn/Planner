@@ -20,7 +20,7 @@
             },
             link: link,
             restrict: 'E',
-            templateUrl: '/static/event/modals/edit-control.html',
+            templateUrl: '/html/modals/edit-control.html',
             require: "^form"
         };
         return directive;

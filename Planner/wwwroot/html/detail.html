@@ -79,11 +79,11 @@
                         <button type="button" class="btn btn-block btn-primary" ng-click="vm.renameEvent()"><span class="fa fa-pencil"></span> Rename Event</button>
                         <button type="button" class="btn btn-block btn-primary" ng-click="vm.changeDate()"><span class="fa fa-calendar"></span> Change Date</button>
                         <button type="button" class="btn btn-block btn-primary" ng-click="vm.changeLocation()"><span class="fa fa-map-marker"></span> Change Location</button>
-                        <button ng-if="vm.data.Status == 0" type="button" class="btn btn-block btn-success" ng-click="vm.setStatus(1)"><span class="fa fa-check"></span> Confirm Event</button>
-                        <button ng-if="vm.data.Status == 1" type="button" class="btn btn-block btn-warning" ng-click="vm.setStatus(0)"><span class="fa fa-question"></span> Unconfirm Event</button>
-                        <button ng-if="vm.data.Status != 2" type="button" class="btn btn-block btn-danger" ng-click="vm.setStatus(2)"><span class="fa fa-ban"></span> Cancel Event</button>
-                        <button ng-if="vm.data.Status == 2" type="button" class="btn btn-block btn-success" ng-click="vm.setStatus(0)"><span class="fa fa-undo"></span> Restore Event</button>
-                        <button ng-if="vm.data.Status != 2" type="button" class="btn btn-block btn-primary"><span class="fa fa-download"></span> Get Briefing Notes</button>
+                        <button ng-if="vm.data.status == 0" type="button" class="btn btn-block btn-success" ng-click="vm.setStatus(1)"><span class="fa fa-check"></span> Confirm Event</button>
+                        <button ng-if="vm.data.status == 1" type="button" class="btn btn-block btn-warning" ng-click="vm.setStatus(0)"><span class="fa fa-question"></span> Unconfirm Event</button>
+                        <button ng-if="vm.data.status != 2" type="button" class="btn btn-block btn-danger" ng-click="vm.setStatus(2)"><span class="fa fa-ban"></span> Cancel Event</button>
+                        <button ng-if="vm.data.status == 2" type="button" class="btn btn-block btn-success" ng-click="vm.setStatus(0)"><span class="fa fa-undo"></span> Restore Event</button>
+                        <button ng-if="vm.data.status != 2" type="button" class="btn btn-block btn-primary"><span class="fa fa-download"></span> Get Briefing Notes</button>
                     </div>
                 </div>
             </div>
@@ -391,7 +391,7 @@
             </small>
         </h3>
         <ul ng-if="vm.data.noGoAreas.length > 0">
-            <li ng-repeat="area in vm.data.NoGoAreas">
+            <li ng-repeat="area in vm.data.noGoAreas">
                 <button type="button" class="btn btn-danger btn-sm "><span class="fa fa-trash"></span></button>
                 {{area.name}}
             </li>
@@ -450,7 +450,7 @@
                 <div class="panel panel-info">
                     <div class="panel-body bg-info text-center">
                         <p class="text-info" style="margin: 0">
-                            <img src="/Content/ripple.svg" height="30" width="30" />
+                            <img src="/img/ripple.svg" height="30" width="30" />
                             One moment please...
                         </p>
                     </div>

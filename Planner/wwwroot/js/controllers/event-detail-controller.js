@@ -5,10 +5,10 @@
         .module('app')
         .controller('EventDetailController', EventDetailController);
 
-    EventDetailController.$inject = ['$location', '$routeParams', '$modal', 'EventService', 'FlagService',
+    EventDetailController.$inject = ['$location', '$routeParams', '$uibModal', 'EventService', 'FlagService',
         'ScheduleItemService', 'DeploymentService', 'PatchItemService'];
 
-    function EventDetailController($location, $routeParams, $modal, EventService, FlagService,
+    function EventDetailController($location, $routeParams, $uibModal, EventService, FlagService,
         ScheduleItemService, DeploymentService, PatchItemService) {
         /* jshint validthis:true */
         var vm = this;
@@ -19,11 +19,11 @@
         vm.showDeploymentEdit = false;
 
         vm.addDeployment = function (item) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'static/event/modals/change-deployment-modal.html',
+                templateUrl: '/html/modals/change-deployment-modal.html',
                 controller: 'ChangeDeploymentController',
                 controllerAs: 'vm',
                 resolve: {
@@ -48,11 +48,11 @@
         }
 
         vm.addScheduleItem = function () {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'static/event/modals/change-schedule-item-modal.html',
+                templateUrl: '/html/modals/change-schedule-item-modal.html',
                 controller: 'ChangeScheduleItemController',
                 controllerAs: 'vm',
                 resolve: {
@@ -70,7 +70,7 @@
         }
 
         vm.changeConsiderations = PatchItemService.createController({
-            template: 'static/event/modals/change-considerations-modal.html',
+            template: '/html/modals/change-considerations-modal.html',
             controller: 'ChangeConsiderationsController',
             service: EventService,
             itemId: vm.id,
@@ -81,7 +81,7 @@
         });
 
         vm.changeCommunications = PatchItemService.createController({
-            template: 'static/event/modals/change-communications-modal.html',
+            template: '/html/modals/change-communications-modal.html',
             controller: 'ChangeCommunicationsController',
             service: EventService,
             itemId: vm.id,
@@ -92,7 +92,7 @@
         });
 
         vm.changeCover = PatchItemService.createController({
-            template: 'static/event/modals/change-cover-modal.html',
+            template: '/html/modals/change-cover-modal.html',
             controller: 'ChangeCoverController',
             service: EventService,
             itemId: vm.id,
@@ -103,17 +103,17 @@
         });
 
         vm.changeDate = PatchItemService.createController({
-            template: 'static/event/modals/change-date-modal.html',
+            template: '/html/modals/change-date-modal.html',
             controller: 'ChangeDateController',
             service: EventService,
             itemId: vm.id,
             model: function (el) { return vm.data[el]; },
             callback: activate,
-            modelItems: ['Date', 'StartTime', 'EndTime', 'DateConfirmed']
+            modelItems: ['date', 'startTime', 'endTime', 'dateConfirmed']
         });
 
         vm.changeDeployment = PatchItemService.createController({
-            template: 'static/event/modals/change-deployment-modal.html',
+            template: '/html/modals/change-deployment-modal.html',
             controller: 'ChangeDeploymentController',
             service: DeploymentService,
             callback: activate,
@@ -124,7 +124,7 @@
         });
 
         vm.changeDescription = PatchItemService.createController({
-            template: 'static/event/modals/change-description-modal.html',
+            template: '/html/modals/change-description-modal.html',
             controller: 'ChangeDescriptionController',
             service: EventService,
             itemId: vm.id,
@@ -134,7 +134,7 @@
         });
 
         vm.changeLocation = PatchItemService.createController({
-            template: 'static/event/modals/change-location-modal.html',
+            template: '/html/modals/change-location-modal.html',
             controller: 'ChangeLocationController',
             service: EventService,
             itemId: vm.id,
@@ -144,7 +144,7 @@
         });
 
         vm.changeScheduleItem = PatchItemService.createController({
-            template: 'static/event/modals/change-schedule-item-modal.html',
+            template: '/html/modals/change-schedule-item-modal.html',
             controller: 'ChangeScheduleItemController',
             service: ScheduleItemService,
             callback: activate,
@@ -188,13 +188,13 @@
         }
 
         vm.renameEvent = PatchItemService.createController({
-            template: 'static/event/modals/rename-modal.html',
+            template: '/html/modals/rename-modal.html',
             controller: 'RenameEventController',
             service: EventService,
             itemId: vm.id,
             model: function (el) { return vm.data[el]; },
             callback: activate,
-            modelItems: ['Name', 'DipsNumber']
+            modelItems: ['name', 'dipsNumber']
         });
 
         vm.qualificationToText = function (qualification) {

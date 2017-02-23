@@ -17,7 +17,7 @@
             },
             link: link,
             restrict: 'E',
-            templateUrl: '/static/event/modals/edit-check-control.html'
+            templateUrl: '/html/modals/edit-check-control.html'
         };
         return directive;
 

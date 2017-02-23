@@ -36,10 +36,16 @@
             $rootScope.$on('$routeChangeStart', function (event, next, current) {
                 // next is an object that is the route that we are starting to go to
                 // current is an object that is the route where we are currently
-                var currentPath = current.originalPath;
                 var nextPath = next.originalPath;
 
-                console.log('Starting to leave %s to go to %s', currentPath, nextPath);
+                if (typeof current == 'undefined') {
+                    console.log('Start at %s', nextPath);
+                }
+                else {
+                    var currentPath = current.originalPath;
+
+                    console.log('Starting to leave %s to go to %s', currentPath, nextPath);
+                }
             });
         }
     ]);
