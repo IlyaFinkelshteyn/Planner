@@ -1,13 +1,10 @@
-(function () {
-    'use strict';
-    angular
-        .module('app')
-        .controller('EventCreateController', EventCreateController);
-    EventCreateController.$inject = ['$location', 'EventService'];
+angular
+    .module('app')
+    .controller('EventCreateController', EventCreateController);
+EventCreateController.$inject = ['$location', 'EventService'];
+var EventCreateController = (function () {
     function EventCreateController($location, EventService) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.data = {
+        this.data = {
             CyclistsRequested: 2,
             Date: new Date(),
             DipsNumber: '',
@@ -18,13 +15,14 @@
             Status: '0',
             DateConfirmed: false,
         };
-        vm.debug = function () { return angular.toJson(vm.data); };
-        vm.submit = function () {
-            EventService.addEvent(vm.data).then(function (response) {
-                $location.path('/Event/' + response.data.id);
+        this.debug = function () { return angular.toJson(this.data); };
+        this.submit = function () {
+            this.EventService.addEvent(this.data).then(function (response) {
+                this.$location.path('/Event/' + response.data.id);
             });
         };
-        activate();
-        function activate() { }
+        this.$location = $location;
+        this.EventService = EventService;
     }
-})();
+    return EventCreateController;
+}());

@@ -1,67 +1,71 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .controller('HomeController', HomeController);
 
-    angular
-        .module('app')
-        .controller('HomeController', HomeController);
+HomeController.$inject = ['$location', 'EventService', 'FlagService'];
 
-    HomeController.$inject = ['$location', 'EventService', 'FlagService'];
-
-    function HomeController($location, EventService, FlagService) {
-        /* jshint validthis:true */
-        var vm = this;
-
-        vm.historic = $location.search().historic === 'true';
-        vm.title = vm.historic ? 'All Events' : 'Upcoming Events';
-        vm.loading = true;
-        vm.page = 0;
-        vm.pageCount = 0;
-        vm.pageSize = 10;
-        vm.filter = "";
-
-        vm.pages = function () {
-            return Array.apply(null, { length: vm.pageCount }).map(Number.call, Number);
-        };
-
-        vm.setPage = function (page) {
-            if (page < vm.pageCount)
-                vm.page = page;
-        };
-
-        vm.statusToLabelClass = function (status) {
-            return FlagService.statusToLabelClass(status);
-        };
-
-        vm.statusToListGroupItemClass = function (status) {
-            return FlagService.statusToListGroupItemClass(status);
-        };
-
-        vm.statusToText = function (status) {
-            return FlagService.statusToText(status);
-        };
-
-        vm.flagToLabelClass = function (flag) {
-            return FlagService.flagToLabelClass(flag);
-        };
-
-        vm.flagToNames = function (flag) {
-            return FlagService.flagToNames(flag);
-        };
-
-        activate();
-
-        function activate() {
-            EventService.getEvents(vm.historic).then(function (response) {
-                vm.data = response.data;
-
-                vm.pageCount = Math.ceil(vm.data.length / vm.pageSize);
-
-                vm.loading = false;
-
-                vm.needsEmail = !vm.historic && $.grep(vm.data, function (n, event) {
-                    return $.inArray(FlagService.flags.NeedsEmailing, event.Flags) !== -1;
-                });
-            });
-        }
+class HomeController {
+    constructor($location: angular.ILocationService, EventService: EventService, FlagService: FlagService) {
+        this.$location = $location;
+        this.EventService = EventService;
+        this.FlagService = FlagService;
+        this.historic = $location.search().historic === 'true';
+        this.title = this.historic ? 'All Events' : 'Upcoming Events';
+        this.activate();
     }
-})();
+
+    $location: angular.ILocationService;
+    EventService: EventService;
+    FlagService: FlagService;
+
+    historic: boolean;
+    title: string;
+    loading = true;
+    page = 0;
+    pageCount = 0;
+    pageSize = 10;
+    filter = "";
+
+    pages() {
+        return Array.apply(null, { length: this.pageCount }).map(Number.call, Number);
+    };
+
+    setPage(page: number) {
+        if (page < this.pageCount)
+            this.page = page;
+    };
+
+    statusToLabelClass(status: EventStatus) {
+        return this.FlagService.statusToLabelClass(status);
+    };
+
+    statusToListGroupItemClass = function(status: EventStatus) {
+        return this.FlagService.statusToListGroupItemClass(status);
+    };
+
+    statusToText = function(status: EventStatus) {
+        return this.FlagService.statusToText(status);
+    };
+
+    flagToLabelClass = function(flag: Flags) {
+        return this.FlagService.flagToLabelClass(flag);
+    };
+
+    flagToNames = function(flag: Flags) {
+        return this.FlagService.flagToNames(flag);
+    };
+
+    activate() {
+        this.EventService.getEvents(this.historic).then(function(response) {
+            this.data = response.data;
+
+            this.pageCount = Math.ceil(this.data.length / this.pageSize);
+
+            this.loading = false;
+
+            this.needsEmail = !this.historic && $.grep(this.data, function(event: any, n) {
+                return $.inArray(this.FlagService.flags.NeedsEmailing, event.Flags) !== -1;
+            });
+        });
+    }
+}

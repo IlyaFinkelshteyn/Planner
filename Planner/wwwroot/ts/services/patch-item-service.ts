@@ -6,13 +6,13 @@ PatchItemService.$inject = ['$uibModal'];
 
 interface PatchItemServiceOptions {
     resolve?: ResolveObject;
-    model: (el: any) => any;
+    model?: (el: any) => any;
     modelItems: string[];
-    mode: string;
+    mode?: string;
     template: string;
     controller: string;
     service: any;
-    itemId: number;
+    itemId?: number;
     callback: () => void;
 }
 

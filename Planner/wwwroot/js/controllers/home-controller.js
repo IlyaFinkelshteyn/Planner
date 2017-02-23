@@ -1,51 +1,55 @@
-(function () {
-    'use strict';
-    angular
-        .module('app')
-        .controller('HomeController', HomeController);
-    HomeController.$inject = ['$location', 'EventService', 'FlagService'];
+angular
+    .module('app')
+    .controller('HomeController', HomeController);
+HomeController.$inject = ['$location', 'EventService', 'FlagService'];
+var HomeController = (function () {
     function HomeController($location, EventService, FlagService) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.historic = $location.search().historic === 'true';
-        vm.title = vm.historic ? 'All Events' : 'Upcoming Events';
-        vm.loading = true;
-        vm.page = 0;
-        vm.pageCount = 0;
-        vm.pageSize = 10;
-        vm.filter = "";
-        vm.pages = function () {
-            return Array.apply(null, { length: vm.pageCount }).map(Number.call, Number);
+        this.loading = true;
+        this.page = 0;
+        this.pageCount = 0;
+        this.pageSize = 10;
+        this.filter = "";
+        this.statusToListGroupItemClass = function (status) {
+            return this.FlagService.statusToListGroupItemClass(status);
         };
-        vm.setPage = function (page) {
-            if (page < vm.pageCount)
-                vm.page = page;
+        this.statusToText = function (status) {
+            return this.FlagService.statusToText(status);
         };
-        vm.statusToLabelClass = function (status) {
-            return FlagService.statusToLabelClass(status);
+        this.flagToLabelClass = function (flag) {
+            return this.FlagService.flagToLabelClass(flag);
         };
-        vm.statusToListGroupItemClass = function (status) {
-            return FlagService.statusToListGroupItemClass(status);
+        this.flagToNames = function (flag) {
+            return this.FlagService.flagToNames(flag);
         };
-        vm.statusToText = function (status) {
-            return FlagService.statusToText(status);
-        };
-        vm.flagToLabelClass = function (flag) {
-            return FlagService.flagToLabelClass(flag);
-        };
-        vm.flagToNames = function (flag) {
-            return FlagService.flagToNames(flag);
-        };
-        activate();
-        function activate() {
-            EventService.getEvents(vm.historic).then(function (response) {
-                vm.data = response.data;
-                vm.pageCount = Math.ceil(vm.data.length / vm.pageSize);
-                vm.loading = false;
-                vm.needsEmail = !vm.historic && $.grep(vm.data, function (n, event) {
-                    return $.inArray(FlagService.flags.NeedsEmailing, event.Flags) !== -1;
-                });
-            });
-        }
+        this.$location = $location;
+        this.EventService = EventService;
+        this.FlagService = FlagService;
+        this.historic = $location.search().historic === 'true';
+        this.title = this.historic ? 'All Events' : 'Upcoming Events';
+        this.activate();
     }
-})();
+    HomeController.prototype.pages = function () {
+        return Array.apply(null, { length: this.pageCount }).map(Number.call, Number);
+    };
+    ;
+    HomeController.prototype.setPage = function (page) {
+        if (page < this.pageCount)
+            this.page = page;
+    };
+    ;
+    HomeController.prototype.statusToLabelClass = function (status) {
+        return this.FlagService.statusToLabelClass(status);
+    };
+    ;
+    HomeController.prototype.activate = function () {
+        this.EventService.getEvents(this.historic).then(function (response) {
+            this.data = response.data;
+            this.pageCount = Math.ceil(this.data.length / this.pageSize);
+            this.loading = false;
+            this.needsEmail = !this.historic && $.grep(this.data, function (event, n) {
+                return $.inArray(this.FlagService.flags.NeedsEmailing, event.Flags) !== -1;
+            });
+        });
+    };
+    return HomeController;
+}());

@@ -1,230 +1,276 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .controller('EventDetailController', EventDetailController);
 
-    angular
-        .module('app')
-        .controller('EventDetailController', EventDetailController);
+EventDetailController.$inject = ['$location', '$routeParams', '$uibModal', 'EventService', 'FlagService',
+    'ScheduleItemService', 'DeploymentService', 'PatchItemService'];
 
-    EventDetailController.$inject = ['$location', '$routeParams', '$uibModal', 'EventService', 'FlagService',
-        'ScheduleItemService', 'DeploymentService', 'PatchItemService'];
+interface EventDetailRouteParams extends angular.route.IRouteParamsService {
+    id: number;
+}
 
-    function EventDetailController($location, $routeParams, $uibModal, EventService, FlagService,
-        ScheduleItemService, DeploymentService, PatchItemService) {
-        /* jshint validthis:true */
-        var vm = this;
+const enum Qualification {
+    AFA = 1,
+    ETA = 2,
+    EMT = 3,
+    Paramedic = 4,
+    Technician = 5,
+    Doctor = 6,
+    Nurse = 7
+}
 
-        vm.id = $routeParams.id
-        vm.loading = true;
-        vm.showScheduleEdit = false;
-        vm.showDeploymentEdit = false;
+class EventDetailController {
+    constructor($location: angular.ILocationService, $routeParams: EventDetailRouteParams,
+        $uibModal: angular.ui.bootstrap.IModalService, EventService: EventService,
+        FlagService: FlagService, ScheduleItemService: ScheduleItemService,
+        DeploymentService: DeploymentService, PatchItemService: PatchItemService) {
+        this.$location = $location;
+        this.$routeParams = $routeParams;
+        this.$uibModal = $uibModal;
+        this.EventService = EventService;
+        this.FlagService = FlagService;
+        this.ScheduleItemService = ScheduleItemService;
+        this.DeploymentService = DeploymentService;
+        this.PatchItemService = PatchItemService;
 
-        vm.addDeployment = function (item) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/html/modals/change-deployment-modal.html',
-                controller: 'ChangeDeploymentController',
-                controllerAs: 'vm',
-                resolve: {
-                    mode: function () { return "add"; },
-                    team: function () { return 1; },
-                    callsign: function () { return ""; },
-                    cyclist: function () { return ""; },
-                    cyclistData: function () { return DeploymentService.getCyclistSummaries(); },
-                    clinicalQualification: function () { return ""; },
-                    cyclingLevel: function () { return ""; }
-                }
-            });
-
-            modalInstance.result.then(function (result) {
-                result.name = result.cyclist;
-                result.qualification = result.clinicalQualification;
-
-                DeploymentService.addItem(vm.id, result).then(function () {
-                    activate();
-                });
-            });
-        }
-
-        vm.addScheduleItem = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/html/modals/change-schedule-item-modal.html',
-                controller: 'ChangeScheduleItemController',
-                controllerAs: 'vm',
-                resolve: {
-                    mode: function () { return "add"; },
-                    time: function () { return ""; },
-                    action: function () { return ""; }
-                }
-            });
-
-            modalInstance.result.then(function (result) {
-                ScheduleItemService.addItem(vm.id, result).then(function () {
-                    activate();
-                });
-            });
-        }
-
-        vm.changeConsiderations = PatchItemService.createController({
+        this.changeConsiderations = this.PatchItemService.createController({
             template: '/html/modals/change-considerations-modal.html',
             controller: 'ChangeConsiderationsController',
-            service: EventService,
-            itemId: vm.id,
-            model: function (el) { return vm.data[el]; },
-            callback: activate,
+            service: this.EventService,
+            itemId: this.id,
+            model: function(el) { return this.data[el]; },
+            callback: this.activate,
             modelItems: ['soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather',
                 'hasSeriousHistory', 'widerDistribution']
         });
 
-        vm.changeCommunications = PatchItemService.createController({
+        this.changeCommunications = this.PatchItemService.createController({
             template: '/html/modals/change-communications-modal.html',
             controller: 'ChangeCommunicationsController',
-            service: EventService,
-            itemId: vm.id,
-            model: function (el) { return vm.data[el]; },
-            callback: activate,
+            service: this.EventService,
+            itemId: this.id,
+            model: function(el) { return this.data[el]; },
+            callback: this.activate,
             modelItems: ['usingSJARadio', 'usingAirwave', 'radioChannel',
                 'fallbackRadioChannel', 'controlPhoneNumber', 'cruTrackingInUse']
         });
 
-        vm.changeCover = PatchItemService.createController({
+        this.changeCover = this.PatchItemService.createController({
             template: '/html/modals/change-cover-modal.html',
             controller: 'ChangeCoverController',
-            service: EventService,
-            itemId: vm.id,
-            model: function (el) { return vm.data[el]; },
-            callback: activate,
+            service: this.EventService,
+            itemId: this.id,
+            model: function(el) { return this.data[el]; },
+            callback: this.activate,
             modelItems: ['firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable',
                 'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent']
         });
 
-        vm.changeDate = PatchItemService.createController({
+        this.changeDate = this.PatchItemService.createController({
             template: '/html/modals/change-date-modal.html',
             controller: 'ChangeDateController',
-            service: EventService,
-            itemId: vm.id,
-            model: function (el) { return vm.data[el]; },
-            callback: activate,
+            service: this.EventService,
+            itemId: this.id,
+            model: function(el) { return this.data[el]; },
+            callback: this.activate,
             modelItems: ['date', 'startTime', 'endTime', 'dateConfirmed']
         });
 
-        vm.changeDeployment = PatchItemService.createController({
+        this.changeDeployment = this.PatchItemService.createController({
             template: '/html/modals/change-deployment-modal.html',
             controller: 'ChangeDeploymentController',
-            service: DeploymentService,
-            callback: activate,
+            service: this.DeploymentService,
+            callback: this.activate,
             modelItems: ['team', 'callsign', 'name', 'qualification', 'cyclingLevel'],
             resolve: {
-                cyclistData: function () { return DeploymentService.getCyclistSummaries(); },
+                cyclistData: function() { return this.DeploymentService.getCyclistSummaries(); },
             }
         });
 
-        vm.changeDescription = PatchItemService.createController({
+        this.changeDescription = this.PatchItemService.createController({
             template: '/html/modals/change-description-modal.html',
             controller: 'ChangeDescriptionController',
-            service: EventService,
-            itemId: vm.id,
-            model: function (el) { return vm.data[el]; },
-            callback: activate,
+            service: this.EventService,
+            itemId: this.id,
+            model: function(el) { return this.data[el]; },
+            callback: this.activate,
             modelItems: ['description']
         });
 
-        vm.changeLocation = PatchItemService.createController({
+        this.changeLocation = this.PatchItemService.createController({
             template: '/html/modals/change-location-modal.html',
             controller: 'ChangeLocationController',
-            service: EventService,
-            itemId: vm.id,
-            model: function (el) { return vm.data[el]; },
-            callback: activate,
+            service: this.EventService,
+            itemId: this.id,
+            model: function(el) { return this.data[el]; },
+            callback: this.activate,
             modelItems: ['location', 'postCode']
         });
 
-        vm.changeScheduleItem = PatchItemService.createController({
+        this.changeScheduleItem = this.PatchItemService.createController({
             template: '/html/modals/change-schedule-item-modal.html',
             controller: 'ChangeScheduleItemController',
-            service: ScheduleItemService,
-            callback: activate,
+            service: this.ScheduleItemService,
+            callback: this.activate,
             modelItems: ['time', 'action']
         });
 
-        vm.deleteDeployment = function (id) {
-            DeploymentService.deleteItem(id).then(function () {
-                activate();
-            });
-        }
+        this.activate();
+    }
 
-        vm.deleteScheduleItem = function (id) {
-            ScheduleItemService.deleteItem(id).then(function () {
-                activate();
-            });
-        }
+    $location: angular.ILocationService;
+    $routeParams: EventDetailRouteParams;
+    $uibModal: angular.ui.bootstrap.IModalService;
+    EventService: EventService;
+    FlagService: FlagService;
+    ScheduleItemService: ScheduleItemService;
+    DeploymentService: DeploymentService;
+    PatchItemService: PatchItemService;
 
-        vm.setStatus = function (status) {
-            var patchData = [{ 'op': 'replace', 'path': '/Status', 'value': status }];
+    id = this.$routeParams.id;
 
-            EventService.patchEvent(vm.id, patchData).then(function () {
-                activate();
-            });
-        };
+    loading: boolean = true;
+    showScheduleEdit: boolean = false;
+    showDeploymentEdit: boolean = false;
 
-        vm.statusToLabelClass = function (status) {
-            return FlagService.statusToLabelClass(status);
-        };
-
-        vm.statusToText = function (status) {
-            return FlagService.statusToText(status);
-        };
-
-        vm.toggleDeploymentEdit = function () {
-            vm.showDeploymentEdit = !vm.showDeploymentEdit;
-        }
-
-        vm.toggleScheduleEdit = function () {
-            vm.showScheduleEdit = !vm.showScheduleEdit;
-        }
-
-        vm.renameEvent = PatchItemService.createController({
-            template: '/html/modals/rename-modal.html',
-            controller: 'RenameEventController',
-            service: EventService,
-            itemId: vm.id,
-            model: function (el) { return vm.data[el]; },
-            callback: activate,
-            modelItems: ['name', 'dipsNumber']
+    addDeployment(item: any) {
+        var modalInstance = this.$uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/html/modals/change-deployment-modal.html',
+            controller: 'ChangeDeploymentController',
+            controllerAs: 'vm',
+            resolve: {
+                mode: function() { return "add"; },
+                team: function() { return 1; },
+                callsign: function() { return ""; },
+                cyclist: function() { return ""; },
+                cyclistData: function() { return this.DeploymentService.getCyclistSummaries(); },
+                clinicalQualification: function() { return ""; },
+                cyclingLevel: function() { return ""; }
+            }
         });
 
-        vm.qualificationToText = function (qualification) {
-            switch (qualification) {
-                case 1:
-                    return "Advanced First Aider";
-                case 2:
-                    return "Emergency Transport Attendant";
-                case 3:
-                    return "Emergency Medical Technician";
-                case 4:
-                    return "Paramedic";
-                case 5:
-                    return "Technician";
-                case 6:
-                    return "Doctor";
-                case 7:
-                    return "Nurse";
-                default:
-                    return "Other";
-            }
-        };
+        modalInstance.result.then(function(result) {
+            result.name = result.cyclist;
+            result.qualification = result.clinicalQualification;
 
-        activate();
-
-        function activate() {
-            EventService.getEvent(vm.id).then(function (response) {
-                vm.data = response.data;
-                vm.loading = false;
+            this.DeploymentService.addItem(this.id, result).then(function() {
+                this.activate();
             });
-        }
+        });
     }
-})();
+
+    addScheduleItem() {
+        var modalInstance = this.$uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/html/modals/change-schedule-item-modal.html',
+            controller: 'ChangeScheduleItemController',
+            controllerAs: 'vm',
+            resolve: {
+                mode: function() { return "add"; },
+                time: function() { return ""; },
+                action: function() { return ""; }
+            }
+        });
+
+        modalInstance.result.then(function(result) {
+            this.ScheduleItemService.addItem(this.id, result).then(function() {
+                this.activate();
+            });
+        });
+    }
+
+    changeConsiderations: ((item: any) => void);
+
+    changeCommunications: ((item: any) => void);
+
+    changeCover: ((item: any) => void);
+
+    changeDate: ((item: any) => void);
+
+    changeDeployment: ((item: any) => void);
+
+    changeDescription: ((item: any) => void);
+
+    changeLocation: ((item: any) => void);
+
+    changeScheduleItem: ((item: any) => void);
+
+    deleteDeployment(id: number) {
+        this.DeploymentService.deleteItem(id).then(function() {
+            this.activate();
+        });
+    }
+
+    deleteScheduleItem(id: number) {
+        this.ScheduleItemService.deleteItem(id).then(function() {
+            this.activate();
+        });
+    }
+
+    setStatus(status: EventStatus) {
+        var patchData = [{ 'op': 'replace', 'path': '/Status', 'value': status }];
+
+        this.EventService.patchEvent(this.id, patchData).then(function() {
+            this.activate();
+        });
+    };
+
+    statusToLabelClass(status: EventStatus) {
+        return this.FlagService.statusToLabelClass(status);
+    };
+
+    statusToText(status: EventStatus) {
+        return this.FlagService.statusToText(status);
+    };
+
+    toggleDeploymentEdit() {
+        this.showDeploymentEdit = !this.showDeploymentEdit;
+    }
+
+    toggleScheduleEdit() {
+        this.showScheduleEdit = !this.showScheduleEdit;
+    }
+
+    renameEvent = this.PatchItemService.createController({
+        template: '/html/modals/rename-modal.html',
+        controller: 'RenameEventController',
+        service: this.EventService,
+        itemId: this.id,
+        model: function(el) { return this.data[el]; },
+        callback: this.activate,
+        modelItems: ['name', 'dipsNumber']
+    });
+
+    qualificationToText(qualification: Qualification) {
+        switch (qualification) {
+            case Qualification.AFA:
+                return "Advanced First Aider";
+            case Qualification.ETA:
+                return "Emergency Transport Attendant";
+            case Qualification.EMT:
+                return "Emergency Medical Technician";
+            case Qualification.Paramedic:
+                return "Paramedic";
+            case Qualification.Technician:
+                return "Technician";
+            case Qualification.Doctor:
+                return "Doctor";
+            case Qualification.Nurse:
+                return "Nurse";
+            default:
+                return "Other";
+        }
+    };
+
+    activate() {
+        this.EventService.getEvent(this.id).then(function(response) {
+            this.data = response.data;
+            this.loading = false;
+        });
+    }
+}
