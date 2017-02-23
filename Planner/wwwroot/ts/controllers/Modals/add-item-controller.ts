@@ -1,24 +1,31 @@
-(function () {
+﻿(function () {
     'use strict';
+
     angular
         .module('app')
-        .controller('RenameEventController', RenameEventController);
-    RenameEventController.$inject = ['$uibModalInstance', 'dipsNumber', 'name'];
-    function RenameEventController($uibModalInstance, dipsNumber, name) {
+        .controller('AddItemController', AddItemController);
+
+    AddItemController.$inject = ['$uibModalInstance', 'itemName'];
+
+    function AddItemController($uibModalInstance, itemName) {
         /* jshint validthis:true */
         var vm = this;
-        vm.dipsNumber = dipsNumber;
-        vm.name = name;
+
+        vm.itemName = itemName;
+        vm.name = '';
+
         vm.submit = function () {
             $uibModalInstance.close({
-                dipsNumber: vm.dipsNumber,
                 name: vm.name
             });
-        };
+        }
+
         vm.cancel = function () {
             $uibModalInstance.dismiss('cancel');
-        };
+        }
+
         activate();
+
         function activate() { }
     }
 })();

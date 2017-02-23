@@ -1,34 +1,46 @@
-/// <reference path="./moment.d.ts" />
+﻿/// <reference path="./moment.d.ts" />
+
 angular
     .module('app')
     .factory('EventService', EventService);
+
 EventService.$inject = ['$http'];
-var EventService = (function () {
-    function EventService($http) {
-        this.urlBase = '/api/events';
+
+class EventService {
+    constructor($http: angular.IHttpService) {
         this.$http = $http;
     }
-    EventService.prototype.getEvents = function (historic) {
+
+    private urlBase: string = '/api/events';
+    private $http: angular.IHttpService;
+
+    getEvents(historic: boolean) {
         if (historic)
             return this.$http.get(this.urlBase + "?includeHistoric=true");
         return this.$http.get(this.urlBase);
-    };
-    EventService.prototype.getEvent = function (id) {
+    }
+
+    getEvent(id: number) {
         return this.$http.get(this.urlBase + "/" + id);
-    };
-    EventService.prototype.addEvent = function (event) {
+    }
+
+    addEvent(event: any) {
         event = $.extend({}, event);
+
         if (event.DipsNumber === '' || event.DipsNumber == null)
             event.DipsNumber = 0;
+
         event.EndTime = moment(event.EndTime).format("hh:mm");
         event.StartTime = moment(event.StartTime).format("hh:mm");
+
         return this.$http({
             method: 'POST',
             url: this.urlBase,
             data: event
         });
-    };
-    EventService.prototype.patchEvent = function (id, patch) {
+    }
+
+    patchEvent(id: number, patch: any) {
         return this.$http({
             method: 'PATCH',
             url: this.urlBase + "/" + id,
@@ -37,6 +49,5 @@ var EventService = (function () {
                 'Content-Type': 'application/json-patch+json'
             }
         });
-    };
-    return EventService;
-}());
+    }
+}

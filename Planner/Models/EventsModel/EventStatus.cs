@@ -2,8 +2,8 @@
 {
     public enum EventStatus
     {
-        Unconfirmed,
-        Confirmed,
-        Cancelled
+        Unconfirmed = 0,
+        Confirmed = 1,
+        Cancelled = 2
     }
 }

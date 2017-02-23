@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "./wwwroot/js",
+    "allowJs": true,
+    "target": "es5",
+    "module": "amd",
+    "noImplicitAny": true,
+    "noImplicitReturns": true
+  },
+  "compileOnSave": true,
+  "include": [ "./wwwroot/ts/**/*" ]
+}

@@ -14,9 +14,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove=".vs\**" />
-    <Content Remove=".vs\**" />
     <EmbeddedResource Remove=".vs\**" />
     <None Remove=".vs\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="node_modules\%40types\angular-route\package.json" />
+    <Content Include="node_modules\%40types\angular-route\types-metadata.json" />
+    <Content Include="node_modules\%40types\angular-ui-bootstrap\package.json" />
+    <Content Include="node_modules\%40types\angular-ui-bootstrap\types-metadata.json" />
+    <Content Include="node_modules\%40types\angular\package.json" />
+    <Content Include="node_modules\%40types\angular\types-metadata.json" />
+    <Content Include="node_modules\%40types\jquery\package.json" />
+    <Content Include="node_modules\%40types\jquery\types-metadata.json" />
+    <Content Include="wwwroot\js\requirejs.config" />
+    <Content Include="wwwroot\ts\app.ts" />
+    <Content Include="wwwroot\ts\services\deployment-service.ts" />
+    <Content Include="wwwroot\ts\services\event-service.ts" />
+    <Content Include="wwwroot\ts\services\flag-service.ts" />
+    <Content Include="wwwroot\ts\services\moment.d.ts">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -47,6 +64,16 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0-msbuild3-final" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="node_modules\%40types\angular-route\index.d.ts" />
+    <None Include="node_modules\%40types\angular-route\README.md" />
+    <None Include="node_modules\%40types\angular-ui-bootstrap\index.d.ts" />
+    <None Include="node_modules\%40types\angular-ui-bootstrap\README.md" />
+    <None Include="node_modules\%40types\angular\index.d.ts" />
+    <None Include="node_modules\%40types\angular\README.md" />
+    <None Include="node_modules\%40types\jquery\index.d.ts" />
+    <None Include="node_modules\%40types\jquery\README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Models\EventsModel\EventModels.tt">
@@ -99,8 +126,5 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UpdateModels.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 </Project>

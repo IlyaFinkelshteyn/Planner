@@ -103,7 +103,7 @@ namespace Planner.Tests.Controllers.Api
 
         protected override EventsController GetController(IItemService<Event> service)
         {
-            return new EventsController(service as IEventService);
+            return new EventsController(service as IEventService, null);
         }
 
         protected override JsonPatchDocument<Event> GetPatch()

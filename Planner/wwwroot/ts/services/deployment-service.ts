@@ -1,33 +1,42 @@
-angular
+﻿angular
     .module('app')
     .factory('DeploymentService', DeploymentService);
+
 DeploymentService.$inject = ['$http'];
-var DeploymentService = (function () {
-    function DeploymentService($http) {
-        this.urlBase = '/api/deployments';
+
+class DeploymentService {
+    constructor($http: angular.IHttpService) {
         this.$http = $http;
     }
-    DeploymentService.prototype.deleteItem = function (id) {
+
+    private urlBase: string = '/api/deployments';
+    private $http: angular.IHttpService;
+
+    deleteItem(id: number) {
         return this.$http({
             method: 'DELETE',
             url: this.urlBase + "/" + id
         });
-    };
-    DeploymentService.prototype.getCyclistSummaries = function () {
+    }
+
+    getCyclistSummaries() {
         return this.$http({
             method: 'GET',
             url: this.urlBase + '/cyclistSummaries'
         });
-    };
-    DeploymentService.prototype.addItem = function (eventId, item) {
+    }
+
+    addItem(eventId: number, item: any) {
         item = $.extend({}, item);
+
         return this.$http({
             method: 'POST',
             url: this.urlBase + "?eventId=" + eventId,
             data: item
         });
-    };
-    DeploymentService.prototype.patchItem = function (id, patch) {
+    }
+
+    patchItem(id: number, patch: any) {
         return this.$http({
             method: 'PATCH',
             url: this.urlBase + "/" + id,
@@ -36,6 +45,5 @@ var DeploymentService = (function () {
                 'Content-Type': 'application/json-patch+json'
             }
         });
-    };
-    return DeploymentService;
-}());
+    }
+}

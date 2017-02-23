@@ -1,17 +1,13 @@
-﻿(function () {
-    'use strict';
-
-    angular.module('app', [
-        // Angular modules
-        'ngRoute',
-        // Custom modules
-
-        // 3rd Party Modules
-        'angularUtils.directives.dirPagination',
-        'angularMoment',
-        'ui.bootstrap',
-        'ui.event'
-    ]).config(['$locationProvider', function ($locationProvider) {
+angular.module('app', [
+    // Angular modules
+    'ngRoute',
+    // Custom modules
+    // 3rd Party Modules
+    'angularUtils.directives.dirPagination',
+    'angularMoment',
+    'ui.bootstrap',
+    'ui.event'
+]).config(['$locationProvider', function ($locationProvider) {
         $locationProvider.html5Mode(false);
         $locationProvider.hashPrefix('!');
     }])
@@ -30,23 +26,20 @@
             controllerAs: 'vm'
         }).otherwise('/');
     }]).run([
-        '$rootScope',
-        function ($rootScope) {
-            // see what's going on when the route tries to change
-            $rootScope.$on('$routeChangeStart', function (event, next, current) {
-                // next is an object that is the route that we are starting to go to
-                // current is an object that is the route where we are currently
-                var nextPath = next.originalPath;
-
-                if (typeof current == 'undefined') {
-                    console.log('Start at %s', nextPath);
-                }
-                else {
-                    var currentPath = current.originalPath;
-
-                    console.log('Starting to leave %s to go to %s', currentPath, nextPath);
-                }
-            });
-        }
-    ]);
-})();
+    '$rootScope',
+    function ($rootScope) {
+        // see what's going on when the route tries to change
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            // next is an object that is the route that we are starting to go to
+            // current is an object that is the route where we are currently
+            var nextPath = next.originalPath;
+            if (typeof current == 'undefined') {
+                console.log('Start at %s', nextPath);
+            }
+            else {
+                var currentPath = current.originalPath;
+                console.log('Starting to leave %s to go to %s', currentPath, nextPath);
+            }
+        });
+    }
+]);

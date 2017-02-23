@@ -1,9 +1,12 @@
-(function () {
+﻿(function () {
     'use strict';
+
     angular
         .module('app')
         .directive('editControl', EditControlDirective);
+
     EditControlDirective.$inject = [];
+
     function EditControlDirective() {
         var directive = {
             scope: {
@@ -21,6 +24,7 @@
             require: "^form"
         };
         return directive;
+
         function link(scope, element, attrs, form) {
             scope.form = form;
         }

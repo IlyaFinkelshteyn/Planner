@@ -1,28 +1,36 @@
-angular
+﻿angular
     .module('app')
     .factory('ScheduleItemService', ScheduleItemService);
+
 ScheduleItemService.$inject = ['$http'];
-var ScheduleItemService = (function () {
-    function ScheduleItemService($http) {
-        this.urlBase = '/api/scheduleItems';
+
+class ScheduleItemService {
+    constructor($http: angular.IHttpService) {
         this.$http = $http;
     }
-    ScheduleItemService.prototype.deleteItem = function (id) {
+    private urlBase = '/api/scheduleItems';
+    private $http: angular.IHttpService;
+
+    deleteItem(id: number) {
         return this.$http({
             method: 'DELETE',
             url: this.urlBase + "/" + id
         });
-    };
-    ScheduleItemService.prototype.addItem = function (eventId, item) {
+    }
+
+    addItem(eventId: number, item: any) {
         item = $.extend({}, item);
+
         item.time = moment(item.time).format("hh:mm");
+
         return this.$http({
             method: 'POST',
             url: this.urlBase + "?eventId=" + eventId,
             data: item
         });
-    };
-    ScheduleItemService.prototype.patchItem = function (id, patch) {
+    }
+
+    patchItem(id: number, patch: any) {
         return this.$http({
             method: 'PATCH',
             url: this.urlBase + "/" + id,
@@ -31,6 +39,5 @@ var ScheduleItemService = (function () {
                 'Content-Type': 'application/json-patch+json'
             }
         });
-    };
-    return ScheduleItemService;
-}());
+    }
+}
