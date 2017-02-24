@@ -1,32 +1,37 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .directive('editControl', EditControlDirective.Factory());
 
-    angular
-        .module('app')
-        .directive('editControl', EditControlDirective);
+interface IEditControlScope extends angular.IScope {
+    form: any;
+}
 
-    EditControlDirective.$inject = [];
+class EditControlDirective {
+    scope = {
+        model: '=',
+        displayName: '@',
+        name: '@',
+        required: '=?',
+        mode: '@',
+        autocomplete: '=?',
+        autocompleteName: '@?',
+    };
 
-    function EditControlDirective() {
-        var directive = {
-            scope: {
-                model: '=',
-                displayName: '@',
-                name: '@',
-                required: '=?',
-                mode: '@',
-                autocomplete: '=?',
-                autocompleteName: '@?'
-            },
-            link: link,
-            restrict: 'E',
-            templateUrl: '/html/modals/edit-control.html',
-            require: "^form"
-        };
-        return directive;
-
-        function link(scope, element, attrs, form) {
-            scope.form = form;
-        }
+    link(scope: IEditControlScope, element: angular.IAugmentedJQuery,
+        attrs: angular.IAttributes, form: any) {
+        scope.form = form;
     }
-})();
+    restrict = 'E';
+    templateUrl = '/html/modals/edit-control.html';
+    require = "^form";
+
+    public static Factory() {
+        var directive = () => {
+            return new EditControlDirective();
+        };
+
+        directive['$inject'] = [];
+
+        return directive;
+    }
+}

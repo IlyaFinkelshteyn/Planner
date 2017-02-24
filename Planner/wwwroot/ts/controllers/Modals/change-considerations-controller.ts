@@ -1,38 +1,39 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .controller('ChangeConsiderationsController', ChangeConsiderationsController);
 
-    angular
-        .module('app')
-        .controller('ChangeConsiderationsController', ChangeConsiderationsController);
+ChangeConsiderationsController.$inject = ['$uibModalInstance', 'soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather', 'hasSeriousHistory', 'widerDistribution'];
 
-    ChangeConsiderationsController.$inject = ['$uibModalInstance', 'soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather', 'hasSeriousHistory', 'widerDistribution'];
-
-    function ChangeConsiderationsController($uibModalInstance, soloRespondingExpected, highSpeedRoadsAtEvent, expectingBadWeather, hasSeriousHistory, widerDistribution) {
-        /* jshint validthis:true */
-        var vm = this;
-
-        vm.soloRespondingExpected = soloRespondingExpected;
-        vm.highSpeedRoadsAtEvent = highSpeedRoadsAtEvent;
-        vm.expectingBadWeather = expectingBadWeather;
-        vm.hasSeriousHistory = hasSeriousHistory;
-        vm.widerDistribution = widerDistribution;
-
-        vm.submit = function () {
-            $uibModalInstance.close({
-                soloRespondingExpected: vm.soloRespondingExpected,
-                highSpeedRoadsAtEvent: vm.highSpeedRoadsAtEvent,
-                expectingBadWeather: vm.expectingBadWeather,
-                hasSeriousHistory: vm.hasSeriousHistory,
-                widerDistribution: vm.widerDistribution
-            });
-        }
-
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        activate();
-
-        function activate() { }
+class ChangeConsiderationsController {
+    constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
+        soloRespondingExpected: boolean, highSpeedRoadsAtEvent: boolean,
+        expectingBadWeather: boolean, hasSeriousHistory: boolean, widerDistribution: boolean) {
+        this.$uibModalInstance = $uibModalInstance;
+        this.soloRespondingExpected = soloRespondingExpected;
+        this.highSpeedRoadsAtEvent = highSpeedRoadsAtEvent;
+        this.expectingBadWeather = expectingBadWeather;
+        this.hasSeriousHistory = hasSeriousHistory;
+        this.widerDistribution = widerDistribution;
     }
-})();
+    private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+
+    soloRespondingExpected: boolean;
+    highSpeedRoadsAtEvent: boolean;
+    expectingBadWeather: boolean;
+    hasSeriousHistory: boolean;
+    widerDistribution: boolean;
+
+    submit() {
+        this.$uibModalInstance.close({
+            soloRespondingExpected: this.soloRespondingExpected,
+            highSpeedRoadsAtEvent: this.highSpeedRoadsAtEvent,
+            expectingBadWeather: this.expectingBadWeather,
+            hasSeriousHistory: this.hasSeriousHistory,
+            widerDistribution: this.widerDistribution
+        });
+    }
+
+    cancel() {
+        this.$uibModalInstance.dismiss('cancel');
+    }
+}

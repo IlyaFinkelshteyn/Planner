@@ -1,55 +1,54 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .controller('ChangeDeploymentController', ChangeDeploymentController);
 
-    angular
-        .module('app')
-        .controller('ChangeDeploymentController', ChangeDeploymentController);
+ChangeDeploymentController.$inject = ['$uibModalInstance', 'mode', 'team', 'callsign', 'name', 'cyclistData', 'qualification', 'cyclingLevel'];
 
-    ChangeDeploymentController.$inject = ['$uibModalInstance', 'mode', 'team', 'callsign', 'name', 'cyclistData', 'qualification', 'cyclingLevel'];
-
-    function ChangeDeploymentController($uibModalInstance, mode, team, callsign, name, cyclistData, qualification, cyclingLevel) {
-        /* jshint validthis:true */
-        var vm = this;
-
-        vm.mode = mode;
-        vm.team = team;
-        vm.callsign = callsign;
-        vm.cyclist = name;
-        vm.cyclistData = cyclistData;
-        vm.clinicalQualification = (qualification || "").toString();
-        vm.cyclingLevel = (cyclingLevel || "").toString();
-
-        vm.submit = function () {
-            $uibModalInstance.close({
-                team: vm.team,
-                callsign: vm.callsign,
-                name: vm.cyclist,
-                qualification: parseInt(vm.clinicalQualification),
-                cyclingLevel: parseInt(vm.cyclingLevel)
-            });
-        }
-
-        vm.title = function () {
-            switch (mode) {
-                case "update":
-                    return "Update Deployment";
-                case "add":
-                    return "Add Deployment";
-                default:
-                    return "";
-            }
-        };
-
-        vm.autoSelectComplete = function (event) {
-            alert('hi');
-        };
-
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        activate();
-
-        function activate() { }
+class ChangeDeploymentController {
+    constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
+        mode: string, team: number, callsign: string, name: string, cyclistData: any,
+        qualification: Qualification, cyclingLevel: CyclingLevel) {
+        this.$uibModalInstance = $uibModalInstance;
+        this.mode = mode;
+        this.team = team;
+        this.callsign = callsign;
+        this.cyclist = name;
+        this.cyclistData = cyclistData;
+        this.clinicalQualification = (qualification || "").toString();
+        this.cyclingLevel = (cyclingLevel || "").toString();
     }
-})();
+
+    private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    mode: string;
+    team: number;
+    callsign: string;
+    cyclist: string;
+    cyclistData: any;
+    clinicalQualification: string;
+    cyclingLevel: string;
+
+    submit() {
+        this.$uibModalInstance.close({
+            team: this.team,
+            callsign: this.callsign,
+            name: this.cyclist,
+            qualification: parseInt(this.clinicalQualification),
+            cyclingLevel: parseInt(this.cyclingLevel)
+        });
+    }
+
+    title() {
+        switch (this.mode) {
+            case "update":
+                return "Update Deployment";
+            case "add":
+                return "Add Deployment";
+            default:
+                return "";
+        }
+    };
+
+    cancel() {
+        this.$uibModalInstance.dismiss('cancel');
+    }
+}

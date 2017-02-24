@@ -1,24 +1,21 @@
-(function () {
-    'use strict';
-    angular
-        .module('app')
-        .controller('RenameEventController', RenameEventController);
-    RenameEventController.$inject = ['$uibModalInstance', 'dipsNumber', 'name'];
+angular
+    .module('app')
+    .controller('RenameEventController', RenameEventController);
+RenameEventController.$inject = ['$uibModalInstance', 'dipsNumber', 'name'];
+var RenameEventController = (function () {
     function RenameEventController($uibModalInstance, dipsNumber, name) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.dipsNumber = dipsNumber;
-        vm.name = name;
-        vm.submit = function () {
-            $uibModalInstance.close({
-                dipsNumber: vm.dipsNumber,
-                name: vm.name
+        this.submit = function () {
+            this.$uibModalInstance.close({
+                dipsNumber: this.dipsNumber,
+                name: this.name
             });
         };
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
+        this.cancel = function () {
+            this.$uibModalInstance.dismiss('cancel');
         };
-        activate();
-        function activate() { }
+        this.$uibModalInstance = $uibModalInstance;
+        this.dipsNumber = dipsNumber;
+        this.name = name;
     }
-})();
+    return RenameEventController;
+}());

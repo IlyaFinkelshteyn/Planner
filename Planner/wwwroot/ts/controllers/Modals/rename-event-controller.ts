@@ -1,32 +1,29 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .controller('RenameEventController', RenameEventController);
 
-    angular
-        .module('app')
-        .controller('RenameEventController', RenameEventController);
+RenameEventController.$inject = ['$uibModalInstance', 'dipsNumber', 'name'];
 
-    RenameEventController.$inject = ['$uibModalInstance', 'dipsNumber', 'name'];
-
-    function RenameEventController($uibModalInstance, dipsNumber, name) {
-        /* jshint validthis:true */
-        var vm = this;
-
-        vm.dipsNumber = dipsNumber;
-        vm.name = name;
-
-        vm.submit = function () {
-            $uibModalInstance.close({
-                dipsNumber: vm.dipsNumber,
-                name: vm.name
-            });
-        }
-
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        activate();
-
-        function activate() { }
+class RenameEventController {
+    constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
+        dipsNumber: number, name: string) {
+        this.$uibModalInstance = $uibModalInstance;
+        this.dipsNumber = dipsNumber;
+        this.name = name;
     }
-})();
+
+    private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    dipsNumber: number;
+    name: string;
+
+    submit = function () {
+        this.$uibModalInstance.close({
+            dipsNumber: this.dipsNumber,
+            name: this.name
+        });
+    }
+
+    cancel = function () {
+        this.$uibModalInstance.dismiss('cancel');
+    }
+}

@@ -1,24 +1,23 @@
-(function () {
-    'use strict';
-    angular
-        .module('app')
-        .controller('ChangeLocationController', ChangeLocationController);
-    ChangeLocationController.$inject = ['$uibModalInstance', 'location', 'postCode'];
+angular
+    .module('app')
+    .controller('ChangeLocationController', ChangeLocationController);
+ChangeLocationController.$inject = ['$uibModalInstance', 'location', 'postCode'];
+var ChangeLocationController = (function () {
     function ChangeLocationController($uibModalInstance, location, postCode) {
         /* jshint validthis:true */
         var vm = this;
+        this.$uibModalInstance = $uibModalInstance;
         vm.location = location;
         vm.postCode = postCode;
-        vm.submit = function () {
-            $uibModalInstance.close({
-                location: vm.location,
-                postCode: vm.postCode
-            });
-        };
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-        activate();
-        function activate() { }
     }
-})();
+    ChangeLocationController.prototype.submit = function () {
+        this.$uibModalInstance.close({
+            location: this.location,
+            postCode: this.postCode
+        });
+    };
+    ChangeLocationController.prototype.cancel = function () {
+        this.$uibModalInstance.dismiss('cancel');
+    };
+    return ChangeLocationController;
+}());

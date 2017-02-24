@@ -1,27 +1,26 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .directive('editCheck', EditCheckDirective.Factory());
 
-    angular
-        .module('app')
-        .directive('editCheck', EditCheckDirective);
+class EditCheckDirective {
+    scope = {
+        model: '=',
+        displayName: '@',
+        checkName: '@',
+        name: '@'
+    };
+    link(scope: angular.IScope, element: angular.IAugmentedJQuery,
+        attrs: angular.IAttributes) { }
+    restrict = 'E';
+    templateUrl = '/html/modals/edit-check-control.html';
 
-    EditCheckDirective.$inject = [];
-
-    function EditCheckDirective() {
-        var directive = {
-            scope: {
-                model: '=',
-                displayName: '@',
-                checkName: '@',
-                name: '@'
-            },
-            link: link,
-            restrict: 'E',
-            templateUrl: '/html/modals/edit-check-control.html'
+    public static Factory() {
+        var directive = () => {
+            return new EditCheckDirective();
         };
-        return directive;
 
-        function link(scope, element, attrs) {
-        }
+        directive['$inject'] = [];
+
+        return directive;
     }
-})();
+}

@@ -3,6 +3,21 @@ angular
     .controller('EventDetailController', EventDetailController);
 EventDetailController.$inject = ['$location', '$routeParams', '$uibModal', 'EventService', 'FlagService',
     'ScheduleItemService', 'DeploymentService', 'PatchItemService'];
+var Qualification;
+(function (Qualification) {
+    Qualification[Qualification["AFA"] = 1] = "AFA";
+    Qualification[Qualification["ETA"] = 2] = "ETA";
+    Qualification[Qualification["EMT"] = 3] = "EMT";
+    Qualification[Qualification["Paramedic"] = 4] = "Paramedic";
+    Qualification[Qualification["Technician"] = 5] = "Technician";
+    Qualification[Qualification["Doctor"] = 6] = "Doctor";
+    Qualification[Qualification["Nurse"] = 7] = "Nurse";
+})(Qualification || (Qualification = {}));
+var CyclingLevel;
+(function (CyclingLevel) {
+    CyclingLevel[CyclingLevel["EntryLevel"] = 1] = "EntryLevel";
+    CyclingLevel[CyclingLevel["Advanced"] = 2] = "Advanced";
+})(CyclingLevel || (CyclingLevel = {}));
 var EventDetailController = (function () {
     function EventDetailController($location, $routeParams, $uibModal, EventService, FlagService, ScheduleItemService, DeploymentService, PatchItemService) {
         this.id = this.$routeParams.id;
@@ -181,19 +196,19 @@ var EventDetailController = (function () {
     };
     EventDetailController.prototype.qualificationToText = function (qualification) {
         switch (qualification) {
-            case 1 /* AFA */:
+            case Qualification.AFA:
                 return "Advanced First Aider";
-            case 2 /* ETA */:
+            case Qualification.ETA:
                 return "Emergency Transport Attendant";
-            case 3 /* EMT */:
+            case Qualification.EMT:
                 return "Emergency Medical Technician";
-            case 4 /* Paramedic */:
+            case Qualification.Paramedic:
                 return "Paramedic";
-            case 5 /* Technician */:
+            case Qualification.Technician:
                 return "Technician";
-            case 6 /* Doctor */:
+            case Qualification.Doctor:
                 return "Doctor";
-            case 7 /* Nurse */:
+            case Qualification.Nurse:
                 return "Nurse";
             default:
                 return "Other";

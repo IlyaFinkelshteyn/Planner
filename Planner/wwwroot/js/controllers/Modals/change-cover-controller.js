@@ -1,33 +1,30 @@
-(function () {
-    'use strict';
-    angular
-        .module('app')
-        .controller('ChangeCoverController', ChangeCoverController);
-    ChangeCoverController.$inject = ['$uibModalInstance', 'firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable',
-        'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent'];
+angular
+    .module('app')
+    .controller('ChangeCoverController', ChangeCoverController);
+ChangeCoverController.$inject = ['$uibModalInstance', 'firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable',
+    'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent'];
+var ChangeCoverController = (function () {
     function ChangeCoverController($uibModalInstance, firstAidersAvailable, cyclistsRequested, firstAidUnitsAvailable, ambulancesAvailable, paramedicsAvailable, doctorsPresent) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.firstAiders = firstAidersAvailable;
-        vm.cyclists = cyclistsRequested;
-        vm.firstAidUnits = firstAidUnitsAvailable;
-        vm.ambulances = ambulancesAvailable;
-        vm.paramedicsAvailable = paramedicsAvailable;
-        vm.doctorsAvailable = doctorsPresent;
-        vm.submit = function () {
-            $uibModalInstance.close({
-                firstAidersAvailable: vm.firstAiders,
-                cyclistsRequested: vm.cyclists,
-                firstAidUnitsAvailable: vm.firstAidUnits,
-                ambulancesAvailable: vm.ambulances,
-                paramedicsAvailable: vm.paramedicsAvailable,
-                doctorsPresent: vm.doctorsAvailable
+        this.submit = function () {
+            this.$uibModalInstance.close({
+                firstAidersAvailable: this.firstAiders,
+                cyclistsRequested: this.cyclists,
+                firstAidUnitsAvailable: this.firstAidUnits,
+                ambulancesAvailable: this.ambulances,
+                paramedicsAvailable: this.paramedicsAvailable,
+                doctorsPresent: this.doctorsAvailable
             });
         };
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
+        this.cancel = function () {
+            this.$uibModalInstance.dismiss('cancel');
         };
-        activate();
-        function activate() { }
+        this.$uibModalInstance = $uibModalInstance;
+        this.firstAiders = firstAidersAvailable;
+        this.cyclists = cyclistsRequested;
+        this.firstAidUnits = firstAidUnitsAvailable;
+        this.ambulances = ambulancesAvailable;
+        this.paramedicsAvailable = paramedicsAvailable;
+        this.doctorsAvailable = doctorsPresent;
     }
-})();
+    return ChangeCoverController;
+}());

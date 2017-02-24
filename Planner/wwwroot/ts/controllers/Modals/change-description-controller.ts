@@ -1,30 +1,25 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .controller('ChangeDescriptionController', ChangeDescriptionController);
 
-    angular
-        .module('app')
-        .controller('ChangeDescriptionController', ChangeDescriptionController);
+ChangeDescriptionController.$inject = ['$uibModalInstance', 'description'];
 
-    ChangeDescriptionController.$inject = ['$uibModalInstance', 'description'];
-
-    function ChangeDescriptionController($uibModalInstance, description) {
-        /* jshint validthis:true */
-        var vm = this;
-
-        vm.description = description;
-
-        vm.submit = function () {
-            $uibModalInstance.close({
-                description: vm.description
-            });
-        }
-
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        activate();
-
-        function activate() { }
+class ChangeDescriptionController {
+    constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, description: string) {
+        this.description = description;
+        this.$uibModalInstance = $uibModalInstance;
     }
-})();
+
+    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    description: string;
+
+    submit() {
+        this.$uibModalInstance.close({
+            description: this.description
+        });
+    }
+
+    cancel() {
+        this.$uibModalInstance.dismiss('cancel');
+    }
+}

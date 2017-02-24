@@ -9,7 +9,7 @@ interface EventDetailRouteParams extends angular.route.IRouteParamsService {
     id: number;
 }
 
-const enum Qualification {
+enum Qualification {
     AFA = 1,
     ETA = 2,
     EMT = 3,
@@ -17,6 +17,11 @@ const enum Qualification {
     Technician = 5,
     Doctor = 6,
     Nurse = 7
+}
+
+enum CyclingLevel {
+    EntryLevel = 1,
+    Advanced = 2
 }
 
 class EventDetailController {
@@ -38,7 +43,7 @@ class EventDetailController {
             controller: 'ChangeConsiderationsController',
             service: this.EventService,
             itemId: this.id,
-            model: function(el) { return this.data[el]; },
+            model: function (el) { return this.data[el]; },
             callback: this.activate,
             modelItems: ['soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather',
                 'hasSeriousHistory', 'widerDistribution']
@@ -49,7 +54,7 @@ class EventDetailController {
             controller: 'ChangeCommunicationsController',
             service: this.EventService,
             itemId: this.id,
-            model: function(el) { return this.data[el]; },
+            model: function (el) { return this.data[el]; },
             callback: this.activate,
             modelItems: ['usingSJARadio', 'usingAirwave', 'radioChannel',
                 'fallbackRadioChannel', 'controlPhoneNumber', 'cruTrackingInUse']
@@ -60,7 +65,7 @@ class EventDetailController {
             controller: 'ChangeCoverController',
             service: this.EventService,
             itemId: this.id,
-            model: function(el) { return this.data[el]; },
+            model: function (el) { return this.data[el]; },
             callback: this.activate,
             modelItems: ['firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable',
                 'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent']
@@ -71,7 +76,7 @@ class EventDetailController {
             controller: 'ChangeDateController',
             service: this.EventService,
             itemId: this.id,
-            model: function(el) { return this.data[el]; },
+            model: function (el) { return this.data[el]; },
             callback: this.activate,
             modelItems: ['date', 'startTime', 'endTime', 'dateConfirmed']
         });
@@ -83,7 +88,7 @@ class EventDetailController {
             callback: this.activate,
             modelItems: ['team', 'callsign', 'name', 'qualification', 'cyclingLevel'],
             resolve: {
-                cyclistData: function() { return this.DeploymentService.getCyclistSummaries(); },
+                cyclistData: function () { return this.DeploymentService.getCyclistSummaries(); },
             }
         });
 
@@ -92,7 +97,7 @@ class EventDetailController {
             controller: 'ChangeDescriptionController',
             service: this.EventService,
             itemId: this.id,
-            model: function(el) { return this.data[el]; },
+            model: function (el) { return this.data[el]; },
             callback: this.activate,
             modelItems: ['description']
         });
@@ -102,7 +107,7 @@ class EventDetailController {
             controller: 'ChangeLocationController',
             service: this.EventService,
             itemId: this.id,
-            model: function(el) { return this.data[el]; },
+            model: function (el) { return this.data[el]; },
             callback: this.activate,
             modelItems: ['location', 'postCode']
         });
@@ -142,21 +147,21 @@ class EventDetailController {
             controller: 'ChangeDeploymentController',
             controllerAs: 'vm',
             resolve: {
-                mode: function() { return "add"; },
-                team: function() { return 1; },
-                callsign: function() { return ""; },
-                cyclist: function() { return ""; },
-                cyclistData: function() { return this.DeploymentService.getCyclistSummaries(); },
-                clinicalQualification: function() { return ""; },
-                cyclingLevel: function() { return ""; }
+                mode: function () { return "add"; },
+                team: function () { return 1; },
+                callsign: function () { return ""; },
+                cyclist: function () { return ""; },
+                cyclistData: function () { return this.DeploymentService.getCyclistSummaries(); },
+                clinicalQualification: function () { return ""; },
+                cyclingLevel: function () { return ""; }
             }
         });
 
-        modalInstance.result.then(function(result) {
+        modalInstance.result.then(function (result) {
             result.name = result.cyclist;
             result.qualification = result.clinicalQualification;
 
-            this.DeploymentService.addItem(this.id, result).then(function() {
+            this.DeploymentService.addItem(this.id, result).then(function () {
                 this.activate();
             });
         });
@@ -171,14 +176,14 @@ class EventDetailController {
             controller: 'ChangeScheduleItemController',
             controllerAs: 'vm',
             resolve: {
-                mode: function() { return "add"; },
-                time: function() { return ""; },
-                action: function() { return ""; }
+                mode: function () { return "add"; },
+                time: function () { return ""; },
+                action: function () { return ""; }
             }
         });
 
-        modalInstance.result.then(function(result) {
-            this.ScheduleItemService.addItem(this.id, result).then(function() {
+        modalInstance.result.then(function (result) {
+            this.ScheduleItemService.addItem(this.id, result).then(function () {
                 this.activate();
             });
         });
@@ -201,13 +206,13 @@ class EventDetailController {
     changeScheduleItem: ((item: any) => void);
 
     deleteDeployment(id: number) {
-        this.DeploymentService.deleteItem(id).then(function() {
+        this.DeploymentService.deleteItem(id).then(function () {
             this.activate();
         });
     }
 
     deleteScheduleItem(id: number) {
-        this.ScheduleItemService.deleteItem(id).then(function() {
+        this.ScheduleItemService.deleteItem(id).then(function () {
             this.activate();
         });
     }
@@ -215,7 +220,7 @@ class EventDetailController {
     setStatus(status: EventStatus) {
         var patchData = [{ 'op': 'replace', 'path': '/Status', 'value': status }];
 
-        this.EventService.patchEvent(this.id, patchData).then(function() {
+        this.EventService.patchEvent(this.id, patchData).then(function () {
             this.activate();
         });
     };
@@ -241,7 +246,7 @@ class EventDetailController {
         controller: 'RenameEventController',
         service: this.EventService,
         itemId: this.id,
-        model: function(el) { return this.data[el]; },
+        model: function (el) { return this.data[el]; },
         callback: this.activate,
         modelItems: ['name', 'dipsNumber']
     });
@@ -268,7 +273,7 @@ class EventDetailController {
     };
 
     activate() {
-        this.EventService.getEvent(this.id).then(function(response) {
+        this.EventService.getEvent(this.id).then(function (response) {
             this.data = response.data;
             this.loading = false;
         });

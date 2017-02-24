@@ -1,31 +1,26 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .controller('AddItemController', AddItemController);
 
-    angular
-        .module('app')
-        .controller('AddItemController', AddItemController);
+AddItemController.$inject = ['$uibModalInstance', 'itemName'];
 
-    AddItemController.$inject = ['$uibModalInstance', 'itemName'];
-
-    function AddItemController($uibModalInstance, itemName) {
-        /* jshint validthis:true */
-        var vm = this;
-
-        vm.itemName = itemName;
-        vm.name = '';
-
-        vm.submit = function () {
-            $uibModalInstance.close({
-                name: vm.name
-            });
-        }
-
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        activate();
-
-        function activate() { }
+class AddItemController {
+    constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, itemName: string) {
+        this.$uibModalInstance = $uibModalInstance;
+        this.itemName = itemName;
     }
-})();
+    /* jshint validthis:true */
+    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    itemName: string;
+    name = '';
+
+    submit = function() {
+        this.$uibModalInstance.close({
+            name: this.name
+        });
+    }
+
+    cancel = function() {
+        this.$uibModalInstance.dismiss('cancel');
+    }
+}

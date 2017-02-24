@@ -1,42 +1,44 @@
-﻿(function () {
-    'use strict';
+﻿angular
+    .module('app')
+    .controller('ChangeCoverController', ChangeCoverController);
 
-    angular
-        .module('app')
-        .controller('ChangeCoverController', ChangeCoverController);
+ChangeCoverController.$inject = ['$uibModalInstance', 'firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable',
+    'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent'];
 
-    ChangeCoverController.$inject = ['$uibModalInstance', 'firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable',
-        'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent'];
-
-    function ChangeCoverController($uibModalInstance, firstAidersAvailable, cyclistsRequested,
-        firstAidUnitsAvailable, ambulancesAvailable, paramedicsAvailable, doctorsPresent) {
-        /* jshint validthis:true */
-        var vm = this;
-
-        vm.firstAiders = firstAidersAvailable;
-        vm.cyclists = cyclistsRequested;
-        vm.firstAidUnits = firstAidUnitsAvailable;
-        vm.ambulances = ambulancesAvailable;
-        vm.paramedicsAvailable = paramedicsAvailable;
-        vm.doctorsAvailable = doctorsPresent;
-
-        vm.submit = function () {
-            $uibModalInstance.close({
-                firstAidersAvailable: vm.firstAiders,
-                cyclistsRequested: vm.cyclists,
-                firstAidUnitsAvailable: vm.firstAidUnits,
-                ambulancesAvailable: vm.ambulances,
-                paramedicsAvailable: vm.paramedicsAvailable,
-                doctorsPresent: vm.doctorsAvailable
-            });
-        }
-
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        activate();
-
-        function activate() { }
+class ChangeCoverController {
+    constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
+        firstAidersAvailable: number, cyclistsRequested: number,
+        firstAidUnitsAvailable: number, ambulancesAvailable: number,
+        paramedicsAvailable: boolean, doctorsPresent: boolean) {
+        this.$uibModalInstance = $uibModalInstance;
+        this.firstAiders = firstAidersAvailable;
+        this.cyclists = cyclistsRequested;
+        this.firstAidUnits = firstAidUnitsAvailable;
+        this.ambulances = ambulancesAvailable;
+        this.paramedicsAvailable = paramedicsAvailable;
+        this.doctorsAvailable = doctorsPresent;
     }
-})();
+
+    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    firstAiders: number;
+    cyclists: number;
+    firstAidUnits: number;
+    ambulances: number;
+    paramedicsAvailable: boolean;
+    doctorsAvailable: boolean;
+
+    submit = function() {
+        this.$uibModalInstance.close({
+            firstAidersAvailable: this.firstAiders,
+            cyclistsRequested: this.cyclists,
+            firstAidUnitsAvailable: this.firstAidUnits,
+            ambulancesAvailable: this.ambulances,
+            paramedicsAvailable: this.paramedicsAvailable,
+            doctorsPresent: this.doctorsAvailable
+        });
+    }
+
+    cancel = function() {
+        this.$uibModalInstance.dismiss('cancel');
+    }
+}

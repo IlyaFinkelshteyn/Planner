@@ -1,23 +1,24 @@
-(function () {
-    'use strict';
-    angular
-        .module('app')
-        .directive('editCheck', EditCheckDirective);
-    EditCheckDirective.$inject = [];
+angular
+    .module('app')
+    .directive('editCheck', EditCheckDirective.Factory());
+var EditCheckDirective = (function () {
     function EditCheckDirective() {
-        var directive = {
-            scope: {
-                model: '=',
-                displayName: '@',
-                checkName: '@',
-                name: '@'
-            },
-            link: link,
-            restrict: 'E',
-            templateUrl: '/html/modals/edit-check-control.html'
+        this.scope = {
+            model: '=',
+            displayName: '@',
+            checkName: '@',
+            name: '@'
         };
-        return directive;
-        function link(scope, element, attrs) {
-        }
+        this.restrict = 'E';
+        this.templateUrl = '/html/modals/edit-check-control.html';
     }
-})();
+    EditCheckDirective.prototype.link = function (scope, element, attrs) { };
+    EditCheckDirective.Factory = function () {
+        var directive = function () {
+            return new EditCheckDirective();
+        };
+        directive['$inject'] = [];
+        return directive;
+    };
+    return EditCheckDirective;
+}());

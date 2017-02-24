@@ -1,30 +1,27 @@
-(function () {
-    'use strict';
-    angular
-        .module('app')
-        .controller('ChangeConsiderationsController', ChangeConsiderationsController);
-    ChangeConsiderationsController.$inject = ['$uibModalInstance', 'soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather', 'hasSeriousHistory', 'widerDistribution'];
+angular
+    .module('app')
+    .controller('ChangeConsiderationsController', ChangeConsiderationsController);
+ChangeConsiderationsController.$inject = ['$uibModalInstance', 'soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather', 'hasSeriousHistory', 'widerDistribution'];
+var ChangeConsiderationsController = (function () {
     function ChangeConsiderationsController($uibModalInstance, soloRespondingExpected, highSpeedRoadsAtEvent, expectingBadWeather, hasSeriousHistory, widerDistribution) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.soloRespondingExpected = soloRespondingExpected;
-        vm.highSpeedRoadsAtEvent = highSpeedRoadsAtEvent;
-        vm.expectingBadWeather = expectingBadWeather;
-        vm.hasSeriousHistory = hasSeriousHistory;
-        vm.widerDistribution = widerDistribution;
-        vm.submit = function () {
-            $uibModalInstance.close({
-                soloRespondingExpected: vm.soloRespondingExpected,
-                highSpeedRoadsAtEvent: vm.highSpeedRoadsAtEvent,
-                expectingBadWeather: vm.expectingBadWeather,
-                hasSeriousHistory: vm.hasSeriousHistory,
-                widerDistribution: vm.widerDistribution
-            });
-        };
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-        activate();
-        function activate() { }
+        this.$uibModalInstance = $uibModalInstance;
+        this.soloRespondingExpected = soloRespondingExpected;
+        this.highSpeedRoadsAtEvent = highSpeedRoadsAtEvent;
+        this.expectingBadWeather = expectingBadWeather;
+        this.hasSeriousHistory = hasSeriousHistory;
+        this.widerDistribution = widerDistribution;
     }
-})();
+    ChangeConsiderationsController.prototype.submit = function () {
+        this.$uibModalInstance.close({
+            soloRespondingExpected: this.soloRespondingExpected,
+            highSpeedRoadsAtEvent: this.highSpeedRoadsAtEvent,
+            expectingBadWeather: this.expectingBadWeather,
+            hasSeriousHistory: this.hasSeriousHistory,
+            widerDistribution: this.widerDistribution
+        });
+    };
+    ChangeConsiderationsController.prototype.cancel = function () {
+        this.$uibModalInstance.dismiss('cancel');
+    };
+    return ChangeConsiderationsController;
+}());

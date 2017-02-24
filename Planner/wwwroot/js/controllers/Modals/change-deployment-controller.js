@@ -1,45 +1,40 @@
-(function () {
-    'use strict';
-    angular
-        .module('app')
-        .controller('ChangeDeploymentController', ChangeDeploymentController);
-    ChangeDeploymentController.$inject = ['$uibModalInstance', 'mode', 'team', 'callsign', 'name', 'cyclistData', 'qualification', 'cyclingLevel'];
+angular
+    .module('app')
+    .controller('ChangeDeploymentController', ChangeDeploymentController);
+ChangeDeploymentController.$inject = ['$uibModalInstance', 'mode', 'team', 'callsign', 'name', 'cyclistData', 'qualification', 'cyclingLevel'];
+var ChangeDeploymentController = (function () {
     function ChangeDeploymentController($uibModalInstance, mode, team, callsign, name, cyclistData, qualification, cyclingLevel) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.mode = mode;
-        vm.team = team;
-        vm.callsign = callsign;
-        vm.cyclist = name;
-        vm.cyclistData = cyclistData;
-        vm.clinicalQualification = (qualification || "").toString();
-        vm.cyclingLevel = (cyclingLevel || "").toString();
-        vm.submit = function () {
-            $uibModalInstance.close({
-                team: vm.team,
-                callsign: vm.callsign,
-                name: vm.cyclist,
-                qualification: parseInt(vm.clinicalQualification),
-                cyclingLevel: parseInt(vm.cyclingLevel)
-            });
-        };
-        vm.title = function () {
-            switch (mode) {
-                case "update":
-                    return "Update Deployment";
-                case "add":
-                    return "Add Deployment";
-                default:
-                    return "";
-            }
-        };
-        vm.autoSelectComplete = function (event) {
-            alert('hi');
-        };
-        vm.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-        activate();
-        function activate() { }
+        this.$uibModalInstance = $uibModalInstance;
+        this.mode = mode;
+        this.team = team;
+        this.callsign = callsign;
+        this.cyclist = name;
+        this.cyclistData = cyclistData;
+        this.clinicalQualification = (qualification || "").toString();
+        this.cyclingLevel = (cyclingLevel || "").toString();
     }
-})();
+    ChangeDeploymentController.prototype.submit = function () {
+        this.$uibModalInstance.close({
+            team: this.team,
+            callsign: this.callsign,
+            name: this.cyclist,
+            qualification: parseInt(this.clinicalQualification),
+            cyclingLevel: parseInt(this.cyclingLevel)
+        });
+    };
+    ChangeDeploymentController.prototype.title = function () {
+        switch (this.mode) {
+            case "update":
+                return "Update Deployment";
+            case "add":
+                return "Add Deployment";
+            default:
+                return "";
+        }
+    };
+    ;
+    ChangeDeploymentController.prototype.cancel = function () {
+        this.$uibModalInstance.dismiss('cancel');
+    };
+    return ChangeDeploymentController;
+}());
