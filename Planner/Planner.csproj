@@ -14,49 +14,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove=".vs\**" />
-    <Compile Remove="ts\**" />
-    <Content Remove="ts\**" />
     <EmbeddedResource Remove=".vs\**" />
-    <EmbeddedResource Remove="ts\**" />
     <None Remove=".vs\**" />
-    <None Remove="ts\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot/ts\models\CreateTypescriptModels.tt" />
-    <Content Remove="wwwroot/ts\models\DetailTypescriptModels.tt" />
-    <Content Remove="wwwroot/ts\models\SummaryTypescriptModels.tt" />
-    <Content Remove="wwwroot/ts\models\UpdateTypescriptModels.tt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\app.ts" />
-    <Content Include="Scripts\controllers\event-create-controller.ts" />
-    <Content Include="Scripts\controllers\event-detail-controller.ts" />
-    <Content Include="Scripts\controllers\home-controller.ts" />
-    <Content Include="Scripts\controllers\modals\add-item-controller.ts" />
-    <Content Include="Scripts\controllers\modals\change-communications-controller.ts" />
-    <Content Include="Scripts\controllers\modals\change-considerations-controller.ts" />
-    <Content Include="Scripts\controllers\modals\change-cover-controller.ts" />
-    <Content Include="Scripts\controllers\modals\change-date-controller.ts" />
-    <Content Include="Scripts\controllers\modals\change-deployment-controller.ts" />
-    <Content Include="Scripts\controllers\modals\change-description-controller.ts" />
-    <Content Include="Scripts\controllers\modals\change-location-controller.ts" />
-    <Content Include="Scripts\controllers\modals\change-schedule-item-controller.ts" />
-    <Content Include="Scripts\controllers\modals\edit-check-directive.ts" />
-    <Content Include="Scripts\controllers\modals\edit-control-directive.ts" />
-    <Content Include="Scripts\controllers\modals\modal-controller.ts" />
-    <Content Include="Scripts\controllers\modals\rename-event-controller.ts" />
-    <Content Include="Scripts\models\CreateTypescriptModels.generated.ts" />
-    <Content Include="Scripts\models\DetailTypescriptModels.generated.ts" />
-    <Content Include="Scripts\models\SummaryTypescriptModels.generated.ts" />
-    <Content Include="Scripts\models\Templates\Properties.t4" />
-    <Content Include="Scripts\models\UpdateTypescriptModels.generated.ts" />
-    <Content Include="Scripts\services\deployment-service.ts" />
-    <Content Include="Scripts\services\event-service.ts" />
-    <Content Include="Scripts\services\flag-service.ts" />
-    <Content Include="Scripts\services\item-service.ts" />
-    <Content Include="Scripts\services\moment.d.ts" />
-    <Content Include="Scripts\services\patch-item-service.ts" />
-    <Content Include="Scripts\services\schedule-item-service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.DataAnnotations" />
