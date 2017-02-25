@@ -251,8 +251,9 @@ paket-files/
 .idea/
 *.sln.iml
 
-/reports/coverage
 /reports
 /tools
-Planner.xml
 /test-results.xml
+/Planner/wwwroot/js
+/Planner/wwwroot/lib
+/Planner/Planner.xml

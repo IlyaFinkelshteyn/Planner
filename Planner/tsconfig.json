@@ -11,5 +11,5 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "compileOnSave": true,
-  "include": [ "./wwwroot/ts/**/*" ]
+  "include": [ "./Scripts/**/*" ]
 }

@@ -14,8 +14,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove=".vs\**" />
+    <Compile Remove="ts\**" />
+    <Content Remove="ts\**" />
     <EmbeddedResource Remove=".vs\**" />
+    <EmbeddedResource Remove="ts\**" />
     <None Remove=".vs\**" />
+    <None Remove="ts\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot/ts\models\CreateTypescriptModels.tt" />
@@ -24,27 +28,35 @@
     <Content Remove="wwwroot/ts\models\UpdateTypescriptModels.tt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wwwroot\ts\models\CreateTypescriptModels.generated.ts">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CreateTypescriptModels.tt</DependentUpon>
-    </Content>
-    <Content Include="wwwroot\ts\models\DetailTypescriptModels.generated.ts">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DetailTypescriptModels.tt</DependentUpon>
-    </Content>
-    <Content Include="wwwroot\ts\models\SummaryTypescriptModels.generated.ts">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SummaryTypescriptModels.tt</DependentUpon>
-    </Content>
-    <Content Include="wwwroot\ts\models\UpdateTypescriptModels.generated.ts">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UpdateTypescriptModels.tt</DependentUpon>
-    </Content>
-    <Content Include="wwwroot\ts\services\item-service.ts" />
+    <Content Include="Scripts\app.ts" />
+    <Content Include="Scripts\controllers\event-create-controller.ts" />
+    <Content Include="Scripts\controllers\event-detail-controller.ts" />
+    <Content Include="Scripts\controllers\home-controller.ts" />
+    <Content Include="Scripts\controllers\modals\add-item-controller.ts" />
+    <Content Include="Scripts\controllers\modals\change-communications-controller.ts" />
+    <Content Include="Scripts\controllers\modals\change-considerations-controller.ts" />
+    <Content Include="Scripts\controllers\modals\change-cover-controller.ts" />
+    <Content Include="Scripts\controllers\modals\change-date-controller.ts" />
+    <Content Include="Scripts\controllers\modals\change-deployment-controller.ts" />
+    <Content Include="Scripts\controllers\modals\change-description-controller.ts" />
+    <Content Include="Scripts\controllers\modals\change-location-controller.ts" />
+    <Content Include="Scripts\controllers\modals\change-schedule-item-controller.ts" />
+    <Content Include="Scripts\controllers\modals\edit-check-directive.ts" />
+    <Content Include="Scripts\controllers\modals\edit-control-directive.ts" />
+    <Content Include="Scripts\controllers\modals\modal-controller.ts" />
+    <Content Include="Scripts\controllers\modals\rename-event-controller.ts" />
+    <Content Include="Scripts\models\CreateTypescriptModels.generated.ts" />
+    <Content Include="Scripts\models\DetailTypescriptModels.generated.ts" />
+    <Content Include="Scripts\models\SummaryTypescriptModels.generated.ts" />
+    <Content Include="Scripts\models\Templates\Properties.t4" />
+    <Content Include="Scripts\models\UpdateTypescriptModels.generated.ts" />
+    <Content Include="Scripts\services\deployment-service.ts" />
+    <Content Include="Scripts\services\event-service.ts" />
+    <Content Include="Scripts\services\flag-service.ts" />
+    <Content Include="Scripts\services\item-service.ts" />
+    <Content Include="Scripts\services\moment.d.ts" />
+    <Content Include="Scripts\services\patch-item-service.ts" />
+    <Content Include="Scripts\services\schedule-item-service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -75,24 +87,6 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0-msbuild3-final" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot/ts\models\CreateTypescriptModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CreateTypescriptModels.generated.ts</LastGenOutput>
-    </None>
-    <None Include="wwwroot/ts\models\DetailTypescriptModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DetailTypescriptModels.generated.ts</LastGenOutput>
-    </None>
-    <None Include="wwwroot/ts\models\SummaryTypescriptModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SummaryTypescriptModels.generated.ts</LastGenOutput>
-    </None>
-    <None Include="wwwroot/ts\models\UpdateTypescriptModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UpdateTypescriptModels.generated.ts</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
@@ -144,6 +138,42 @@
     <None Update="Models\EventsViewModels\UpdateModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UpdateModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Scripts\models\CreateTypescriptModels.generated.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateTypescriptModels.tt</DependentUpon>
+    </None>
+    <None Update="Scripts\models\CreateTypescriptModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CreateTypescriptModels.generated.ts</LastGenOutput>
+    </None>
+    <None Update="Scripts\models\DetailTypescriptModels.generated.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DetailTypescriptModels.tt</DependentUpon>
+    </None>
+    <None Update="Scripts\models\DetailTypescriptModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DetailTypescriptModels.generated.ts</LastGenOutput>
+    </None>
+    <None Update="Scripts\models\SummaryTypescriptModels.generated.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SummaryTypescriptModels.tt</DependentUpon>
+    </None>
+    <None Update="Scripts\models\SummaryTypescriptModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SummaryTypescriptModels.generated.ts</LastGenOutput>
+    </None>
+    <None Update="Scripts\models\UpdateTypescriptModels.generated.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UpdateTypescriptModels.tt</DependentUpon>
+    </None>
+    <None Update="Scripts\models\UpdateTypescriptModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UpdateTypescriptModels.generated.ts</LastGenOutput>
     </None>
   </ItemGroup>
 </Project>
