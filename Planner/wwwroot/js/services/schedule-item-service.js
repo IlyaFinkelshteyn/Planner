@@ -11,7 +11,6 @@ var ScheduleItemService = (function () {
     };
     ScheduleItemService.prototype.addItem = function (eventId, item) {
         item = $.extend({}, item);
-        item.time = moment(item.time).format("hh:mm");
         return this.$http({
             method: 'POST',
             url: this.urlBase + "?eventId=" + eventId,

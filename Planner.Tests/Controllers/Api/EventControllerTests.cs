@@ -23,11 +23,18 @@ namespace Planner.Tests.Controllers.Api
         [Theory, AutoData]
         public async Task GetAllIncludingHistoricReturnsEventSummaries(IEnumerable<Event> events)
         {
-            var service = new Mock<IEventService>(MockBehavior.Strict);
+            var eventService = new Mock<IEventService>(MockBehavior.Strict);
 
-            service.Setup(e => e.GetListAsync(DateTime.MinValue)).ReturnsAsync(events);
+            eventService.Setup(e => e.GetListAsync(DateTime.MinValue)).ReturnsAsync(events);
 
-            var controller = GetController(service.Object);
+            var flagService = new Mock<IFlagService>(MockBehavior.Strict);
+
+            foreach (var e in events)
+            {
+                flagService.Setup(f => f.GetFlags(e, Flags.NeedsEmailing | Flags.UrgentCoverNeeded)).Returns(Enumerable.Empty<Flags>);
+            }
+
+            var controller = GetController(eventService.Object, flagService.Object);
 
             var result = await controller.GetAll(includeHistoric: true);
 
@@ -37,17 +44,25 @@ namespace Planner.Tests.Controllers.Api
                 .Which.Value.Should().BeAssignableTo<IEnumerable<EventSummary>>()
                 .Which.Should().BeEquivalentTo(expected);
 
-            service.VerifyAll();
+            eventService.VerifyAll();
+            flagService.VerifyAll();
         }
 
         [Theory, AutoData]
         public async Task GetAllReturnsEventSummaries(IEnumerable<Event> events)
         {
-            var service = new Mock<IEventService>(MockBehavior.Strict);
+            var eventService = new Mock<IEventService>(MockBehavior.Strict);
 
-            service.Setup(e => e.GetListAsync(DateTime.Today)).ReturnsAsync(events);
+            eventService.Setup(e => e.GetListAsync(DateTime.Today)).ReturnsAsync(events);
 
-            var controller = GetController(service.Object);
+            var flagService = new Mock<IFlagService>(MockBehavior.Strict);
+
+            foreach (var e in events)
+            {
+                flagService.Setup(f => f.GetFlags(e, Flags.NeedsEmailing | Flags.UrgentCoverNeeded)).Returns(Enumerable.Empty<Flags>);
+            }
+
+            var controller = GetController(eventService.Object, flagService.Object);
 
             var result = await controller.GetAll();
 
@@ -57,7 +72,8 @@ namespace Planner.Tests.Controllers.Api
                 .Which.Value.Should().BeAssignableTo<IEnumerable<EventSummary>>()
                 .Which.Should().BeEquivalentTo(expected);
 
-            service.VerifyAll();
+            eventService.VerifyAll();
+            flagService.VerifyAll();
         }
 
         [Theory, AutoData]
@@ -104,6 +120,11 @@ namespace Planner.Tests.Controllers.Api
         protected override EventsController GetController(IItemService<Event> service)
         {
             return new EventsController(service as IEventService, null);
+        }
+
+        protected EventsController GetController(IItemService<Event> service, IFlagService flagService)
+        {
+            return new EventsController(service as IEventService, flagService);
         }
 
         protected override JsonPatchDocument<Event> GetPatch()

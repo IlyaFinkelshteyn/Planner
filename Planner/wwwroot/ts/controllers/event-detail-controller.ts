@@ -87,7 +87,7 @@ class EventDetailController {
             callback: function () { vm.activate() },
             modelItems: ['team', 'callsign', 'name', 'qualification', 'cyclingLevel'],
             resolve: {
-                cyclistData: function () { return this.DeploymentService.getCyclistSummaries(); },
+                cyclistData: function () { return vm.DeploymentService.getCyclistSummaries(); },
             }
         });
 
@@ -148,6 +148,8 @@ class EventDetailController {
     showDeploymentEdit: boolean = false;
 
     addDeployment(item: any) {
+        let vm = this;
+
         var modalInstance = this.$uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
@@ -160,7 +162,7 @@ class EventDetailController {
                 team: function () { return 1; },
                 callsign: function () { return ""; },
                 cyclist: function () { return ""; },
-                cyclistData: function () { return this.DeploymentService.getCyclistSummaries(); },
+                cyclistData: function () { return vm.DeploymentService.getCyclistSummaries(); },
                 clinicalQualification: function () { return ""; },
                 cyclingLevel: function () { return ""; }
             }
@@ -170,9 +172,7 @@ class EventDetailController {
             result.name = result.cyclist;
             result.qualification = result.clinicalQualification;
 
-            let vm = this;
-
-            this.DeploymentService.addItem(this.id, result).then(function () {
+            vm.DeploymentService.addItem(vm.id, result).then(function () {
                 vm.activate();
             });
         });
@@ -193,9 +193,10 @@ class EventDetailController {
             }
         });
 
+        let vm = this;
+
         modalInstance.result.then(function (result) {
-            let vm = this;
-            this.ScheduleItemService.addItem(this.id, result).then(function () {
+            vm.ScheduleItemService.addItem(vm.id, result).then(function () {
                 vm.activate();
             });
         });

@@ -74,7 +74,7 @@ var EventDetailController = (function () {
             callback: function () { vm.activate(); },
             modelItems: ['team', 'callsign', 'name', 'qualification', 'cyclingLevel'],
             resolve: {
-                cyclistData: function () { return this.DeploymentService.getCyclistSummaries(); },
+                cyclistData: function () { return vm.DeploymentService.getCyclistSummaries(); },
             }
         });
         this.changeDescription = this.PatchItemService.createController({
@@ -114,6 +114,7 @@ var EventDetailController = (function () {
         this.activate();
     }
     EventDetailController.prototype.addDeployment = function (item) {
+        var vm = this;
         var modalInstance = this.$uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
@@ -126,7 +127,7 @@ var EventDetailController = (function () {
                 team: function () { return 1; },
                 callsign: function () { return ""; },
                 cyclist: function () { return ""; },
-                cyclistData: function () { return this.DeploymentService.getCyclistSummaries(); },
+                cyclistData: function () { return vm.DeploymentService.getCyclistSummaries(); },
                 clinicalQualification: function () { return ""; },
                 cyclingLevel: function () { return ""; }
             }
@@ -134,8 +135,7 @@ var EventDetailController = (function () {
         modalInstance.result.then(function (result) {
             result.name = result.cyclist;
             result.qualification = result.clinicalQualification;
-            var vm = this;
-            this.DeploymentService.addItem(this.id, result).then(function () {
+            vm.DeploymentService.addItem(vm.id, result).then(function () {
                 vm.activate();
             });
         });
@@ -154,9 +154,9 @@ var EventDetailController = (function () {
                 action: function () { return ""; }
             }
         });
+        var vm = this;
         modalInstance.result.then(function (result) {
-            var vm = this;
-            this.ScheduleItemService.addItem(this.id, result).then(function () {
+            vm.ScheduleItemService.addItem(vm.id, result).then(function () {
                 vm.activate();
             });
         });

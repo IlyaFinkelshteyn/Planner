@@ -157,6 +157,7 @@ namespace Planner
 
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ISubItemService<ScheduleItem>, ScheduleItemService>();
+            services.AddTransient<ISubItemService<Deployment>, DeploymentService>();
 
             services.Configure<FlagServiceOptions>(Configuration);
             services.AddTransient<IFlagService, FlagService>();

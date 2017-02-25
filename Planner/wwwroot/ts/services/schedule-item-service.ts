@@ -16,8 +16,6 @@
     addItem(eventId: number, item: any) {
         item = $.extend({}, item);
 
-        item.time = moment(item.time).format("hh:mm");
-
         return this.$http<IdResult>({
             method: 'POST',
             url: this.urlBase + "?eventId=" + eventId,
