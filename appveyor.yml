@@ -4,6 +4,8 @@ before_build:
 - cmd: prebuild.bat
 build:
   verbosity: minimal
+before_test:
+- set APPVEYOR_API_URL=
 test_script:
 - cmd: cd %APPVEYOR_BUILD_FOLDER%
 - cmd: tests.bat
