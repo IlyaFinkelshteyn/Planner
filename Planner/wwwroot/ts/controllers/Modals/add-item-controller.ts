@@ -1,26 +1,20 @@
-﻿angular
-    .module('app')
-    .controller('AddItemController', AddItemController);
-
-AddItemController.$inject = ['$uibModalInstance', 'itemName'];
-
-class AddItemController {
-    constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, itemName: string) {
-        this.$uibModalInstance = $uibModalInstance;
+﻿class AddItemController extends ModalController {
+    constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
+        itemName: string) {
+        super($uibModalInstance);
         this.itemName = itemName;
     }
-    /* jshint validthis:true */
-    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+
+    static $inject = ['$uibModalInstance', 'itemName'];
+
     itemName: string;
     name = '';
 
-    submit = function() {
+    submit = function () {
         this.$uibModalInstance.close({
             name: this.name
         });
     }
-
-    cancel = function() {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('AddItemController', AddItemController);

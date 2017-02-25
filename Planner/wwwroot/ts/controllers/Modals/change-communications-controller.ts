@@ -1,14 +1,9 @@
-﻿angular
-    .module('app')
-    .controller('ChangeCommunicationsController', ChangeCommunicationsController);
-
-ChangeCommunicationsController.$inject = ['$uibModalInstance', 'usingSJARadio', 'usingAirwave', 'radioChannel', 'fallbackRadioChannel', 'controlPhoneNumber', 'cruTrackingInUse'];
-
-class ChangeCommunicationsController {
+﻿class ChangeCommunicationsController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
         usingSJARadio: boolean, usingAirwave: boolean, radioChannel: string,
         fallbackRadioChannel: string, controlPhoneNumber: string, cruTrackingInUse: boolean) {
-        this.$uibModalInstance = $uibModalInstance;
+        super($uibModalInstance);
+
         this.usingSJARadio = usingSJARadio;
         this.usingAirwave = usingAirwave;
         this.radioChannel = radioChannel;
@@ -17,13 +12,14 @@ class ChangeCommunicationsController {
         this.cruTrackingInUse = cruTrackingInUse;
     }
 
-    private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
     usingSJARadio: boolean;
     usingAirwave: boolean;
     radioChannel: string;
     fallbackRadioChannel: string;
     controlPhoneNumber: string;
     cruTrackingInUse: boolean;
+
+    static $inject = ['$uibModalInstance', 'usingSJARadio', 'usingAirwave', 'radioChannel', 'fallbackRadioChannel', 'controlPhoneNumber', 'cruTrackingInUse'];
 
     submit() {
         this.$uibModalInstance.close({
@@ -35,8 +31,6 @@ class ChangeCommunicationsController {
             cruTrackingInUse: this.cruTrackingInUse
         });
     }
-
-    cancel() {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('ChangeCommunicationsController', ChangeCommunicationsController);

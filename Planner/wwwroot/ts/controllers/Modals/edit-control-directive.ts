@@ -1,8 +1,4 @@
-﻿angular
-    .module('app')
-    .directive('editControl', EditControlDirective.Factory());
-
-interface IEditControlScope extends angular.IScope {
+﻿interface IEditControlScope extends angular.IScope {
     form: any;
 }
 
@@ -30,8 +26,8 @@ class EditControlDirective {
             return new EditControlDirective();
         };
 
-        directive['$inject'] = [];
-
         return directive;
     }
 }
+
+angular.module('app').directive('editControl', EditControlDirective.Factory());

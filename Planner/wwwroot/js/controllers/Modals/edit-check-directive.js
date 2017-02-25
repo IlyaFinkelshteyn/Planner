@@ -1,6 +1,3 @@
-angular
-    .module('app')
-    .directive('editCheck', EditCheckDirective.Factory());
 var EditCheckDirective = (function () {
     function EditCheckDirective() {
         this.scope = {
@@ -17,8 +14,9 @@ var EditCheckDirective = (function () {
         var directive = function () {
             return new EditCheckDirective();
         };
-        directive['$inject'] = [];
         return directive;
     };
     return EditCheckDirective;
 }());
+angular.module('app').directive('editCheck', EditCheckDirective.Factory());
+//# sourceMappingURL=edit-check-directive.js.map

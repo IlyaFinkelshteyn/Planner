@@ -1,10 +1,4 @@
-﻿angular
-    .module('app')
-    .factory('PatchItemService', PatchItemService);
-
-PatchItemService.$inject = ['$uibModal'];
-
-interface PatchItemServiceOptions {
+﻿interface PatchItemServiceOptions {
     resolve?: ResolveObject;
     model?: (el: any) => any;
     modelItems: string[];
@@ -26,9 +20,11 @@ class PatchItemService {
         this.$uibModal = $uibModal;
     }
 
+    static $inject = ['$uibModal'];
+
     private $uibModal: angular.ui.bootstrap.IModalService;
 
-    private lowerFirstLetter(string: string) {
+    private static lowerFirstLetter(string: string) {
         return string.charAt(0).toLowerCase() + string.slice(1);
     }
 
@@ -39,7 +35,7 @@ class PatchItemService {
             let modelFunction = options.model || function(el) { return item[el] };
 
             $.each(options.modelItems, function(i, el) {
-                resolveObject[this.lowerFirstLetter(el)] = function() {
+                resolveObject[PatchItemService.lowerFirstLetter(el)] = function() {
                     return modelFunction(el);
                 };
             });
@@ -58,19 +54,22 @@ class PatchItemService {
 
             modalInstance.result.then(function(result: any) {
                 var patchData: any = [];
+               
 
                 $.each(options.modelItems, function(i, el) {
                     patchData.push({
                         'op': 'replace',
                         'path': '/' + el,
-                        'value': result[this.lowerFirstLetter(el)]
+                        'value': result[PatchItemService.lowerFirstLetter(el)]
                     });
                 });
 
-                options.service.patchItem(options.itemId || item.Id, patchData).then(function() {
+                options.service.patchItem(options.itemId || item.id, patchData).then(function() {
                     options.callback();
                 });
             });
         };
     }
 }
+
+angular.module('app').service('PatchItemService', PatchItemService);

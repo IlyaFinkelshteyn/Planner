@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Planner.Data;
 using Planner.Middleware;
 using Planner.Models;
+using Planner.Models.EventsModel;
 using Planner.Services;
 using Planner.Services.Filters;
 using Planner.Services.Interfaces;
@@ -155,6 +156,7 @@ namespace Planner
             services.AddTransient<IApiDescriptionProvider, ExtendedApiDescriptionProvider>();
 
             services.AddTransient<IEventService, EventService>();
+            services.AddTransient<ISubItemService<ScheduleItem>, ScheduleItemService>();
 
             services.Configure<FlagServiceOptions>(Configuration);
             services.AddTransient<IFlagService, FlagService>();

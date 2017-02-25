@@ -1,37 +1,32 @@
-﻿angular
-    .module('app')
-    .controller('EventCreateController', EventCreateController);
-
-EventCreateController.$inject = ['$location', 'EventService'];
-
-class EventCreateController {
+﻿class EventCreateController {
     constructor($location: angular.ILocationService, EventService: EventService) {
         this.$location = $location;
         this.EventService = EventService;
     }
 
+    static $inject = ['$location', 'EventService'];
     $location: angular.ILocationService;
     EventService: EventService
 
-    data = {
-        CyclistsRequested: 2,
-        Date: new Date(),
-        DipsNumber: '',
-        EndTime: new Date(0, 0, 0, 17),
-        Location: '',
-        Name: '',
-        StartTime: new Date(0, 0, 0, 9),
-        Status: '0',
-        DateConfirmed: false,
+    data: IEventCreate = {
+        cyclistsRequested: 2,
+        date: new Date(),
+        dipsNumber: null,
+        endTime: new Date(0, 0, 0, 17),
+        location: '',
+        name: '',
+        startTime: new Date(0, 0, 0, 9),
+        status: EventStatus.Unconfirmed,
+        dateConfirmed: false,
     };
 
-    debug = function() { return angular.toJson(this.data); }
-
-    submit = function() {
+    submit = function () {
         this.EventService.addEvent(this.data).then(
-            function(response: any) {
+            function (response: angular.IHttpPromiseCallbackArg<IdResult>) {
                 this.$location.path('/Event/' + response.data.id);
             }
         );
     }
 }
+
+angular.module('app').controller('EventCreateController', EventCreateController);

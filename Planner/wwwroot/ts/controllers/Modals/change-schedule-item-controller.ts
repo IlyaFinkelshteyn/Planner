@@ -1,18 +1,13 @@
-﻿angular
-    .module('app')
-    .controller('ChangeScheduleItemController', ChangeScheduleItemController);
-
-ChangeScheduleItemController.$inject = ['$uibModalInstance', 'mode', 'time', 'action'];
-
-class ChangeScheduleItemController {
+﻿class ChangeScheduleItemController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
         mode: string, time: string, action: string) {
-        this.$uibModalInstance = $uibModalInstance;
+        super($uibModalInstance);
         this.mode = mode;
-        this.time = moment(time, 'hh:mm').toDate();
+        this.time = moment(time, 'HH:mm').toDate();
         this.action = action;
     }
-    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+
+    static $inject = ['$uibModalInstance', 'mode', 'time', 'action'];
     mode: string;
     time: Date;
     action: string;
@@ -30,12 +25,10 @@ class ChangeScheduleItemController {
 
     submit() {
         this.$uibModalInstance.close({
-            time: moment(this.time).format('hh:mm'),
+            time: moment(this.time).format('HH:mm'),
             action: this.action
         });
     };
-
-    cancel() {
-        this.$uibModalInstance.dismiss('cancel');
-    };
 }
+
+angular.module('app').controller('ChangeScheduleItemController', ChangeScheduleItemController);

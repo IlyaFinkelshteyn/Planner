@@ -1,15 +1,10 @@
-﻿angular
-    .module('app')
-    .factory('ScheduleItemService', ScheduleItemService);
-
-ScheduleItemService.$inject = ['$http'];
-
-class ScheduleItemService {
+﻿class ScheduleItemService {
     constructor($http: angular.IHttpService) {
         this.$http = $http;
     }
     private urlBase = '/api/scheduleItems';
     private $http: angular.IHttpService;
+    static $inject = ['$http'];
 
     deleteItem(id: number) {
         return this.$http({
@@ -23,7 +18,7 @@ class ScheduleItemService {
 
         item.time = moment(item.time).format("hh:mm");
 
-        return this.$http({
+        return this.$http<IdResult>({
             method: 'POST',
             url: this.urlBase + "?eventId=" + eventId,
             data: item
@@ -31,7 +26,7 @@ class ScheduleItemService {
     }
 
     patchItem(id: number, patch: any) {
-        return this.$http({
+        return this.$http<IScheduleItemDetail>({
             method: 'PATCH',
             url: this.urlBase + "/" + id,
             data: patch,
@@ -41,3 +36,5 @@ class ScheduleItemService {
         });
     }
 }
+
+angular.module('app').service('ScheduleItemService', ScheduleItemService);

@@ -1,14 +1,8 @@
-﻿angular
-    .module('app')
-    .controller('ChangeDeploymentController', ChangeDeploymentController);
-
-ChangeDeploymentController.$inject = ['$uibModalInstance', 'mode', 'team', 'callsign', 'name', 'cyclistData', 'qualification', 'cyclingLevel'];
-
-class ChangeDeploymentController {
+﻿class ChangeDeploymentController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
         mode: string, team: number, callsign: string, name: string, cyclistData: any,
         qualification: Qualification, cyclingLevel: CyclingLevel) {
-        this.$uibModalInstance = $uibModalInstance;
+        super($uibModalInstance);
         this.mode = mode;
         this.team = team;
         this.callsign = callsign;
@@ -18,7 +12,7 @@ class ChangeDeploymentController {
         this.cyclingLevel = (cyclingLevel || "").toString();
     }
 
-    private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    static $inject = ['$uibModalInstance', 'mode', 'team', 'callsign', 'name', 'cyclistData', 'qualification', 'cyclingLevel'];
     mode: string;
     team: number;
     callsign: string;
@@ -47,8 +41,6 @@ class ChangeDeploymentController {
                 return "";
         }
     };
-
-    cancel() {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('ChangeDeploymentController', ChangeDeploymentController);

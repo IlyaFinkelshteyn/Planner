@@ -1,14 +1,17 @@
-angular
-    .module('app')
-    .controller('ChangeDateController', ChangeDateController);
-ChangeDateController.$inject = ['$uibModalInstance', 'date', 'startTime', 'endTime', 'dateConfirmed'];
-var ChangeDateController = (function () {
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var ChangeDateController = (function (_super) {
+    __extends(ChangeDateController, _super);
     function ChangeDateController($uibModalInstance, date, startTime, endTime, dateConfirmed) {
-        this.$uibModalInstance = $uibModalInstance;
-        this.date = moment(date).toDate();
-        this.startTime = moment(startTime, 'hh:mm').toDate();
-        this.endTime = moment(endTime, 'hh:mm').toDate();
-        this.dateConfirmed = dateConfirmed;
+        var _this = _super.call(this, $uibModalInstance) || this;
+        _this.date = moment(date).toDate();
+        _this.startTime = moment(startTime, 'hh:mm').toDate();
+        _this.endTime = moment(endTime, 'hh:mm').toDate();
+        _this.dateConfirmed = dateConfirmed;
+        return _this;
     }
     ChangeDateController.prototype.submit = function () {
         this.$uibModalInstance.close({
@@ -18,8 +21,8 @@ var ChangeDateController = (function () {
             dateConfirmed: this.dateConfirmed
         });
     };
-    ChangeDateController.prototype.cancel = function () {
-        this.$uibModalInstance.dismiss('cancel');
-    };
     return ChangeDateController;
-}());
+}(ModalController));
+ChangeDateController.$inject = ['$uibModalInstance', 'date', 'startTime', 'endTime', 'dateConfirmed'];
+angular.module('app').controller('ChangeDateController', ChangeDateController);
+//# sourceMappingURL=change-date-controller.js.map

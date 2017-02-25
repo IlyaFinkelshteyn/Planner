@@ -1,20 +1,14 @@
-﻿angular
-    .module('app')
-    .controller('ChangeDateController', ChangeDateController);
-
-ChangeDateController.$inject = ['$uibModalInstance', 'date', 'startTime', 'endTime', 'dateConfirmed'];
-
-class ChangeDateController {
+﻿class ChangeDateController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
         date: string, startTime: string, endTime: string, dateConfirmed: boolean) {
-        this.$uibModalInstance = $uibModalInstance;
+        super($uibModalInstance);
         this.date = moment(date).toDate();
         this.startTime = moment(startTime, 'hh:mm').toDate();
         this.endTime = moment(endTime, 'hh:mm').toDate();
         this.dateConfirmed = dateConfirmed;
     }
 
-    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    static $inject = ['$uibModalInstance', 'date', 'startTime', 'endTime', 'dateConfirmed'];
     date: Date;
     startTime: Date;
     endTime: Date;
@@ -28,8 +22,6 @@ class ChangeDateController {
             dateConfirmed: this.dateConfirmed
         });
     }
-
-    cancel() {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('ChangeDateController', ChangeDateController);

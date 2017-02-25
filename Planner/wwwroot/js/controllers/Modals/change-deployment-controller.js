@@ -1,17 +1,20 @@
-angular
-    .module('app')
-    .controller('ChangeDeploymentController', ChangeDeploymentController);
-ChangeDeploymentController.$inject = ['$uibModalInstance', 'mode', 'team', 'callsign', 'name', 'cyclistData', 'qualification', 'cyclingLevel'];
-var ChangeDeploymentController = (function () {
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var ChangeDeploymentController = (function (_super) {
+    __extends(ChangeDeploymentController, _super);
     function ChangeDeploymentController($uibModalInstance, mode, team, callsign, name, cyclistData, qualification, cyclingLevel) {
-        this.$uibModalInstance = $uibModalInstance;
-        this.mode = mode;
-        this.team = team;
-        this.callsign = callsign;
-        this.cyclist = name;
-        this.cyclistData = cyclistData;
-        this.clinicalQualification = (qualification || "").toString();
-        this.cyclingLevel = (cyclingLevel || "").toString();
+        var _this = _super.call(this, $uibModalInstance) || this;
+        _this.mode = mode;
+        _this.team = team;
+        _this.callsign = callsign;
+        _this.cyclist = name;
+        _this.cyclistData = cyclistData;
+        _this.clinicalQualification = (qualification || "").toString();
+        _this.cyclingLevel = (cyclingLevel || "").toString();
+        return _this;
     }
     ChangeDeploymentController.prototype.submit = function () {
         this.$uibModalInstance.close({
@@ -33,8 +36,8 @@ var ChangeDeploymentController = (function () {
         }
     };
     ;
-    ChangeDeploymentController.prototype.cancel = function () {
-        this.$uibModalInstance.dismiss('cancel');
-    };
     return ChangeDeploymentController;
-}());
+}(ModalController));
+ChangeDeploymentController.$inject = ['$uibModalInstance', 'mode', 'team', 'callsign', 'name', 'cyclistData', 'qualification', 'cyclingLevel'];
+angular.module('app').controller('ChangeDeploymentController', ChangeDeploymentController);
+//# sourceMappingURL=change-deployment-controller.js.map

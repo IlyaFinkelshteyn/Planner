@@ -1,7 +1,3 @@
-angular
-    .module('app')
-    .controller('HomeController', HomeController);
-HomeController.$inject = ['$location', 'EventService', 'FlagService'];
 var HomeController = (function () {
     function HomeController($location, EventService, FlagService) {
         this.loading = true;
@@ -9,6 +5,7 @@ var HomeController = (function () {
         this.pageCount = 0;
         this.pageSize = 10;
         this.filter = "";
+        this.needsEmail = false;
         this.statusToListGroupItemClass = function (status) {
             return this.FlagService.statusToListGroupItemClass(status);
         };
@@ -42,14 +39,18 @@ var HomeController = (function () {
     };
     ;
     HomeController.prototype.activate = function () {
+        var vm = this;
         this.EventService.getEvents(this.historic).then(function (response) {
-            this.data = response.data;
-            this.pageCount = Math.ceil(this.data.length / this.pageSize);
-            this.loading = false;
-            this.needsEmail = !this.historic && $.grep(this.data, function (event, n) {
-                return $.inArray(this.FlagService.flags.NeedsEmailing, event.Flags) !== -1;
-            });
+            vm.data = response.data;
+            vm.pageCount = Math.ceil(vm.data.length / vm.pageSize);
+            vm.loading = false;
+            vm.needsEmail = !vm.historic && $.grep(vm.data, function (event, n) {
+                return $.inArray(2 /* NeedsEmailing */, event.Flags) !== -1;
+            }).length > 0;
         });
     };
     return HomeController;
 }());
+HomeController.$inject = ['$location', 'EventService', 'FlagService'];
+angular.module('app').controller('HomeController', HomeController);
+//# sourceMappingURL=home-controller.js.map

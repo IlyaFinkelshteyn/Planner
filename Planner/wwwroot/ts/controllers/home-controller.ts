@@ -1,10 +1,4 @@
-﻿angular
-    .module('app')
-    .controller('HomeController', HomeController);
-
-HomeController.$inject = ['$location', 'EventService', 'FlagService'];
-
-class HomeController {
+﻿class HomeController {
     constructor($location: angular.ILocationService, EventService: EventService, FlagService: FlagService) {
         this.$location = $location;
         this.EventService = EventService;
@@ -14,6 +8,7 @@ class HomeController {
         this.activate();
     }
 
+    static $inject = ['$location', 'EventService', 'FlagService'];
     $location: angular.ILocationService;
     EventService: EventService;
     FlagService: FlagService;
@@ -25,6 +20,9 @@ class HomeController {
     pageCount = 0;
     pageSize = 10;
     filter = "";
+    needsEmail = false;
+    data: IEventSummary[];
+
 
     pages() {
         return Array.apply(null, { length: this.pageCount }).map(Number.call, Number);
@@ -56,16 +54,19 @@ class HomeController {
     };
 
     activate() {
+        let vm = this;
         this.EventService.getEvents(this.historic).then(function(response) {
-            this.data = response.data;
+            vm.data = response.data;
 
-            this.pageCount = Math.ceil(this.data.length / this.pageSize);
+            vm.pageCount = Math.ceil(vm.data.length / vm.pageSize);
 
-            this.loading = false;
+            vm.loading = false;
 
-            this.needsEmail = !this.historic && $.grep(this.data, function(event: any, n) {
-                return $.inArray(this.FlagService.flags.NeedsEmailing, event.Flags) !== -1;
-            });
+            vm.needsEmail = !vm.historic && $.grep(vm.data, function(event: any, n) {
+                return $.inArray(Flags.NeedsEmailing, event.Flags) !== -1;
+            }).length > 0;
         });
     }
 }
+
+angular.module('app').controller('HomeController', HomeController);

@@ -1,16 +1,9 @@
-﻿angular
-    .module('app')
-    .controller('ChangeCoverController', ChangeCoverController);
-
-ChangeCoverController.$inject = ['$uibModalInstance', 'firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable',
-    'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent'];
-
-class ChangeCoverController {
+﻿class ChangeCoverController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
         firstAidersAvailable: number, cyclistsRequested: number,
         firstAidUnitsAvailable: number, ambulancesAvailable: number,
         paramedicsAvailable: boolean, doctorsPresent: boolean) {
-        this.$uibModalInstance = $uibModalInstance;
+        super($uibModalInstance);
         this.firstAiders = firstAidersAvailable;
         this.cyclists = cyclistsRequested;
         this.firstAidUnits = firstAidUnitsAvailable;
@@ -19,7 +12,7 @@ class ChangeCoverController {
         this.doctorsAvailable = doctorsPresent;
     }
 
-    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    static $inject = ['$uibModalInstance', 'firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable', 'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent'];
     firstAiders: number;
     cyclists: number;
     firstAidUnits: number;
@@ -27,7 +20,7 @@ class ChangeCoverController {
     paramedicsAvailable: boolean;
     doctorsAvailable: boolean;
 
-    submit = function() {
+    submit = function () {
         this.$uibModalInstance.close({
             firstAidersAvailable: this.firstAiders,
             cyclistsRequested: this.cyclists,
@@ -37,8 +30,6 @@ class ChangeCoverController {
             doctorsPresent: this.doctorsAvailable
         });
     }
-
-    cancel = function() {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('ChangeCoverController', ChangeCoverController);

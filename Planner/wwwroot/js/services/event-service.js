@@ -1,8 +1,4 @@
 /// <reference path="./moment.d.ts" />
-angular
-    .module('app')
-    .factory('EventService', EventService);
-EventService.$inject = ['$http'];
 var EventService = (function () {
     function EventService($http) {
         this.urlBase = '/api/events';
@@ -18,17 +14,17 @@ var EventService = (function () {
     };
     EventService.prototype.addEvent = function (event) {
         event = $.extend({}, event);
-        if (event.DipsNumber === '' || event.DipsNumber == null)
-            event.DipsNumber = 0;
-        event.EndTime = moment(event.EndTime).format("hh:mm");
-        event.StartTime = moment(event.StartTime).format("hh:mm");
+        if (!event.dipsNumber)
+            event.dipsNumber = 0;
+        event.endTime = moment(event.endTime).format("hh:mm");
+        event.startTime = moment(event.startTime).format("hh:mm");
         return this.$http({
             method: 'POST',
             url: this.urlBase,
             data: event
         });
     };
-    EventService.prototype.patchEvent = function (id, patch) {
+    EventService.prototype.patchItem = function (id, patch) {
         return this.$http({
             method: 'PATCH',
             url: this.urlBase + "/" + id,
@@ -40,3 +36,6 @@ var EventService = (function () {
     };
     return EventService;
 }());
+EventService.$inject = ['$http'];
+angular.module('app').service('EventService', EventService);
+//# sourceMappingURL=event-service.js.map

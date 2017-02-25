@@ -1,16 +1,11 @@
-﻿angular
-    .module('app')
-    .controller('ChangeDescriptionController', ChangeDescriptionController);
-
-ChangeDescriptionController.$inject = ['$uibModalInstance', 'description'];
-
-class ChangeDescriptionController {
+﻿class ChangeDescriptionController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, description: string) {
+        super($uibModalInstance);
         this.description = description;
-        this.$uibModalInstance = $uibModalInstance;
     }
 
-    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    static $inject = ['$uibModalInstance', 'description'];
+
     description: string;
 
     submit() {
@@ -18,8 +13,6 @@ class ChangeDescriptionController {
             description: this.description
         });
     }
-
-    cancel() {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('ChangeDescriptionController', ChangeDescriptionController);

@@ -1,12 +1,8 @@
-angular
-    .module('app')
-    .factory('PatchItemService', PatchItemService);
-PatchItemService.$inject = ['$uibModal'];
 var PatchItemService = (function () {
     function PatchItemService($uibModal) {
         this.$uibModal = $uibModal;
     }
-    PatchItemService.prototype.lowerFirstLetter = function (string) {
+    PatchItemService.lowerFirstLetter = function (string) {
         return string.charAt(0).toLowerCase() + string.slice(1);
     };
     PatchItemService.prototype.createController = function (options) {
@@ -14,7 +10,7 @@ var PatchItemService = (function () {
             var resolveObject = options.resolve || {};
             var modelFunction = options.model || function (el) { return item[el]; };
             $.each(options.modelItems, function (i, el) {
-                resolveObject[this.lowerFirstLetter(el)] = function () {
+                resolveObject[PatchItemService.lowerFirstLetter(el)] = function () {
                     return modelFunction(el);
                 };
             });
@@ -34,10 +30,10 @@ var PatchItemService = (function () {
                     patchData.push({
                         'op': 'replace',
                         'path': '/' + el,
-                        'value': result[this.lowerFirstLetter(el)]
+                        'value': result[PatchItemService.lowerFirstLetter(el)]
                     });
                 });
-                options.service.patchItem(options.itemId || item.Id, patchData).then(function () {
+                options.service.patchItem(options.itemId || item.id, patchData).then(function () {
                     options.callback();
                 });
             });
@@ -45,3 +41,6 @@ var PatchItemService = (function () {
     };
     return PatchItemService;
 }());
+PatchItemService.$inject = ['$uibModal'];
+angular.module('app').service('PatchItemService', PatchItemService);
+//# sourceMappingURL=patch-item-service.js.map

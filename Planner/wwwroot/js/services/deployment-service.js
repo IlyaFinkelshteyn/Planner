@@ -1,7 +1,3 @@
-angular
-    .module('app')
-    .factory('DeploymentService', DeploymentService);
-DeploymentService.$inject = ['$http'];
 var DeploymentService = (function () {
     function DeploymentService($http) {
         this.urlBase = '/api/deployments';
@@ -39,3 +35,6 @@ var DeploymentService = (function () {
     };
     return DeploymentService;
 }());
+DeploymentService.$inject = ['$http'];
+angular.module('app').service('DeploymentService', DeploymentService);
+//# sourceMappingURL=deployment-service.js.map

@@ -1,7 +1,4 @@
-﻿angular
-    .module('app')
-    .directive('editCheck', EditCheckDirective.Factory());
-
+﻿
 class EditCheckDirective {
     scope = {
         model: '=',
@@ -19,8 +16,8 @@ class EditCheckDirective {
             return new EditCheckDirective();
         };
 
-        directive['$inject'] = [];
-
         return directive;
     }
 }
+
+angular.module('app').directive('editCheck', EditCheckDirective.Factory());

@@ -1,7 +1,3 @@
-angular
-    .module('app')
-    .factory('FlagService', FlagService);
-FlagService.$inject = [];
 var FlagService = (function () {
     function FlagService() {
     }
@@ -66,3 +62,5 @@ var FlagService = (function () {
     ;
     return FlagService;
 }());
+angular.module('app').service('FlagService', FlagService);
+//# sourceMappingURL=flag-service.js.map

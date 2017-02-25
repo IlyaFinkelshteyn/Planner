@@ -18,22 +18,33 @@
     <None Remove=".vs\**" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="node_modules\%40types\angular-route\package.json" />
-    <Content Include="node_modules\%40types\angular-route\types-metadata.json" />
-    <Content Include="node_modules\%40types\angular-ui-bootstrap\package.json" />
-    <Content Include="node_modules\%40types\angular-ui-bootstrap\types-metadata.json" />
-    <Content Include="node_modules\%40types\angular\package.json" />
-    <Content Include="node_modules\%40types\angular\types-metadata.json" />
-    <Content Include="node_modules\%40types\jquery\package.json" />
-    <Content Include="node_modules\%40types\jquery\types-metadata.json" />
-    <Content Include="wwwroot\js\requirejs.config" />
-    <Content Include="wwwroot\ts\app.ts" />
-    <Content Include="wwwroot\ts\services\deployment-service.ts" />
-    <Content Include="wwwroot\ts\services\event-service.ts" />
-    <Content Include="wwwroot\ts\services\flag-service.ts" />
-    <Content Include="wwwroot\ts\services\moment.d.ts">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    <Content Remove="wwwroot/ts\models\CreateTypescriptModels.tt" />
+    <Content Remove="wwwroot/ts\models\DetailTypescriptModels.tt" />
+    <Content Remove="wwwroot/ts\models\SummaryTypescriptModels.tt" />
+    <Content Remove="wwwroot/ts\models\UpdateTypescriptModels.tt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\ts\models\CreateTypescriptModels.generated.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateTypescriptModels.tt</DependentUpon>
     </Content>
+    <Content Include="wwwroot\ts\models\DetailTypescriptModels.generated.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DetailTypescriptModels.tt</DependentUpon>
+    </Content>
+    <Content Include="wwwroot\ts\models\SummaryTypescriptModels.generated.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SummaryTypescriptModels.tt</DependentUpon>
+    </Content>
+    <Content Include="wwwroot\ts\models\UpdateTypescriptModels.generated.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UpdateTypescriptModels.tt</DependentUpon>
+    </Content>
+    <Content Include="wwwroot\ts\services\item-service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -66,35 +77,21 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="node_modules\%40types\angular-route\index.d.ts" />
-    <None Include="node_modules\%40types\angular-route\README.md" />
-    <None Include="node_modules\%40types\angular-ui-bootstrap\index.d.ts" />
-    <None Include="node_modules\%40types\angular-ui-bootstrap\README.md" />
-    <None Include="node_modules\%40types\angular\index.d.ts" />
-    <None Include="node_modules\%40types\angular\README.md" />
-    <None Include="node_modules\%40types\jquery\index.d.ts" />
-    <None Include="node_modules\%40types\jquery\README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Models\EventsModel\EventModels.tt">
+    <None Include="wwwroot/ts\models\CreateTypescriptModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EventModels.generated.cs</LastGenOutput>
+      <LastGenOutput>CreateTypescriptModels.generated.ts</LastGenOutput>
     </None>
-    <None Update="Models\EventsViewModels\CreateModels.tt">
+    <None Include="wwwroot/ts\models\DetailTypescriptModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CreateModels.generated.cs</LastGenOutput>
+      <LastGenOutput>DetailTypescriptModels.generated.ts</LastGenOutput>
     </None>
-    <None Update="Models\EventsViewModels\DetailsModels.tt">
+    <None Include="wwwroot/ts\models\SummaryTypescriptModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DetailsModels.generated.cs</LastGenOutput>
+      <LastGenOutput>SummaryTypescriptModels.generated.ts</LastGenOutput>
     </None>
-    <None Update="Models\EventsViewModels\SummaryModels.tt">
+    <None Include="wwwroot/ts\models\UpdateTypescriptModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SummaryModels.generated.cs</LastGenOutput>
-    </None>
-    <None Update="Models\EventsViewModels\UpdateModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UpdateModels.generated.cs</LastGenOutput>
+      <LastGenOutput>UpdateTypescriptModels.generated.ts</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -126,5 +123,27 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UpdateModels.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Models\EventsModel\EventModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EventModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Models\EventsViewModels\CreateModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CreateModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Models\EventsViewModels\DetailsModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DetailsModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Models\EventsViewModels\SummaryModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SummaryModels.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Models\EventsViewModels\UpdateModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UpdateModels.generated.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

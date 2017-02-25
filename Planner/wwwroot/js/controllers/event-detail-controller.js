@@ -1,8 +1,3 @@
-angular
-    .module('app')
-    .controller('EventDetailController', EventDetailController);
-EventDetailController.$inject = ['$location', '$routeParams', '$uibModal', 'EventService', 'FlagService',
-    'ScheduleItemService', 'DeploymentService', 'PatchItemService'];
 var Qualification;
 (function (Qualification) {
     Qualification[Qualification["AFA"] = 1] = "AFA";
@@ -20,34 +15,26 @@ var CyclingLevel;
 })(CyclingLevel || (CyclingLevel = {}));
 var EventDetailController = (function () {
     function EventDetailController($location, $routeParams, $uibModal, EventService, FlagService, ScheduleItemService, DeploymentService, PatchItemService) {
-        this.id = this.$routeParams.id;
         this.loading = true;
         this.showScheduleEdit = false;
         this.showDeploymentEdit = false;
-        this.renameEvent = this.PatchItemService.createController({
-            template: '/html/modals/rename-modal.html',
-            controller: 'RenameEventController',
-            service: this.EventService,
-            itemId: this.id,
-            model: function (el) { return this.data[el]; },
-            callback: this.activate,
-            modelItems: ['name', 'dipsNumber']
-        });
         this.$location = $location;
         this.$routeParams = $routeParams;
+        this.id = $routeParams.id;
         this.$uibModal = $uibModal;
         this.EventService = EventService;
         this.FlagService = FlagService;
         this.ScheduleItemService = ScheduleItemService;
         this.DeploymentService = DeploymentService;
         this.PatchItemService = PatchItemService;
+        var vm = this;
         this.changeConsiderations = this.PatchItemService.createController({
             template: '/html/modals/change-considerations-modal.html',
             controller: 'ChangeConsiderationsController',
             service: this.EventService,
             itemId: this.id,
-            model: function (el) { return this.data[el]; },
-            callback: this.activate,
+            model: function (el) { return vm.data[el]; },
+            callback: function () { vm.activate(); },
             modelItems: ['soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather',
                 'hasSeriousHistory', 'widerDistribution']
         });
@@ -56,8 +43,8 @@ var EventDetailController = (function () {
             controller: 'ChangeCommunicationsController',
             service: this.EventService,
             itemId: this.id,
-            model: function (el) { return this.data[el]; },
-            callback: this.activate,
+            model: function (el) { return vm.data[el]; },
+            callback: function () { vm.activate(); },
             modelItems: ['usingSJARadio', 'usingAirwave', 'radioChannel',
                 'fallbackRadioChannel', 'controlPhoneNumber', 'cruTrackingInUse']
         });
@@ -66,8 +53,8 @@ var EventDetailController = (function () {
             controller: 'ChangeCoverController',
             service: this.EventService,
             itemId: this.id,
-            model: function (el) { return this.data[el]; },
-            callback: this.activate,
+            model: function (el) { return vm.data[el]; },
+            callback: function () { vm.activate(); },
             modelItems: ['firstAidersAvailable', 'cyclistsRequested', 'firstAidUnitsAvailable',
                 'ambulancesAvailable', 'paramedicsAvailable', 'doctorsPresent']
         });
@@ -76,15 +63,15 @@ var EventDetailController = (function () {
             controller: 'ChangeDateController',
             service: this.EventService,
             itemId: this.id,
-            model: function (el) { return this.data[el]; },
-            callback: this.activate,
+            model: function (el) { return vm.data[el]; },
+            callback: function () { vm.activate(); },
             modelItems: ['date', 'startTime', 'endTime', 'dateConfirmed']
         });
         this.changeDeployment = this.PatchItemService.createController({
             template: '/html/modals/change-deployment-modal.html',
             controller: 'ChangeDeploymentController',
             service: this.DeploymentService,
-            callback: this.activate,
+            callback: function () { vm.activate(); },
             modelItems: ['team', 'callsign', 'name', 'qualification', 'cyclingLevel'],
             resolve: {
                 cyclistData: function () { return this.DeploymentService.getCyclistSummaries(); },
@@ -95,8 +82,8 @@ var EventDetailController = (function () {
             controller: 'ChangeDescriptionController',
             service: this.EventService,
             itemId: this.id,
-            model: function (el) { return this.data[el]; },
-            callback: this.activate,
+            model: function (el) { return vm.data[el]; },
+            callback: function () { vm.activate(); },
             modelItems: ['description']
         });
         this.changeLocation = this.PatchItemService.createController({
@@ -104,16 +91,25 @@ var EventDetailController = (function () {
             controller: 'ChangeLocationController',
             service: this.EventService,
             itemId: this.id,
-            model: function (el) { return this.data[el]; },
-            callback: this.activate,
+            model: function (el) { return vm.data[el]; },
+            callback: function () { vm.activate(); },
             modelItems: ['location', 'postCode']
         });
         this.changeScheduleItem = this.PatchItemService.createController({
             template: '/html/modals/change-schedule-item-modal.html',
             controller: 'ChangeScheduleItemController',
             service: this.ScheduleItemService,
-            callback: this.activate,
+            callback: function () { vm.activate(); },
             modelItems: ['time', 'action']
+        });
+        this.renameEvent = this.PatchItemService.createController({
+            template: '/html/modals/rename-modal.html',
+            controller: 'RenameEventController',
+            service: this.EventService,
+            itemId: this.id,
+            model: function (el) { return vm.data[el]; },
+            callback: function () { vm.activate(); },
+            modelItems: ['name', 'dipsNumber']
         });
         this.activate();
     }
@@ -138,8 +134,9 @@ var EventDetailController = (function () {
         modalInstance.result.then(function (result) {
             result.name = result.cyclist;
             result.qualification = result.clinicalQualification;
+            var vm = this;
             this.DeploymentService.addItem(this.id, result).then(function () {
-                this.activate();
+                vm.activate();
             });
         });
     };
@@ -158,25 +155,29 @@ var EventDetailController = (function () {
             }
         });
         modalInstance.result.then(function (result) {
+            var vm = this;
             this.ScheduleItemService.addItem(this.id, result).then(function () {
-                this.activate();
+                vm.activate();
             });
         });
     };
     EventDetailController.prototype.deleteDeployment = function (id) {
+        var vm = this;
         this.DeploymentService.deleteItem(id).then(function () {
-            this.activate();
+            vm.activate();
         });
     };
     EventDetailController.prototype.deleteScheduleItem = function (id) {
+        var vm = this;
         this.ScheduleItemService.deleteItem(id).then(function () {
-            this.activate();
+            vm.activate();
         });
     };
     EventDetailController.prototype.setStatus = function (status) {
         var patchData = [{ 'op': 'replace', 'path': '/Status', 'value': status }];
-        this.EventService.patchEvent(this.id, patchData).then(function () {
-            this.activate();
+        var vm = this;
+        this.EventService.patchItem(this.id, patchData).then(function () {
+            vm.activate();
         });
     };
     ;
@@ -216,10 +217,14 @@ var EventDetailController = (function () {
     };
     ;
     EventDetailController.prototype.activate = function () {
+        var vm = this;
         this.EventService.getEvent(this.id).then(function (response) {
-            this.data = response.data;
-            this.loading = false;
+            vm.data = response.data;
+            vm.loading = false;
         });
     };
     return EventDetailController;
 }());
+EventDetailController.$inject = ['$location', '$routeParams', '$uibModal', 'EventService', 'FlagService', 'ScheduleItemService', 'DeploymentService', 'PatchItemService'];
+angular.module('app').controller('EventDetailController', EventDetailController);
+//# sourceMappingURL=event-detail-controller.js.map

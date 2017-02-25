@@ -1,47 +1,46 @@
 ﻿/// <reference path="./moment.d.ts" />
 
-angular
-    .module('app')
-    .factory('EventService', EventService);
+interface IdResult {
+    id: number;
+}
 
-EventService.$inject = ['$http'];
-
-class EventService {
+class EventService implements IItemService<IEventDetail> {
     constructor($http: angular.IHttpService) {
         this.$http = $http;
     }
 
     private urlBase: string = '/api/events';
     private $http: angular.IHttpService;
+    static $inject = ['$http'];
 
     getEvents(historic: boolean) {
         if (historic)
-            return this.$http.get(this.urlBase + "?includeHistoric=true");
-        return this.$http.get(this.urlBase);
+            return this.$http.get<IEventSummary[]>(this.urlBase + "?includeHistoric=true");
+        return this.$http.get<IEventSummary[]>(this.urlBase);
     }
 
     getEvent(id: number) {
-        return this.$http.get(this.urlBase + "/" + id);
+        return this.$http.get<IEventDetail>(this.urlBase + "/" + id);
     }
 
-    addEvent(event: any) {
+    addEvent(event: IEventCreate) {
         event = $.extend({}, event);
 
-        if (event.DipsNumber === '' || event.DipsNumber == null)
-            event.DipsNumber = 0;
+        if (!event.dipsNumber)
+            event.dipsNumber = 0;
 
-        event.EndTime = moment(event.EndTime).format("hh:mm");
-        event.StartTime = moment(event.StartTime).format("hh:mm");
+        event.endTime = moment(event.endTime).format("hh:mm");
+        event.startTime = moment(event.startTime).format("hh:mm");
 
-        return this.$http({
+        return this.$http<IdResult>({
             method: 'POST',
             url: this.urlBase,
             data: event
         });
     }
 
-    patchEvent(id: number, patch: any) {
-        return this.$http({
+    patchItem(id: number, patch: any) {
+        return this.$http<IEventDetail>({
             method: 'PATCH',
             url: this.urlBase + "/" + id,
             data: patch,
@@ -51,3 +50,5 @@ class EventService {
         });
     }
 }
+
+angular.module('app').service('EventService', EventService);

@@ -1,6 +1,3 @@
-angular
-    .module('app')
-    .directive('editControl', EditControlDirective.Factory());
 var EditControlDirective = (function () {
     function EditControlDirective() {
         this.scope = {
@@ -23,8 +20,9 @@ var EditControlDirective = (function () {
         var directive = function () {
             return new EditControlDirective();
         };
-        directive['$inject'] = [];
         return directive;
     };
     return EditControlDirective;
 }());
+angular.module('app').directive('editControl', EditControlDirective.Factory());
+//# sourceMappingURL=edit-control-directive.js.map

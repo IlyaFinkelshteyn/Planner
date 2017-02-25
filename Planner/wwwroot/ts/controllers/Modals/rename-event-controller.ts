@@ -1,18 +1,12 @@
-﻿angular
-    .module('app')
-    .controller('RenameEventController', RenameEventController);
-
-RenameEventController.$inject = ['$uibModalInstance', 'dipsNumber', 'name'];
-
-class RenameEventController {
+﻿class RenameEventController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
         dipsNumber: number, name: string) {
-        this.$uibModalInstance = $uibModalInstance;
+        super($uibModalInstance);
         this.dipsNumber = dipsNumber;
         this.name = name;
     }
 
-    private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+    static $inject = ['$uibModalInstance', 'dipsNumber', 'name'];
     dipsNumber: number;
     name: string;
 
@@ -22,8 +16,6 @@ class RenameEventController {
             name: this.name
         });
     }
-
-    cancel = function () {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('RenameEventController', RenameEventController);

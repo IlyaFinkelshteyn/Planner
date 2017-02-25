@@ -1,19 +1,12 @@
-﻿angular
-    .module('app')
-    .controller('ChangeLocationController', ChangeLocationController);
-
-ChangeLocationController.$inject = ['$uibModalInstance', 'location', 'postCode'];
-
-class ChangeLocationController {
+﻿class ChangeLocationController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
         location: string, postCode: string) {
-        /* jshint validthis:true */
-        var vm = this;
-        this.$uibModalInstance = $uibModalInstance;
-        vm.location = location;
-        vm.postCode = postCode;
+        super($uibModalInstance);
+        this.location = location;
+        this.postCode = postCode;
     }
-    $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+
+    static $inject = ['$uibModalInstance', 'location', 'postCode'];
     location: string;
     postCode: string;
 
@@ -23,8 +16,6 @@ class ChangeLocationController {
             postCode: this.postCode
         });
     }
-
-    cancel() {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('ChangeLocationController', ChangeLocationController);

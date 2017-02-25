@@ -1,7 +1,3 @@
-angular
-    .module('app')
-    .factory('ScheduleItemService', ScheduleItemService);
-ScheduleItemService.$inject = ['$http'];
 var ScheduleItemService = (function () {
     function ScheduleItemService($http) {
         this.urlBase = '/api/scheduleItems';
@@ -34,3 +30,6 @@ var ScheduleItemService = (function () {
     };
     return ScheduleItemService;
 }());
+ScheduleItemService.$inject = ['$http'];
+angular.module('app').service('ScheduleItemService', ScheduleItemService);
+//# sourceMappingURL=schedule-item-service.js.map

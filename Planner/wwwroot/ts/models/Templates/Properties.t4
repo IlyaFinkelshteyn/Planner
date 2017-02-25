@@ -1,0 +1,41 @@
+﻿<#
+foreach (System.Xml.XmlNode property in properties)
+{
+	var listNode = property.Attributes["list"];
+
+	var list = false;
+
+	if (listNode != null)
+		list = bool.Parse(listNode.Value);
+
+	var type = property.Attributes["type"].Value;
+
+	var propName = property.Attributes["name"].Value;
+	propName = Char.ToLowerInvariant(propName[0]) + propName.Substring(1);
+
+	if (type == "int")
+		type = "number";
+	if (type == "bool")
+		type = "boolean";
+	if (type == "DateTime" || type == "TimeSpan")
+		type = "string | Date";
+
+	if (type.EndsWith("?"))
+	{
+		propName += "?";
+		type = type.TrimEnd('?');
+	}
+
+if (list)
+			{
+#>
+	<#= property.Attributes["name"].Value #>: I<#= type + name #>[];
+<#
+			}
+			else
+			{
+#>
+	<#= propName #>: <#= type #>;
+<#
+			}}
+#>

@@ -1,21 +1,16 @@
-﻿angular
-    .module('app')
-    .controller('ChangeConsiderationsController', ChangeConsiderationsController);
-
-ChangeConsiderationsController.$inject = ['$uibModalInstance', 'soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather', 'hasSeriousHistory', 'widerDistribution'];
-
-class ChangeConsiderationsController {
+﻿class ChangeConsiderationsController extends ModalController {
     constructor($uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
         soloRespondingExpected: boolean, highSpeedRoadsAtEvent: boolean,
         expectingBadWeather: boolean, hasSeriousHistory: boolean, widerDistribution: boolean) {
-        this.$uibModalInstance = $uibModalInstance;
+        super($uibModalInstance);
         this.soloRespondingExpected = soloRespondingExpected;
         this.highSpeedRoadsAtEvent = highSpeedRoadsAtEvent;
         this.expectingBadWeather = expectingBadWeather;
         this.hasSeriousHistory = hasSeriousHistory;
         this.widerDistribution = widerDistribution;
     }
-    private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
+
+    static $inject = ['$uibModalInstance', 'soloRespondingExpected', 'highSpeedRoadsAtEvent', 'expectingBadWeather', 'hasSeriousHistory', 'widerDistribution'];
 
     soloRespondingExpected: boolean;
     highSpeedRoadsAtEvent: boolean;
@@ -32,8 +27,6 @@ class ChangeConsiderationsController {
             widerDistribution: this.widerDistribution
         });
     }
-
-    cancel() {
-        this.$uibModalInstance.dismiss('cancel');
-    }
 }
+
+angular.module('app').controller('ChangeConsiderationsController', ChangeConsiderationsController);

@@ -1,10 +1,4 @@
-﻿angular
-    .module('app')
-    .factory('FlagService', FlagService);
-
-FlagService.$inject = [];
-
-const enum Flags {
+﻿const enum Flags {
     UrgentCoverNeeded = 1,
     NeedsEmailing = 2,
     BriefingNotesReady = 4,
@@ -77,3 +71,5 @@ class FlagService {
         }
     };
 }
+
+angular.module('app').service('FlagService', FlagService);

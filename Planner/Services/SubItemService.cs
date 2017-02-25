@@ -1,11 +1,9 @@
-﻿using Planner.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Planner.Data;
+﻿using Planner.Data;
 using Planner.Models.EventsModel;
 using Planner.Models.EventsModel.Interfaces;
+using Planner.Services.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Planner.Services
 {

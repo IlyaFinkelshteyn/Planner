@@ -5,7 +5,10 @@
     "target": "es5",
     "module": "amd",
     "noImplicitAny": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "suppressImplicitAnyIndexErrors": true
   },
   "compileOnSave": true,
   "include": [ "./wwwroot/ts/**/*" ]
