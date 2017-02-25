@@ -22,7 +22,6 @@
     "moment": "~2.17.1"
   },
   "scripts": {
-    "preinstall": "rimraf ./wwwroot/lib",
     "postinstall:angular": "copyfiles -u 1 node_modules/angular/angular*.js* ./wwwroot/lib",
     "postinstall:angular-moment": "copyfiles -u 1 node_modules/angular-moment/angular*.js* ./wwwroot/lib",
     "postinstall:angular-route": "copyfiles -u 1 node_modules/angular-route/angular*.js* ./wwwroot/lib",
@@ -33,6 +32,6 @@
     "postinstall:jquery": "copyfiles -u 3 node_modules/jquery/dist/jquery*.* ./wwwroot/lib/jquery",
     "postinstall:moment": "copyfiles -f node_modules/moment/moment.js node_modules/moment/min/moment.min.js ./wwwroot/lib/moment",
     "postinstall:font-awesome": "copyfiles -u 2 node_modules/font-awesome/css/* node_modules/font-awesome/fonts/* ./wwwroot/lib/font-awesome",
-    "postinstall": "npm run postinstall:angular && npm run postinstall:angular-moment && npm run postinstall:angular-route && npm run postinstall:bootstrap && npm run postinstall:jquery && npm run postinstall:moment && npm run postinstall:angular-utils-pagination && npm run postinstall:angular-ui-bootstrap && npm run postinstall:angular-ui-event && npm run postinstall:font-awesome"
+    "postinstall": "rimraf ./wwwroot/lib && npm run postinstall:angular && npm run postinstall:angular-moment && npm run postinstall:angular-route && npm run postinstall:bootstrap && npm run postinstall:jquery && npm run postinstall:moment && npm run postinstall:angular-utils-pagination && npm run postinstall:angular-ui-bootstrap && npm run postinstall:angular-ui-event && npm run postinstall:font-awesome"
   }
 }
