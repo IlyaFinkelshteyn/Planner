@@ -149,10 +149,6 @@ namespace Planner
 
             services.AddOptions();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
-
             services.AddTransient<IApiDescriptionProvider, ExtendedApiDescriptionProvider>();
 
             services.AddTransient<IEventService, EventService>();

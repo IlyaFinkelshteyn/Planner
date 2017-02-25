@@ -55,7 +55,7 @@ namespace Planner.Controllers.Api
 
                 return CreatedAtAction("Get", new { id }, new IdResult { Id = id });
             }
-            catch (EventNotFoundException)
+            catch (IdNotFoundException)
             {
                 ModelState.AddModelError("eventId", "Event does not exist.");
                 return BadRequest(ModelState);

@@ -1,8 +1,9 @@
 ﻿using Planner.Data;
 using Planner.Models.EventsModel;
 using Planner.Models.EventsModel.Interfaces;
+using Planner.Services.Exceptions;
 using Planner.Services.Interfaces;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace Planner.Services
@@ -16,9 +17,12 @@ namespace Planner.Services
 
         public async Task<int> AddAsync(int eventId, T item)
         {
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
             var ev = Database.Events.Find(eventId);
             if (ev == null)
-                throw new KeyNotFoundException();
+                throw new IdNotFoundException();
 
             AddItem(ev, item);
 

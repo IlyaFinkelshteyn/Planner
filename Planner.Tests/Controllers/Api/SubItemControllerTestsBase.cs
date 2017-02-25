@@ -26,7 +26,7 @@ namespace Planner.Tests.Controllers.Api
         public async Task PostInvalidEventIdCallsServiceAndReturnsBadRequest(int eventId, TCreate createModel)
         {
             var service = new Mock<ISubItemService<TModel>>(MockBehavior.Strict);
-            service.Setup(s => s.AddAsync(eventId, It.IsAny<TModel>())).Throws<EventNotFoundException>();
+            service.Setup(s => s.AddAsync(eventId, It.IsAny<TModel>())).Throws<IdNotFoundException>();
 
             var controller = GetController(service.Object);
 

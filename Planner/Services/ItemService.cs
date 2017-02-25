@@ -1,11 +1,15 @@
-﻿using Planner.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Planner.Data;
+using Planner.Models.EventsModel.Interfaces;
+using Planner.Services.Exceptions;
 using Planner.Services.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace Planner.Services
 {
     public class ItemService<T> : IItemService<T>
-        where T : class
+        where T : class, IIdentifiable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemService{T}"/> class.
@@ -21,8 +25,11 @@ namespace Planner.Services
         public async Task DeleteAsync(int id)
         {
             var item = await Database.FindAsync<T>(id);
-            Database.Remove(item);
-            await Database.SaveChangesAsync();
+            if (item != null)
+            {
+                Database.Remove(item);
+                await Database.SaveChangesAsync();
+            }
         }
 
         public virtual async Task<T> GetAsync(int id)
@@ -32,8 +39,18 @@ namespace Planner.Services
 
         public async Task UpdateAsync(T item)
         {
-            Database.Update(item);
-            await Database.SaveChangesAsync();
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
+            try
+            {
+                Database.Update(item);
+                await Database.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new IdNotFoundException("No entity found to update.", ex);
+            }
         }
     }
 }

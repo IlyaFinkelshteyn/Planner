@@ -12,7 +12,7 @@ set APPVEYOR_API_URL=
 
 set TestResult=0
 
-tools\OpenCover\tools\OpenCover.Console.exe -target:"tools\xunit.runner.console\tools\xunit.console.x86.exe" -targetargs:"Planner.Tests\bin\Debug\net462\Planner.Tests.exe -noShadow -xml test-results.xml" -register:user -output:"reports\coverage\coverage.xml" -skipautoprops -filter:"+[Planner*]* -[Planner*]Planner.Data.Migrations* -[Planner.Test*]*"  -excludebyattribute:*.ExcludeFromCodeCoverage* -mergebyhash -returntargetcode
+tools\OpenCover\tools\OpenCover.Console.exe -target:"tools\xunit.runner.console\tools\xunit.console.x86.exe" -targetargs:"Planner.Tests\bin\Debug\net462\Planner.Tests.exe -noShadow -xml test-results.xml" -register:user -output:"reports\coverage\coverage.xml" -skipautoprops -filter:"+[Planner*]* -[Planner*]Planner.Migrations* -[Planner.Test*]*"  -excludebyattribute:*.ExcludeFromCodeCoverage* -mergebyhash -returntargetcode
 
 IF %ERRORLEVEL% NEQ 0 (
   set TestResult=%ERRORLEVEL%
