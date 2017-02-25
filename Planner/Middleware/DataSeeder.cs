@@ -2,10 +2,12 @@
 using Planner.Data;
 using Planner.Models.EventsModel;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Planner.Middleware
 {
+    [ExcludeFromCodeCoverage]
     public static class DataSeeder
     {
         public static void EnsureSeedData(this ApplicationDbContext context)
