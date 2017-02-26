@@ -1,4 +1,4 @@
-﻿describe("Change Communications Modal Controller", function () {
+﻿describe("Change Special Considerations Modal Controller", function () {
     let $controller: angular.IControllerService;
     let $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
     let controller: ChangeConsiderationsController;
