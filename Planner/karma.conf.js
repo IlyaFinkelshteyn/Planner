@@ -8,7 +8,9 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine', 'karma-typescript', 'detectBrowsers'],
+        frameworks: ['jasmine', 'karma-typescript'],
+
+        browsers: ['Chrome', 'Edge'],
 
         // list of files / patterns to load in the browser
         files: [
@@ -56,7 +58,7 @@ module.exports = function (config) {
 
         karmaTypescriptConfig: {
             compilerOptions: {
-                target: "es5",
+                target: "ES5",
                 module: "amd",
                 noImplicitAny: true,
                 noImplicitReturns: true,
@@ -71,11 +73,6 @@ module.exports = function (config) {
                     'filename': 'coverage.json'
                 }
             }
-        },
-
-        detectBrowsers: {
-            enabled: true,
-            usePhantomJS: false
         },
 
         // web server port

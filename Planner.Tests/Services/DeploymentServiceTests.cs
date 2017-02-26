@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Planner.Data;
 using Planner.Models.EventsModel;
 using Planner.Services;
-using System;
-using System.Collections.Generic;
 using Ploeh.AutoFixture;
+using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions;
 
 namespace Planner.Tests.Services
 {
