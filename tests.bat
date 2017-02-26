@@ -28,6 +28,4 @@ node_modules\.bin\karma.cmd start --single-run
 
 cd ..
 
-if "%APPVEYOR%"=="True" powershell .\upload-results.ps1
-
 exit /B %TestResult%
