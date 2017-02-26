@@ -1,5 +1,5 @@
 dotnet restore
-cd Planner
+
 npm --version
-npm install
-cd ..
+
+cd %APPVEYOR_BUILD_FOLDER%\Planner && npm install
