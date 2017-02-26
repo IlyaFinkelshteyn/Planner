@@ -1,5 +1,5 @@
 dotnet restore
 cd Planner
-npm update
+npm --version
 npm install
 cd ..
