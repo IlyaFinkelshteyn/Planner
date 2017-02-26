@@ -7,8 +7,8 @@ if "%APPVEYOR%"=="True" nuget install coveralls.io -ExcludeVersion -OutputDirect
 if "%APPVEYOR%"=="" nuget install ReportGenerator -ExcludeVersion -OutputDirectory tools
 
 if "%APPVEYOR%"=="True" choco install googlechrome
-if "%APPVEYOR%"=="True" choco install phantomjs
-
+if "%APPVEYOR%"=="True" choco install firefox
+if "%APPVEYOR%"=="True" choco install nodejs
 
 if "%APPVEYOR%"=="" dotnet build
 
