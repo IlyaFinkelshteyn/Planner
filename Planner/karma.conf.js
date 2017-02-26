@@ -24,6 +24,7 @@ module.exports = function (config) {
             'Scripts/controllers/modals/modal-controller.ts',
             'Scripts/controllers/modals/add-item-controller.ts',
             'Scripts/controllers/modals/change-communications-controller.ts',
+            'Scripts/controllers/modals/change-considerations-controller.ts',
 
             'Scripts/tests/**/*.ts'
         ],
