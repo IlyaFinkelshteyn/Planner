@@ -24,9 +24,7 @@ if "%APPVEYOR%"=="" tools\ReportGenerator\tools\ReportGenerator.exe -reports:rep
 
 cd Planner
 
-npm install -g karma-cli
-
-karma start --single-run
+node_modules\.bin\karma.cmd start --single-run
 
 cd ..
 
