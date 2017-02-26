@@ -1,6 +1,3 @@
-New-Item -ItemType directory -Path .\tools -ErrorAction Ignore
-New-Item -ItemType directory -Path .\reports\coverage\history -ErrorAction Ignore
-
 &.\nuget install OpenCover -ExcludeVersion -OutputDirectory  tools
 &.\nuget install xunit.runner.console -ExcludeVersion -OutputDirectory tools
 
