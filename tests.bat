@@ -6,10 +6,6 @@ nuget install xunit.runner.console -ExcludeVersion -OutputDirectory tools
 if "%APPVEYOR%"=="True" nuget install coveralls.io -ExcludeVersion -OutputDirectory tools
 if "%APPVEYOR%"=="" nuget install ReportGenerator -ExcludeVersion -OutputDirectory tools
 
-if "%APPVEYOR%"=="True" choco install googlechrome
-if "%APPVEYOR%"=="True" choco install firefox
-if "%APPVEYOR%"=="True" choco install nodejs
-
 if "%APPVEYOR%"=="" dotnet build
 
 set APPVEYOR_API_URL=
