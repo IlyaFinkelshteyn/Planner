@@ -6,7 +6,9 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
 before_build:
-  - cmd: prebuild.bat
+  - cmd: dotnet restore
+  - cmd: npm --version
+  - cmd: cd %APPVEYOR_BUILD_FOLDER%\Planner && npm install
 build:
   verbosity: minimal
 test_script:
