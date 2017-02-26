@@ -22,6 +22,12 @@ if "%APPVEYOR%"=="True" tools\coveralls.io\tools\coveralls.net.exe --opencover r
 
 if "%APPVEYOR%"=="" tools\ReportGenerator\tools\ReportGenerator.exe -reports:reports\coverage\coverage.xml -targetdir:reports\coverage -historydir:reports\coverage\history
 
+cd Planner
+
+karma start --single-run
+
+cd ..
+
 if "%APPVEYOR%"=="True" powershell .\upload-results.ps1
 
 exit /B %TestResult%
