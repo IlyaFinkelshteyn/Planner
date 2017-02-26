@@ -2,16 +2,16 @@ version: 0.0.{build}
 image: Visual Studio 2017 RC
 before_build:
   - cmd: dotnet restore
+  - cmd: npm --version
   - cmd: npm update
-  - cmd: cd %APPVEYOR_BUILD_FOLDER%\Planner && npm install
-  - cmd: cd %APPVEYOR_BUILD_FOLDER%\Planner && npm install
+  - cmd: npm --version
   - cmd: cd %APPVEYOR_BUILD_FOLDER%\Planner && npm install
 build:
   verbosity: minimal
 before_test:
   - cmd: mkdir %APPVEYOR_BUILD_FOLDER%\tools
   - cmd: mkdir %APPVEYOR_BUILD_FOLDER%\reports\coverage\history
-  - cmd: cd Planner && npm install process buffer base64-js
+  - cmd: cd Planner && npm install karma-typescript
 test_script:
   - cmd: cd %APPVEYOR_BUILD_FOLDER% && powershell .\tests.ps1
   - cmd: cd %APPVEYOR_BUILD_FOLDER%\Planner && .\node_modules\.bin\karma.cmd start --single-run
