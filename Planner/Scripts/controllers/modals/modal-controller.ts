@@ -5,7 +5,7 @@
 
     $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
 
-    cancel = function () {
+    cancel() {
         this.$uibModalInstance.dismiss('cancel');
     }
 }

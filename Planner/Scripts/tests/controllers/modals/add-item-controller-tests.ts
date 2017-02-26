@@ -3,6 +3,8 @@
     let $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance;
     let controller: AddItemController;
 
+    const testItemName = 'testItemName';
+
     beforeEach(angular.mock.module('app'));
 
     beforeEach(inject(function (_$controller_: angular.IControllerService) {
@@ -12,12 +14,16 @@
 
         controller = $controller<AddItemController>('AddItemController', {
             $uibModalInstance: $uibModalInstance,
-            itemName: 'testItemName'
+            itemName: testItemName
         });
     }));
 
     it('should exist', function () {
         expect(controller).toBeDefined();
+    });
+
+    it('should populate itemName with injected value', function () {
+        expect(controller.itemName).toBe(testItemName);
     });
 
     it('should have functions submit and cancel', function () {
