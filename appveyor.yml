@@ -7,8 +7,10 @@ build:
 test_script:
   - cmd: cd %APPVEYOR_BUILD_FOLDER%
   - ps: .\tests.ps1
+  - cmd: cd Planner
   - cmd: npm install process buffer
   - cmd: .\node_modules\.bin\karma.cmd start --single-run
+  - cmd: cd %APPVEYOR_BUILD_FOLDER%
   - ps: .\upload-results.ps1
 environment:
     COVERALLS_REPO_TOKEN:
