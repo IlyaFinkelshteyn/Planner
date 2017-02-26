@@ -32,7 +32,16 @@ else {
 
 cd Planner
 
-.\node_modules\.bin\karma.cmd start --single-run
+if ($Env:APPVEYOR -eq "True" ) {
+	npm install process buffer
+}
+
+$p = Start-Process -FilePath ".\node_modules\.bin\karma.cmd" -ArgumentList "start --single-run" -Wait -NoNewWindow -PassThru
+Write-Host $p.ExitCode
+
+if ($p.ExitCode -ne 0) {
+	$TestResult=$p.ExitCode
+}
 
 cd ..
 
