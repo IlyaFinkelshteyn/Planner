@@ -14,12 +14,16 @@ build:
 before_test:
   - cmd: mkdir %APPVEYOR_BUILD_FOLDER%\tools
   - cmd: mkdir %APPVEYOR_BUILD_FOLDER%\reports\coverage\history
-  - cmd: cd Planner && npm install karma-typescript
+  - cmd: nuget install OpenCover -ExcludeVersion -OutputDirectory "%APPVEYOR_BUILD_FOLDER%\tools"
+  - cmd: nuget install xunit.runner.console -ExcludeVersion -OutputDirectory "%APPVEYOR_BUILD_FOLDER%\tools"
+  - cmd: nuget install coveralls.io -ExcludeVersion -OutputDirectory "%APPVEYOR_BUILD_FOLDER%\tools"
+  - cmd: SET APPVEYOR_API_URL=
 test_script:
-  - cmd: cd %APPVEYOR_BUILD_FOLDER% && powershell .\tests.ps1
+  - cmd: %APPVEYOR_BUILD_FOLDER%\tools\OpenCover\tools\OpenCover.Console.exe -target:"%APPVEYOR_BUILD_FOLDER%\tools\xunit.runner.console\tools\xunit.console.x86.exe" -targetargs:"%APPVEYOR_BUILD_FOLDER%\Planner.Tests\bin\Debug\net462\Planner.Tests.exe -noShadow -xml test-results.xml" -register:user -output:"%APPVEYOR_BUILD_FOLDER%\reports\coverage\coverage.xml" -skipautoprops -filter:"+[Planner*]* -[Planner*]Planner.Migrations* -[Planner.Test*]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -mergebyhash -returntargetcode
   - cmd: cd %APPVEYOR_BUILD_FOLDER%\Planner && .\node_modules\.bin\karma.cmd start --single-run
 after_test:
   - cmd: cd %APPVEYOR_BUILD_FOLDER% && powershell .\upload-results.ps1
+  - cmd: %APPVEYOR_BUILD_FOLDER%\tools\coveralls.io\tools\coveralls.net.exe --opencover %APPVEYOR_BUILD_FOLDER%\sreports\coverage\coverage.xml
 environment:
   COVERALLS_REPO_TOKEN:
     secure: RpvJ78vABhLlkFzdKsGq5sElt1233tL2Ukh1BVsrQt+325S8BTwNHTFX/rcb2acd
