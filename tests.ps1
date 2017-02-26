@@ -30,23 +30,4 @@ else {
 	.\tools\ReportGenerator\tools\ReportGenerator.exe -reports:reports\coverage\coverage.xml -targetdir:reports\coverage -historydir:reports\coverage\history
 }
 
-cd Planner
-
-if ($Env:APPVEYOR -eq "True" ) {
-	npm install process buffer
-}
-
-$p = Start-Process -FilePath ".\node_modules\.bin\karma.cmd" -ArgumentList "start --single-run" -Wait -NoNewWindow -PassThru
-Write-Host $p.ExitCode
-
-if ($p.ExitCode -ne 0) {
-	$TestResult=$p.ExitCode
-}
-
-cd ..
-
-if ($Env:APPVEYOR -eq "True") {
-	.\upload-results.ps1
-}
-
 exit $TestResult
