@@ -14,6 +14,7 @@ build:
 test_script:
   - cmd: cd %APPVEYOR_BUILD_FOLDER% && tests.bat
 after_test:
+  - ps: Push-AppveyorArtifact .\test-results.xml
   - ps: .\upload-results.ps1
 environment:
   COVERALLS_REPO_TOKEN:
