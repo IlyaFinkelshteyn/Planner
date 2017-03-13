@@ -1,6 +1,6 @@
 # upload results to AppVeyor
 $wc = New-Object 'System.Net.WebClient'
-$wc.UploadFile("http://appveyor.local/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test-results.xml))
+$wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test-results.xml))
 
 #Get-ChildItem ".\reports\karma-results\junit" -Filter *.xml | 
 #Foreach-Object {
